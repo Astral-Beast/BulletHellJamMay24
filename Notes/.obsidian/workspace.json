@@ -11,11 +11,14 @@
             "id": "a61fac45878a14fd",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "canvas",
               "state": {
-                "file": "Bullet Hell Jam.md",
-                "mode": "source",
-                "source": false
+                "file": "Canvas.canvas",
+                "viewState": {
+                  "x": 67,
+                  "y": 124.5,
+                  "zoom": 0
+                }
               }
             }
           },
@@ -44,8 +47,12 @@
             "id": "b61bc2e2a2ad6ed3",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Quotes.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -114,7 +121,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Bullet Hell Jam.md",
+                "file": "Quotes.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -131,7 +138,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Bullet Hell Jam.md",
+                "file": "Quotes.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -154,7 +161,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Bullet Hell Jam.md"
+                "file": "Quotes.md"
               }
             }
           }
@@ -175,11 +182,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "a61fac45878a14fd",
+  "active": "b61bc2e2a2ad6ed3",
   "lastOpenFiles": [
+    "New Text Document.txt",
     "Canvas.canvas",
-    "Bullet Hell Jam.md",
     "Quotes.md",
+    "Bullet Hell Jam.md",
     "Untitled.md"
   ]
 }
