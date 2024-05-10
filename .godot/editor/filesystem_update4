@@ -1,2 +1,2 @@
-res://player.tscn
-res://player.gd
+res://src/scenes/root.tscn
+res://src/scenes/Player.gd

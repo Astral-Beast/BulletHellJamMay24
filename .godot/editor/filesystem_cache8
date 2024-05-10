@@ -1,8 +1,9 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1715355709
+::res://::1715356697
 .gitignore.txt::TextFile::-1::1715352491::0::1::::<><>::
 ::res://assets/::1715354627
-::res://assets/art/::1715355170
+::res://assets/art/::1715357362
+50067.png::CompressedTexture2D::6982793513679951105::1715357568::1715357572::1::::<><>::
 enemyFlyingAlt_1.png::CompressedTexture2D::8532556480894563970::1714951063::1715355170::1::::<><>::
 enemyFlyingAlt_2.png::CompressedTexture2D::4124172758213250300::1714951063::1715355170::1::::<><>::
 enemySwimming_1.png::CompressedTexture2D::481837327310967505::1714951063::1715355170::1::::<><>::
@@ -22,8 +23,9 @@ Xolonium-Regular.ttf::FontFile::7008032283352459717::1714951063::1715355170::1::
 ::res://Notes/::1715352491
 Bullet Hell Jam.md::TextFile::-1::1715352491::0::1::::<><>::
 Quotes.md::TextFile::-1::1715352491::0::1::::<><>::
-::res://src/::1715355728
+::res://src/::1715356429
 icon.svg::CompressedTexture2D::6183034446173097816::1714950954::1715355731::1::::<><>::
+::res://src/scenes/::1715356840
 player.gd::GDScript::-1::1715354162::0::1::::<>Area2D<>::
-player.tscn::PackedScene::-1::1715354162::0::1::::<><>::
-::res://src/scenes/::1715354680
+player.tscn::PackedScene::4228175116003661923::1715354162::0::1::::<><>::uid://ddfjm3ggahnog::::res://art/playerGrey_up1.png<>res://player.gd<>uid://pft0707v0mfv::::res://art/playerGrey_up2.png<>uid://dqhv11dchbr7h::::res://art/playerGrey_walk1.png<>uid://dneevbqqkxfqn::::res://art/playerGrey_walk2.png
+root.tscn::PackedScene::1582089259391734821::1715356840::0::1::::<><>::
