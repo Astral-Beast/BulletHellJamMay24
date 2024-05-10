@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://dv8ti85wlbxkq"]
+
+[ext_resource type="Shader" path="res://src/shaders/circle_bullet.gdshader" id="1_4c33k"]
+[ext_resource type="Script" path="res://src/scenes/circle_bullet.gd" id="1_maaas"]
+[ext_resource type="Script" path="res://src/scenes/Sprite2D.gd" id="3_45lnk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_67aji"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2o0y"]
+shader = ExtResource("1_4c33k")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_wexcb"]
+
+[node name="Circle_Bullet" type="Node2D"]
+position = Vector2(570, 265)
+script = ExtResource("1_maaas")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+use_parent_material = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_67aji")
+
+[node name="bullet_sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_o2o0y")
+position = Vector2(0.500043, 1.57952e-06)
+scale = Vector2(21, 20)
+texture = SubResource("CanvasTexture_wexcb")
+script = ExtResource("3_45lnk")

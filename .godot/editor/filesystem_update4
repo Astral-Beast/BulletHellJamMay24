@@ -1,2 +1,10 @@
-res://player.tscn
-res://player.gd
+res://circle_bullet.tscn
+res://src/circle_bullet.gdshader
+res://src/shaders/circle_bullet.gdshader
+res://src/shaders/Sprite2D.gd
+res://src/scenes/bullet.tscn
+res://src/scenes/bullet.gd
+res://circle_bullet.gd
+res://src/scenes/circle_bullet.tscn
+res://src/scenes/circle_bullet.gd
+res://src/scenes/Sprite2D.gd
