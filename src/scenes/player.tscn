@@ -1,30 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=11 format=3 uid="uid://b7qk4trnkj22s"]
 
-[ext_resource type="Script" path="res://src/scenes/Player.gd" id="1_2gbia"]
-[ext_resource type="Texture2D" uid="uid://c6qrua36xw8o8" path="res://assets/art/50067.png" id="2_2a4sv"]
+[ext_resource type="Script" path="res://src/scenes/Player.gd" id="1_oytln"]
+[ext_resource type="Texture2D" uid="uid://c6qrua36xw8o8" path="res://assets/art/50067.png" id="2_5aonb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jrcsj"]
-atlas = ExtResource("2_2a4sv")
+atlas = ExtResource("2_5aonb")
 region = Rect2(176, 6, 26, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ge77e"]
-atlas = ExtResource("2_2a4sv")
+atlas = ExtResource("2_5aonb")
 region = Rect2(208, 6, 26, 31)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yaeab"]
-atlas = ExtResource("2_2a4sv")
+atlas = ExtResource("2_5aonb")
 region = Rect2(0, 0, 40, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mw8u"]
-atlas = ExtResource("2_2a4sv")
+atlas = ExtResource("2_5aonb")
 region = Rect2(41, 0, 40, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bxeas"]
-atlas = ExtResource("2_2a4sv")
+atlas = ExtResource("2_5aonb")
 region = Rect2(82, 0, 40, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7sys6"]
-atlas = ExtResource("2_2a4sv")
+atlas = ExtResource("2_5aonb")
 region = Rect2(123, 0, 40, 37)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eadga"]
@@ -61,19 +61,17 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_wmph2"]
 radius = 6.08276
 
-[node name="Root" type="Node"]
-
-[node name="Player" type="Area2D" parent="."]
+[node name="Player" type="Area2D"]
 scale = Vector2(2, 2)
-script = ExtResource("1_2gbia")
+script = ExtResource("1_oytln")
 metadata/_edit_group_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_eadga")
 animation = &"walk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_wmph2")
 
-[connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

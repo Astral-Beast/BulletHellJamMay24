@@ -16,7 +16,7 @@ var velocity : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	movement_type = HOMING
+	movement_type = "homing"
 	pass # Replace with function body.
 	
 
