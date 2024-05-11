@@ -12,7 +12,6 @@ func _process(delta):
 
 
 func monkey_dies():
-	print("hit nerd")
 	pass # Replace with function body.
 
 

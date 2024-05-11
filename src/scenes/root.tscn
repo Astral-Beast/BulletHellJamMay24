@@ -6,6 +6,11 @@
 
 [node name="Game" parent="." instance=ExtResource("1_t4cgc")]
 
+[node name="AnimatedSprite2D" parent="Game/Player" index="0"]
+animation = &"idle"
+frame = 0
+frame_progress = 0.0
+
 [connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
 [connection signal="Bullet_Hit" from="Game/Circle_Bullet" to="Game" method="_on_circle_bullet_bullet_hit"]
 
