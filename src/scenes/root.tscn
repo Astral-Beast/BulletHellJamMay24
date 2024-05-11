@@ -1,7 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=14 format=3 uid="uid://wsm1qqdalivd"]
 
 [ext_resource type="Script" path="res://src/scenes/Player.gd" id="1_2gbia"]
+[ext_resource type="Script" path="res://src/scenes/textbox.gd" id="1_x8k7v"]
 [ext_resource type="Texture2D" uid="uid://c6qrua36xw8o8" path="res://assets/art/50067.png" id="2_2a4sv"]
+[ext_resource type="FontFile" uid="uid://c630jduofjdvx" path="res://assets/fonts/Xolonium-Regular.ttf" id="3_xyo77"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jc0t"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jrcsj"]
 atlas = ExtResource("2_2a4sv")
@@ -62,6 +72,67 @@ animations = [{
 radius = 6.08276
 
 [node name="Root" type="Node"]
+
+[node name="textbox" type="CanvasLayer" parent="."]
+script = ExtResource("1_x8k7v")
+
+[node name="TextboxContainer" type="MarginContainer" parent="textbox"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -170.0
+offset_right = -14.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="Panel" type="Panel" parent="textbox/TextboxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5jc0t")
+
+[node name="MarginContainer2" type="MarginContainer" parent="textbox/TextboxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 2.42
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Panel" type="Panel" parent="textbox/TextboxContainer/MarginContainer2"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="textbox/TextboxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Start" type="Label" parent="textbox/TextboxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_xyo77")
+theme_override_font_sizes/font_size = 45
+text = "*"
+
+[node name="Label" type="Label" parent="textbox/TextboxContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("3_xyo77")
+theme_override_font_sizes/font_size = 45
+text = "Text will go here~~~erguhgreiuh erirghieurhgieurhg i really want to do"
+autowrap_mode = 2
+clip_text = true
+
+[node name="End" type="Label" parent="textbox/TextboxContainer/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_xyo77")
+theme_override_font_sizes/font_size = 45
+text = "v"
 
 [node name="Player" type="Area2D" parent="."]
 scale = Vector2(2, 2)
