@@ -1,17 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=4 format=3 uid="uid://wsm1qqdalivd"]
 
-[ext_resource type="PackedScene" uid="uid://dnw2vvnlqwjs7" path="res://src/scenes/game.tscn" id="1_t4cgc"]
+[ext_resource type="Script" path="res://src/scenes/Game.gd" id="1_1q0xx"]
+[ext_resource type="PackedScene" uid="uid://dv8ti85wlbxkq" path="res://src/scenes/circle_bullet.tscn" id="2_hbmkc"]
+[ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
 
 [node name="Root" type="Node"]
 
-[node name="Game" parent="." instance=ExtResource("1_t4cgc")]
+[node name="Game" type="Node2D" parent="."]
+script = ExtResource("1_1q0xx")
 
-[node name="AnimatedSprite2D" parent="Game/Player" index="0"]
-animation = &"idle"
-frame = 0
-frame_progress = 0.0
+[node name="Circle_Bullet" parent="Game" instance=ExtResource("2_hbmkc")]
+position = Vector2(918, 368)
+scale = Vector2(2, 2)
+
+[node name="Player" parent="Game" instance=ExtResource("3_y2ri6")]
+position = Vector2(602, 339)
 
 [connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
-[connection signal="Bullet_Hit" from="Game/Circle_Bullet" to="Game" method="_on_circle_bullet_bullet_hit"]
-
-[editable path="Game"]
+[connection signal="hit" from="Game/Player" to="Game" method="_on_player_hit"]

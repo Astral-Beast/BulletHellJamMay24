@@ -15,3 +15,5 @@ func monkey_dies():
 	pass # Replace with function body.
 
 
+func _on_player_hit():
+	monkey_dies()
