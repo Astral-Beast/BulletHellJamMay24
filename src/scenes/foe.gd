@@ -26,23 +26,12 @@ func _on_shoot_timer_timeout():
 	var shot = shot_type.instantiate()
 	shot.movement_type = "constant"
 	
-	var shot_spawn_location = $BulletSpawn / BulletSpawnLocation
-	shot_spawn_location.progress_ratio = randf()
-	
 	var theta = randf_range(-PI, PI)
 	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
-	print(delta_r)
-	print(position)
 	
-	#shot.position = shot_spawn_location.position
 	shot.position = delta_r
 	
-	#print(direction_to_foe)
-	
-	#var velocity = -direction_to_foe.normalized()
 	var velocity = shot.position.normalized()
-	#print(velocity)
 	shot.velocity = velocity * bullet_speed
-	#shot.speed = bullet_speed
 	
 	add_child(shot)
