@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=7 format=3 uid="uid://wsm1qqdalivd"]
 
-[ext_resource type="Script" path="res://src/scenes/Player.gd" id="1_2gbia"]
+[ext_resource type="Script" path="res://src/scenes/Game.gd" id="1_1q0xx"]
 [ext_resource type="Script" path="res://src/scenes/textbox.gd" id="1_x8k7v"]
-[ext_resource type="Texture2D" uid="uid://c6qrua36xw8o8" path="res://assets/art/50067.png" id="2_2a4sv"]
+[ext_resource type="PackedScene" uid="uid://dv8ti85wlbxkq" path="res://src/scenes/circle_bullet.tscn" id="2_hbmkc"]
 [ext_resource type="FontFile" uid="uid://c630jduofjdvx" path="res://assets/fonts/Xolonium-Regular.ttf" id="3_xyo77"]
+[ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jc0t"]
 bg_color = Color(0, 0, 0, 1)
@@ -13,65 +14,16 @@ border_width_right = 6
 border_width_bottom = 6
 border_color = Color(1, 1, 1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jrcsj"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(176, 6, 26, 31)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ge77e"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(208, 6, 26, 31)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yaeab"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(0, 0, 40, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7mw8u"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(41, 0, 40, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bxeas"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(82, 0, 40, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7sys6"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(123, 0, 40, 37)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_eadga"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jrcsj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ge77e")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yaeab")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7mw8u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bxeas")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7sys6")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_wmph2"]
-radius = 6.08276
-
 [node name="Root" type="Node"]
+
+[node name="Game" type="Node2D" parent="."]
+script = ExtResource("1_1q0xx")
+
+[node name="Circle_Bullet" parent="Game" instance=ExtResource("2_hbmkc")]
+position = Vector2(918, 368)
+
+[node name="Player" parent="Game" instance=ExtResource("3_y2ri6")]
+position = Vector2(602, 339)
 
 [node name="textbox" type="CanvasLayer" parent="."]
 script = ExtResource("1_x8k7v")
@@ -134,17 +86,5 @@ theme_override_fonts/font = ExtResource("3_xyo77")
 theme_override_font_sizes/font_size = 45
 text = "v"
 
-[node name="Player" type="Area2D" parent="."]
-scale = Vector2(2, 2)
-script = ExtResource("1_2gbia")
-metadata/_edit_group_ = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-scale = Vector2(-1, 1)
-sprite_frames = SubResource("SpriteFrames_eadga")
-animation = &"walk"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CircleShape2D_wmph2")
-
-[connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
+[connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
+[connection signal="hit" from="Game/Player" to="Game" method="_on_player_hit"]
