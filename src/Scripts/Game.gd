@@ -9,11 +9,18 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	pass
 
 
 func _on_player_throw_banana():
 	var vect = get_global_mouse_position() - position
 	var new_banana = banana.instantiate()
+	new_banana.position = $Player.position
+	new_banana.connect("banana_hit", _banana_hit)
 	add_child(new_banana)
-	pass # Replace with function body.
+	
+	pass # Replace with function body.w
+
+func _banana_hit():
+	print("hit")

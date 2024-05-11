@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://chs68swr0adpd"]
+[gd_scene load_steps=3 format=3 uid="uid://dc18kgjgt256s"]
 
-[ext_resource type="Texture2D" uid="uid://cx8yium7lwrep" path="res://assets/art/banana.png" id="1_isuyv"]
+[ext_resource type="Texture2D" path="res://assets/art/banana.png" id="1_isuyv"]
+[ext_resource type="Script" path="res://src/Scripts/bananaCollider.gd" id="2_ltsh0"]
 
 [node name="Banana" type="Node2D"]
+script = ExtResource("2_ltsh0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-3, -7)
@@ -11,6 +13,10 @@ texture = ExtResource("1_isuyv")
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="Collider" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(-3, -7)
 polygon = PackedVector2Array(-22, 8, -18, 12, -12, 15, 5, 15, 18, 7, 22, 0, 21, -5, 19, -8, 19, -16, 14, -16, 14, -7, 7, 1, -8, 3, -20, 4)
+script = ExtResource("2_ltsh0")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_entered" from="Area2D" to="Area2D/Collider" method="_on_area_2d_area_entered"]
