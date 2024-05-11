@@ -41,6 +41,7 @@ func _process(delta):
 func _on_body_entered(body):
 	hide()
 	hit.emit()
+	$AnimatedSprite2D.animation = "dead"
 	
 	$CollisionShape2D.set_deferred("diabled", true)
 	
@@ -48,3 +49,13 @@ func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+
+
+func _on_area_entered(area):
+	hit.emit()
+	$AnimatedSprite2D.play("dead")
+	#await
+	
+	#hide()
+	
+	$CollisionShape2D.set_deferred("diabled", true)

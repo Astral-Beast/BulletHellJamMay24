@@ -1,79 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=2 format=3 uid="uid://wsm1qqdalivd"]
 
-[ext_resource type="Script" path="res://src/scenes/Player.gd" id="1_2gbia"]
-[ext_resource type="Texture2D" uid="uid://c6qrua36xw8o8" path="res://assets/art/50067.png" id="2_2a4sv"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jrcsj"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(176, 6, 26, 31)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ge77e"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(208, 6, 26, 31)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yaeab"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(0, 0, 40, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7mw8u"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(41, 0, 40, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bxeas"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(82, 0, 40, 37)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7sys6"]
-atlas = ExtResource("2_2a4sv")
-region = Rect2(123, 0, 40, 37)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_eadga"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jrcsj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ge77e")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yaeab")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7mw8u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bxeas")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7sys6")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_wmph2"]
-radius = 6.08276
+[ext_resource type="PackedScene" uid="uid://dnw2vvnlqwjs7" path="res://src/scenes/game.tscn" id="1_t4cgc"]
 
 [node name="Root" type="Node"]
 
-[node name="Player" type="Area2D" parent="."]
-scale = Vector2(2, 2)
-script = ExtResource("1_2gbia")
-metadata/_edit_group_ = true
+[node name="Game" parent="." instance=ExtResource("1_t4cgc")]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
-scale = Vector2(-1, 1)
-sprite_frames = SubResource("SpriteFrames_eadga")
-animation = &"walk"
+[connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
+[connection signal="Bullet_Hit" from="Game/Circle_Bullet" to="Game" method="_on_circle_bullet_bullet_hit"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CircleShape2D_wmph2")
-
-[connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
+[editable path="Game"]
