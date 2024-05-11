@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://src/scenes/Game.gd" id="1_1q0xx"]
 [ext_resource type="Script" path="res://src/scenes/textbox.gd" id="1_x8k7v"]
-[ext_resource type="PackedScene" uid="uid://dv8ti85wlbxkq" path="res://src/scenes/circle_bullet.tscn" id="2_hbmkc"]
 [ext_resource type="FontFile" uid="uid://c630jduofjdvx" path="res://assets/fonts/Xolonium-Regular.ttf" id="3_xyo77"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
+[ext_resource type="PackedScene" uid="uid://cvy72ht5gltnw" path="res://src/scenes/foe.tscn" id="5_wnrfx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jc0t"]
 bg_color = Color(0, 0, 0, 1)
@@ -16,14 +16,11 @@ border_color = Color(1, 1, 1, 1)
 
 [node name="Root" type="Node"]
 
+[node name="Player" parent="." instance=ExtResource("3_y2ri6")]
+position = Vector2(602, 339)
+
 [node name="Game" type="Node2D" parent="."]
 script = ExtResource("1_1q0xx")
-
-[node name="Circle_Bullet" parent="Game" instance=ExtResource("2_hbmkc")]
-position = Vector2(918, 368)
-
-[node name="Player" parent="Game" instance=ExtResource("3_y2ri6")]
-position = Vector2(602, 339)
 
 [node name="textbox" type="CanvasLayer" parent="."]
 script = ExtResource("1_x8k7v")
@@ -86,5 +83,8 @@ theme_override_fonts/font = ExtResource("3_xyo77")
 theme_override_font_sizes/font_size = 45
 text = "v"
 
-[connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
-[connection signal="hit" from="Game/Player" to="Game" method="_on_player_hit"]
+[node name="Foe" parent="." instance=ExtResource("5_wnrfx")]
+position = Vector2(1385, 211)
+
+[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
+[connection signal="hit" from="Player" to="Game" method="_on_player_hit"]
