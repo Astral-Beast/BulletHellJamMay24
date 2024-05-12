@@ -17,7 +17,7 @@ border_color = Color(1, 1, 1, 1)
 [node name="Root" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource("3_y2ri6")]
-position = Vector2(602, 339)
+position = Vector2(548, 345)
 
 [node name="Game" type="Node2D" parent="."]
 script = ExtResource("1_1q0xx")

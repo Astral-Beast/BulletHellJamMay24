@@ -4,8 +4,10 @@ signal hit
 @export var speed = 400
 var screen_size
 var dead = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	screen_size = get_viewport_rect().size
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -55,5 +57,11 @@ func _on_area_entered(area):
 	
 	dead = true
 	hit.emit()
-	hide()
+	
 	$CollisionShape2D.set_deferred("diabled", true)
+
+#vvv this is the signal that happens when the final heart goes away, from the control script
+func _on_control_kill():
+	hide()
+	print("add death animation here pls")
+	

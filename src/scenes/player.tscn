@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7qk4trnkj22s"]
+[gd_scene load_steps=14 format=3 uid="uid://b7qk4trnkj22s"]
 
 [ext_resource type="Script" path="res://src/scenes/Player.gd" id="1_oytln"]
 [ext_resource type="Texture2D" uid="uid://c6qrua36xw8o8" path="res://assets/art/50067.png" id="2_5aonb"]
+[ext_resource type="Script" path="res://src/scenes/heartbox.gd" id="3_b0lwm"]
+[ext_resource type="Texture2D" uid="uid://qqjunceb6ood" path="res://assets/art/heart.png" id="4_pwyaq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jrcsj"]
 atlas = ExtResource("2_5aonb")
@@ -61,6 +63,17 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_wmph2"]
 radius = 6.08276
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_m6mxm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_pwyaq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Player" type="Area2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_oytln")
@@ -74,4 +87,30 @@ animation = &"walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_wmph2")
 
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -301.0
+offset_top = -169.0
+offset_right = -27.0
+offset_bottom = -82.0
+script = ExtResource("3_b0lwm")
+
+[node name="heart1" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(374.25, 205.75)
+scale = Vector2(0.0827078, 0.0807709)
+sprite_frames = SubResource("SpriteFrames_m6mxm")
+
+[node name="heart2" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(396.5, 193)
+scale = Vector2(0.0837182, 0.0658294)
+sprite_frames = SubResource("SpriteFrames_m6mxm")
+
+[node name="heart3" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(399.5, 203.5)
+scale = Vector2(0.0698614, 0.0801213)
+sprite_frames = SubResource("SpriteFrames_m6mxm")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="hit" from="." to="Control" method="_on_player_hit"]
+[connection signal="kill" from="Control" to="." method="_on_control_kill"]
