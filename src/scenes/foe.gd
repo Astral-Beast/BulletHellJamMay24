@@ -34,4 +34,11 @@ func _on_shoot_timer_timeout():
 	var velocity = shot.position.normalized()
 	shot.velocity = velocity * bullet_speed
 	
-	add_child(shot)
+	$Shots.add_child(shot)
+
+
+func _on_player_hit():
+	for n in $Shots.get_children():
+		remove_child(n)
+		
+		n.queue_free()
