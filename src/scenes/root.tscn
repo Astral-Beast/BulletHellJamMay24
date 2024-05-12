@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/scenes/textbox.gd" id="1_x8k7v"]
 [ext_resource type="FontFile" uid="uid://c630jduofjdvx" path="res://assets/fonts/Xolonium-Regular.ttf" id="3_xyo77"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
-[ext_resource type="PackedScene" uid="uid://cvy72ht5gltnw" path="res://src/scenes/foe.tscn" id="5_wnrfx"]
+[ext_resource type="PackedScene" uid="uid://mitjs1wb8xlm" path="res://src/scenes/foe.tscn" id="5_wnrfx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jc0t"]
 bg_color = Color(0, 0, 0, 1)
@@ -85,6 +85,8 @@ text = "v"
 
 [node name="Foe" parent="." instance=ExtResource("5_wnrfx")]
 position = Vector2(1385, 211)
+bullet_speed = 300
 
 [connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
 [connection signal="hit" from="Player" to="Game" method="_on_player_hit"]
+[connection signal="hit" from="Player" to="Foe" method="_on_player_hit"]
