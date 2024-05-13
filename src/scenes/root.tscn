@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=4 format=3 uid="uid://wsm1qqdalivd"]
 
 [ext_resource type="Script" path="res://src/Scripts/Game.gd" id="1_1q0xx"]
-[ext_resource type="Script" path="res://src/scenes/Enemies.gd" id="1_xhohl"]
 [ext_resource type="PackedScene" path="res://src/scenes/textbox.tscn" id="3_65u43"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
 
@@ -13,15 +12,9 @@ script = ExtResource("1_1q0xx")
 
 [node name="textbox" parent="Game" instance=ExtResource("3_65u43")]
 
-[node name="Enemies" type="Node" parent="Game"]
-script = ExtResource("1_xhohl")
-
 [node name="Player" parent="Game" instance=ExtResource("3_y2ri6")]
 position = Vector2(819, 577)
 
-[node name="Timer" type="Timer" parent="."]
-
 [connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
 [connection signal="hit" from="Game/Player" to="Game" method="_on_player_hit"]
-[connection signal="hit" from="Game/Player" to="Game/Enemies" method="_on_player_hit"]
 [connection signal="throw_banana" from="Game/Player" to="Game" method="_on_player_throw_banana"]
