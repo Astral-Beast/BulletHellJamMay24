@@ -24,6 +24,7 @@ animations = [{
 radius = 14.0357
 
 [node name="PathFollow2D" type="PathFollow2D"]
+rotates = false
 script = ExtResource("1_r30vb")
 shot_type = ExtResource("2_met35")
 
