@@ -24,7 +24,6 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_type):
 	# Set movement type
 	match path:
 		Enums.Pathing.STRAIGHT_LINES:
-			print("straight")
 			match side_exit:
 				SIDE_LEFT:
 					var new_path = path_right_to_left.instantiate()
@@ -36,18 +35,16 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_type):
 				SIDE_RIGHT:
 					var new_path = path_left_to_right.instantiate()
 					var new_foe =foe.instantiate()
-					new_foe.foe_shot_type = shot_type
+					new_foe.foe_shot_pattern = shot_type
 					new_path.add_child(new_foe)
 					add_child(new_path)
 					
 		Enums.Pathing.HOVER_ON_POINT:
-			print("hover")
 			match side_enter:
 				SIDE_LEFT:
-					print("here")
 					var new_path = path_hover.instantiate()
 					var new_foe = foe.instantiate()
-					new_foe.foe_shot_type = shot_type
+					new_foe.foe_shot_pattern = shot_type
 					new_foe.pathing_type = Enums.Pathing.HOVER_ON_POINT
 					new_path.add_child(new_foe)
 					add_child(new_path)
@@ -58,6 +55,5 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_type):
 					new_foe.foe_shot_type = shot_type
 					new_path.add_child(new_foe)
 					add_child(new_path)
-					pass
-	print_tree()
+
 

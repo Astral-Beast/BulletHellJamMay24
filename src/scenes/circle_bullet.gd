@@ -10,7 +10,7 @@ var dist
 enum {HOMING, BOUNCING}
 
 ### Movement Vars
-@export var movement_type : String = "homing"
+@export var movement_type : Enums.Shot_Movement = Enums.Shot_Movement.HOMING
 @export var velocity : Vector2
 @export var target: Vector2 = Vector2(0.0, 0.0)
 
@@ -21,10 +21,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if movement_type == "homing":
-		homing_move(target, delta)
-	elif movement_type == "constant":
-		self.position = self.position + velocity * delta
+	match movement_type:
+		Enums.Shot_Movement.HOMING:
+			homing_move(target, delta)
+		Enums.Shot_Movement.CONSTANT:
+			self.position = self.position + velocity * delta
 
 func homing_move(position_to_approach, delta):
 	dist = delta*speed
