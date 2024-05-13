@@ -1,32 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://mitjs1wb8xlm"]
+[gd_scene load_steps=7 format=3 uid="uid://c7xm40k4rttsh"]
 
-[ext_resource type="Texture2D" uid="uid://d4mt08tk45h0u" path="res://assets/art/foe1.png" id="1_ga56h"]
 [ext_resource type="Script" path="res://src/scenes/foe.gd" id="1_jj33f"]
+[ext_resource type="Texture2D" uid="uid://d4mt08tk45h0u" path="res://assets/art/foe1.png" id="1_wggav"]
 [ext_resource type="PackedScene" uid="uid://dv8ti85wlbxkq" path="res://src/scenes/circle_bullet.tscn" id="2_k8l67"]
-[ext_resource type="Texture2D" uid="uid://poc0k3362ilv" path="res://assets/art/foe2.png" id="2_so64w"]
+[ext_resource type="Texture2D" uid="uid://poc0k3362ilv" path="res://assets/art/foe2.png" id="2_y5fr5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bqmta"]
+radius = 14.0357
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_itb1r"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_ga56h")
+"texture": ExtResource("1_wggav")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_so64w")
+"texture": ExtResource("2_y5fr5")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bqmta"]
-radius = 14.0357
-
-[node name="Foe" type="Area2D"]
-position = Vector2(511, 241)
+[node name="Foe" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 4
 script = ExtResource("1_jj33f")
 shot_type = ExtResource("2_k8l67")
 metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bqmta")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, 0)
@@ -35,11 +39,6 @@ sprite_frames = SubResource("SpriteFrames_itb1r")
 animation = &"idle"
 frame_progress = 0.355225
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_bqmta")
-
-[node name="Shots" type="Marker2D" parent="."]
-
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
@@ -47,4 +46,7 @@ autostart = true
 [node name="AimTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Shots" type="Marker2D" parent="."]
+
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="AimTimer" to="." method="_on_aim_timer_timeout"]
