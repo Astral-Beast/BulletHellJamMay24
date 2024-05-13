@@ -1,5 +1,6 @@
 extends Area2D
 signal hit
+signal throw_banana
 
 @export var speed = 400
 var screen_size
@@ -23,6 +24,9 @@ func _process(delta):
 		velocity.y -= 1
 	if Input.is_action_pressed("move_down"):
 		velocity.y += 1
+	if Input.is_action_pressed("Throw_banana"):
+		print("throw pressed")
+		emit_signal("throw_banana")
 	
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed

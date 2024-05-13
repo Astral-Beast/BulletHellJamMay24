@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://chwul7pbmas1c"]
+
+[ext_resource type="Script" path="res://src/Scripts/banana.gd" id="1_4tw2k"]
+[ext_resource type="Texture2D" uid="uid://cx8yium7lwrep" path="res://assets/art/banana.png" id="1_isuyv"]
+
+[node name="Banana" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_4tw2k")
+
+[node name="Collider" type="CollisionPolygon2D" parent="."]
+position = Vector2(-3, -7)
+polygon = PackedVector2Array(-22, 8, -18, 12, -12, 15, 5, 15, 18, 7, 22, 0, 21, -5, 19, -8, 19, -16, 14, -16, 14, -7, 7, 1, -8, 3, -20, 4)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3, -7)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_isuyv")
