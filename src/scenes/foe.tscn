@@ -41,7 +41,6 @@ frame_progress = 0.355225
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Foe"]
 position = Vector2(-0.00012207, -3.8147e-06)
-scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_bqmta")
 
 [node name="ShootTimer" type="Timer" parent="Foe"]
