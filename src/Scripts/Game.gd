@@ -14,13 +14,12 @@ func _process(delta):
 
 
 func _on_player_throw_banana():
-	var vect = get_global_mouse_position() - position
+	#var vect = get_global_mouse_position() - position
 	var new_banana = banana.instantiate()
-	new_banana.position = $Player.position
-	new_banana.connect("banana_hit", _banana_hit)
+	new_banana.position = Vector2($Player.position.x, $Player.position.y-40)
+	#new_banana.connect("banana_hit", _banana_hit)
 	add_child(new_banana)
 	
 	pass # Replace with function body.w
 
-func _banana_hit():
-	print("hit")
+

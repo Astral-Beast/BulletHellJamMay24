@@ -20,7 +20,7 @@ func _process(delta):
 		velocity.y -= 1
 	if Input.is_action_pressed("move_down"):
 		velocity.y += 1
-	if Input.is_action_just_pressed("Throw_banana"):
+	if Input.is_action_pressed("Throw_banana"):
 		emit_signal("throw_banana")
 	
 	if velocity.length() > 0:

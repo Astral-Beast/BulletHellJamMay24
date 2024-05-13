@@ -9,5 +9,6 @@
 script = ExtResource("1_fb5ff")
 
 [node name="Player" parent="Game" instance=ExtResource("3_fg8sx")]
+position = Vector2(842, 673)
 
 [connection signal="throw_banana" from="Game/Player" to="Game" method="_on_player_throw_banana"]
