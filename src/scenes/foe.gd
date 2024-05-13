@@ -89,16 +89,15 @@ func start(pos):
 	$CollisionShape2D.disabled = false
 
 func _on_shoot_timer_timeout():
-	var shot
 	match foe_shot_pattern:
 		Enums.Shot_Pattern.RANDOM:
-			shot = random_shot()
+			random_shot()
 		Enums.Shot_Pattern.SPIRAL:
-			shot = spiral_shot()
+			spiral_shot()
 		Enums.Shot_Pattern.CIRCLE:
 			circle_shot()
 
-	$Foe/Shots.add_child(shot)
+
 
 func random_shot():
 	var shot = shot_type.instantiate()
@@ -111,7 +110,8 @@ func random_shot():
 	
 	var velocity = shot.position.normalized()
 	shot.velocity = velocity * bullet_speed
-	return shot
+	shot.add_to_group("Enemy_Bullets")
+	add_child(shot)
 	
 
 func spiral_shot():
@@ -131,7 +131,8 @@ func spiral_shot():
 	
 	var velocity = shot.position.normalized()
 	shot.velocity = velocity * bullet_speed
-	return shot
+	shot.add_to_group("Enemy_Bullets")
+	add_child(shot)
 
 func circle_shot():
 	for i in range(circle_density):
@@ -151,19 +152,16 @@ func circle_shot():
 		
 		var velocity = shot.position.normalized()
 		shot.velocity = velocity * bullet_speed
-		$Foe/Shots.add_child(shot)
+		shot.add_to_group("Enemy_Bullets")
+		add_child(shot)
 
 
-func clear_bullets():
-	for n in $Foe/Shots.get_children():
-		remove_child(n)
-		n.queue_free()
 
 
 
 func die():
 	print("die")
-	queue_free()
+	$Foe.queue_free()
 	pass
 
 
