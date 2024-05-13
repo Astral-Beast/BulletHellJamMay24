@@ -5,6 +5,7 @@ signal shoot
 
 const circle_shot_scene = preload("res://src/scenes/circle_bullet.tscn")
 
+
 @export var shot_type: PackedScene
 @export var bullet_speed = 200
 @export var spawn_dist_from_foe = 20
@@ -16,6 +17,8 @@ const circle_shot_scene = preload("res://src/scenes/circle_bullet.tscn")
 @export var health: int = 10
 @export var SPEED:float = .1
 @export var side_exit:Side
+@export var hovered:bool = false
+@export var pathing_type:Enums.Pathing
 
 var counter: int = 0
 var theta_range = range(-PI*spiral_spread, PI*spiral_spread, 1)
