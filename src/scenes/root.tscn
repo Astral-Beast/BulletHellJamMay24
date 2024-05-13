@@ -1,24 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=6 format=3 uid="uid://wsm1qqdalivd"]
 
 [ext_resource type="Script" path="res://src/scenes/Game.gd" id="1_1q0xx"]
-[ext_resource type="PackedScene" uid="uid://s1vdrlv4plql" path="res://src/scenes/textbox.tscn" id="3_65u43"]
+[ext_resource type="Script" path="res://src/scenes/Enemies.gd" id="1_xhohl"]
+[ext_resource type="PackedScene" path="res://src/scenes/textbox.tscn" id="3_65u43"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
 [ext_resource type="PackedScene" uid="uid://mitjs1wb8xlm" path="res://src/scenes/foe.tscn" id="5_wnrfx"]
 
 [node name="Root" type="Node"]
 
+[node name="Enemies" type="Node" parent="."]
+script = ExtResource("1_xhohl")
+
+[node name="Foe" parent="Enemies" instance=ExtResource("5_wnrfx")]
+position = Vector2(1457, 67)
+bullet_speed = 300
+foe_shot_type = "circle"
+
+[node name="Foe2" parent="Enemies" instance=ExtResource("5_wnrfx")]
+position = Vector2(843, 73)
+bullet_speed = 300
+shoot_timer = 0.05
+
+[node name="Foe3" parent="Enemies" instance=ExtResource("5_wnrfx")]
+position = Vector2(179, 79)
+bullet_speed = 300
+foe_shot_type = "spiral"
+shoot_timer = 0.05
+
 [node name="Player" parent="." instance=ExtResource("3_y2ri6")]
-position = Vector2(548, 345)
+position = Vector2(827, 649)
 
 [node name="Game" type="Node2D" parent="."]
 script = ExtResource("1_1q0xx")
 
 [node name="textbox" parent="." instance=ExtResource("3_65u43")]
 
-[node name="Foe" parent="." instance=ExtResource("5_wnrfx")]
-position = Vector2(1385, 211)
-bullet_speed = 300
-
 [connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
+[connection signal="hit" from="Player" to="Enemies" method="_on_player_hit"]
 [connection signal="hit" from="Player" to="Game" method="_on_player_hit"]
-[connection signal="hit" from="Player" to="Foe" method="_on_player_hit"]

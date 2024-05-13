@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://mitjs1wb8xlm"]
 
-[ext_resource type="Texture2D" path="res://assets/art/foe1.png" id="1_ga56h"]
+[ext_resource type="Texture2D" uid="uid://d4mt08tk45h0u" path="res://assets/art/foe1.png" id="1_ga56h"]
 [ext_resource type="Script" path="res://src/scenes/foe.gd" id="1_jj33f"]
 [ext_resource type="PackedScene" uid="uid://dv8ti85wlbxkq" path="res://src/scenes/circle_bullet.tscn" id="2_k8l67"]
-[ext_resource type="Texture2D" path="res://assets/art/foe2.png" id="2_so64w"]
+[ext_resource type="Texture2D" uid="uid://poc0k3362ilv" path="res://assets/art/foe2.png" id="2_so64w"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_itb1r"]
 animations = [{
@@ -38,10 +38,13 @@ frame_progress = 0.355225
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bqmta")
 
+[node name="Shots" type="Marker2D" parent="."]
+
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.5
 autostart = true
 
-[node name="Shots" type="Marker2D" parent="."]
+[node name="AimTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
