@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://lymb0esrgoc2"]
+
+[sub_resource type="Curve2D" id="Curve2D_jqnfo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -26, 50, 0, 0, 0, 0, 755, 276, 0, 0, 0, 0, 1624, 50)
+}
+point_count = 3
+
+[node name="path_hover" type="Path2D"]
+curve = SubResource("Curve2D_jqnfo")

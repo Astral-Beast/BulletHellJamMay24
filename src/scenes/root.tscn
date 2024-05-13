@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=5 format=3 uid="uid://wsm1qqdalivd"]
 
 [ext_resource type="Script" path="res://src/Scripts/Game.gd" id="1_1q0xx"]
 [ext_resource type="Script" path="res://src/scenes/Enemies.gd" id="1_xhohl"]
 [ext_resource type="PackedScene" path="res://src/scenes/textbox.tscn" id="3_65u43"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
-[ext_resource type="PackedScene" uid="uid://c7xm40k4rttsh" path="res://src/scenes/foe.tscn" id="5_wnrfx"]
 
 [node name="Root" type="Node"]
 
@@ -16,15 +15,6 @@ script = ExtResource("1_1q0xx")
 
 [node name="Enemies" type="Node" parent="Game"]
 script = ExtResource("1_xhohl")
-
-[node name="Foe" parent="Game/Enemies" instance=ExtResource("5_wnrfx")]
-position = Vector2(266, 124)
-
-[node name="Foe2" parent="Game/Enemies" instance=ExtResource("5_wnrfx")]
-position = Vector2(1350, 144)
-
-[node name="Foe3" parent="Game/Enemies" instance=ExtResource("5_wnrfx")]
-position = Vector2(826, 106)
 
 [node name="Player" parent="Game" instance=ExtResource("3_y2ri6")]
 position = Vector2(819, 577)
