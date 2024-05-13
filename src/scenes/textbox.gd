@@ -30,7 +30,7 @@ func _process(delta):
 			if !text_queue.is_empty():
 				display_text()
 		State.READING:
-			if Input.is_action_just_pressed("faster"):
+			if Input.is_action_just_pressed("Skip_Text"):
 				label.visible_ratio = 1
 				tween.kill()
 				end_symbol.text = "v"
