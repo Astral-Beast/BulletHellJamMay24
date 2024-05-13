@@ -19,6 +19,8 @@ script = ExtResource("1_xhohl")
 [node name="Player" parent="Game" instance=ExtResource("3_y2ri6")]
 position = Vector2(819, 577)
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
 [connection signal="hit" from="Game/Player" to="Game" method="_on_player_hit"]
 [connection signal="hit" from="Game/Player" to="Game/Enemies" method="_on_player_hit"]

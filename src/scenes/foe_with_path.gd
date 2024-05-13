@@ -22,8 +22,10 @@ func _process(delta):
 
 func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing):
 	# Set movement type
-	match pathing:
+	print(path)
+	match path:
 		Enums.Pathing.STRAIGHT_LINES:
+			print("straight")
 			match side_exit:
 				SIDE_LEFT:
 					var new_path = path_right_to_left.instantiate()
@@ -32,14 +34,25 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing):
 
 				SIDE_RIGHT:
 					var new_path = path_left_to_right.instantiate()
-					var new_foe = foe.instantiate()
 					new_path.add_child(foe.instantiate())
 					add_child(new_path)
 					
 		Enums.Pathing.HOVER_ON_POINT:
+			print("hover")
 			match side_enter:
 				SIDE_LEFT:
-					pass
+					print("here")
+					var new_path = path_hover.instantiate()
+					var new_foe = foe.instantiate()
+					new_foe.pathing_type = Enums.Pathing.HOVER_ON_POINT
+					new_path.add_child(new_foe)
+					add_child(new_path)
 				SIDE_RIGHT:
+					var new_path = path_hover.instantiate()
+					var new_foe = foe.instantiate()
+					new_foe.pathing_type = Enums.Pathing.HOVER_ON_POINT
+					new_path.add_child(new_foe)
+					add_child(new_path)
 					pass
+	print_tree()
 

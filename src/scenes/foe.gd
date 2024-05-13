@@ -16,9 +16,14 @@ const circle_shot_scene = preload("res://src/scenes/circle_bullet.tscn")
 @export var shoot_timer: float = 0.5
 @export var health: int = 10
 @export var SPEED:float = .1
+
+## Pathing vars
 @export var side_exit:Side
+@export var pathing_type:Enums.Pathing = Enums.Pathing.STRAIGHT_LINES
 @export var hovered:bool = false
-@export var pathing_type:Enums.Pathing
+@export var paused:bool = false
+@export var hover_time:float = 3.0 #seconds to wait when hovering
+
 
 var counter: int = 0
 var theta_range = range(-PI*spiral_spread, PI*spiral_spread, 1)
@@ -30,6 +35,7 @@ func _ready():
 	$Foe/AnimatedSprite2D.animation = "idle"
 	$Foe/ShootTimer.wait_time = shoot_timer
 	self.progress_ratio = 0 #starts at the begining of the path2d
+	
 	#shot_type = circle_shot_scene #basic shot 
 	
 
@@ -37,12 +43,36 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Progress ratio sets the ratio for the objects position on path2d
+	match self.pathing_type:
+		Enums.Pathing.STRAIGHT_LINES:
+			move(delta)
+		Enums.Pathing.HOVER_ON_POINT:
+			if abs(self.progress_ratio - .5) <.05 and not hovered:
+				pause_movement()
+			else:
+				move(delta)
+				
+
+
+### BEGIN MOVEMENT FUNC SECTION
+func move(delta):
 	if self.progress_ratio + (delta * SPEED) < 1:
 		self.progress_ratio += delta * SPEED
 	else:
 		self.queue_free()
-
 	
+
+func pause_movement():
+	var timer = Timer.new()
+	timer.wait_time = self.hover_time
+	timer.autostart = true
+	timer.connect("timeout", _finish_hover)
+	add_child(timer)
+	pass
+func _finish_hover():
+	self.hovered = true
+	
+### END MOVEMENT FUNC SECTION ###
 
 func start(pos):
 	position = pos
