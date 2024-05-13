@@ -47,4 +47,4 @@ func initialize(side_enter:Side, side_exit:Side, path:Pathing):
 					pass
 				SIDE_RIGHT:
 					pass
-	print_tree()
+
