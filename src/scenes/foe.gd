@@ -1,6 +1,9 @@
-extends CharacterBody2D 
+extends PathFollow2D 
+class_name Foe
 signal hit
 signal shoot
+
+const circle_shot_scene = preload("res://src/scenes/circle_bullet.tscn")
 
 @export var shot_type: PackedScene
 @export var bullet_speed = 200
@@ -11,6 +14,8 @@ signal shoot
 @export var shot_movement_type: String = "constant" # constant or aimed
 @export var shoot_timer: float = 0.5
 @export var health: int = 10
+@export var SPEED:float = .1
+@export var side_exit:Side
 
 var counter: int = 0
 var theta_range = range(-PI*spiral_spread, PI*spiral_spread, 1)
@@ -18,14 +23,23 @@ var theta_range = range(-PI*spiral_spread, PI*spiral_spread, 1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSprite2D.play()
-	$AnimatedSprite2D.animation = "idle"
-	$ShootTimer.wait_time = shoot_timer
+	$Foe/AnimatedSprite2D.play()
+	$Foe/AnimatedSprite2D.animation = "idle"
+	$Foe/ShootTimer.wait_time = shoot_timer
+	self.progress_ratio = 0 #starts at the begining of the path2d
+	#shot_type = circle_shot_scene #basic shot 
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	# Progress ratio sets the ratio for the objects position on path2d
+	if self.progress_ratio + (delta * SPEED) < 1:
+		self.progress_ratio += delta * SPEED
+	else:
+		self.queue_free()
+
+	
 
 func start(pos):
 	position = pos
@@ -42,8 +56,7 @@ func _on_shoot_timer_timeout():
 	elif foe_shot_type == "circle":
 		circle_shot()
 		pass
-	
-	$Shots.add_child(shot)
+	$Foe/Shots.add_child(shot)
 
 func random_shot():
 	var shot = shot_type.instantiate()
@@ -104,14 +117,8 @@ func clear_bullets():
 		remove_child(n)
 		
 		n.queue_free()
-		
-func take_damage():
-	
-	self.health-=1
-	print("health")
-	if self.health <0:
-		die()
-	pass
+
+
 
 func die():
 	print("die")
@@ -119,11 +126,14 @@ func die():
 	pass
 
 
-func _on_area_entered(area):
-	print("area_entered")
-	take_damage()
-	pass # Replace with function body.
-
-
 func _on_aim_timer_timeout():
 	pass # Replace with function body.
+
+# Initialize uses the built in Enum Side to define enter and exit sides
+
+
+func _on_foe_take_damage() -> void:
+	self.health-=1
+	if self.health <0:
+		die()
+
