@@ -25,6 +25,7 @@ func _process(delta):
 	if Input.is_action_pressed("move_down"):
 		velocity.y += 1
 	if Input.is_action_pressed("Throw_banana"):
+		print("throw pressed")
 		emit_signal("throw_banana")
 	
 	if velocity.length() > 0:
