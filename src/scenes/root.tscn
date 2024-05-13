@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/scenes/Enemies.gd" id="1_xhohl"]
 [ext_resource type="PackedScene" path="res://src/scenes/textbox.tscn" id="3_65u43"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
-[ext_resource type="PackedScene" uid="uid://mitjs1wb8xlm" path="res://src/scenes/foe.tscn" id="5_wnrfx"]
+[ext_resource type="PackedScene" path="res://src/scenes/foe.tscn" id="5_wnrfx"]
 
 [node name="Root" type="Node"]
 
