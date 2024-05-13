@@ -9,10 +9,10 @@ const circle_shot_scene = preload("res://src/scenes/circle_bullet.tscn")
 @export var shot_type: PackedScene
 @export var bullet_speed = 200
 @export var spawn_dist_from_foe = 20
-@export var foe_shot_type: Enums.Shot_Types = Enums.Shot_Types.CIRCLE  # random, spiral, or circle
+@export var foe_shot_pattern: Enums.Shot_Pattern = Enums.Shot_Pattern.CIRCLE  # random, spiral, or circle
 @export var spiral_spread: float = 3
 @export var circle_density: int = 30
-@export var shot_movement_type: String = "constant" # constant or aimed
+@export var shot_movement_type: Enums.Shot_Movement = Enums.Shot_Movement.CONSTANT # constant or aimed
 @export var shoot_timer: float = 0.5
 @export var health: int = 10
 @export var SPEED:float = .1
@@ -39,14 +39,12 @@ func _ready():
 	$Foe/ShootTimer.wait_time = shoot_timer
 	self.progress_ratio = 0 #starts at the begining of the path2d
 	
-	#shot_type = circle_shot_scene #basic shot 
+	#shot_pattern = circle_shot_scene #basic shot 
 	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	get_parent().print_tree()
-
 	match self.pathing_type:
 		Enums.Pathing.STRAIGHT_LINES:
 			move(delta)
@@ -92,12 +90,12 @@ func start(pos):
 
 func _on_shoot_timer_timeout():
 	var shot
-	match foe_shot_type:
-		Enums.Shot_Types.RANDOM:
+	match foe_shot_pattern:
+		Enums.Shot_Pattern.RANDOM:
 			shot = random_shot()
-		Enums.Shot_Types.SPIRAL:
+		Enums.Shot_Pattern.SPIRAL:
 			shot = spiral_shot()
-		Enums.Shot_Types.CIRCLE:
+		Enums.Shot_Pattern.CIRCLE:
 			circle_shot()
 
 	$Foe/Shots.add_child(shot)
@@ -159,7 +157,6 @@ func circle_shot():
 func clear_bullets():
 	for n in $Foe/Shots.get_children():
 		remove_child(n)
-		
 		n.queue_free()
 
 

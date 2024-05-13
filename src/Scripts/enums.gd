@@ -5,8 +5,13 @@ enum Pathing {
 	HOVER_ON_POINT
 }
 
-enum Shot_Types{
+enum Shot_Pattern{
 	CIRCLE,
 	SPIRAL,
 	RANDOM
+}
+
+enum Shot_Movement{
+	CONSTANT,
+	HOMING
 }
