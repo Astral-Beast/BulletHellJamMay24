@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D 
 signal hit
 signal shoot
 
@@ -10,6 +10,7 @@ signal shoot
 @export var circle_density: int = 30
 @export var shot_movement_type: String = "constant" # constant or aimed
 @export var shoot_timer: float = 0.5
+@export var health: int = 10
 
 var counter: int = 0
 var theta_range = range(-PI*spiral_spread, PI*spiral_spread, 1)
@@ -103,3 +104,26 @@ func clear_bullets():
 		remove_child(n)
 		
 		n.queue_free()
+		
+func take_damage():
+	
+	self.health-=1
+	print("health")
+	if self.health <0:
+		die()
+	pass
+
+func die():
+	print("die")
+	queue_free()
+	pass
+
+
+func _on_area_entered(area):
+	print("area_entered")
+	take_damage()
+	pass # Replace with function body.
+
+
+func _on_aim_timer_timeout():
+	pass # Replace with function body.
