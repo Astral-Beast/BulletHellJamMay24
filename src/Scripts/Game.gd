@@ -1,8 +1,13 @@
 extends Node2D
 const banana = preload("res://src/scenes/banana.tscn")
+const foe_with_path = preload("res://src/scenes/foe_with_path.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#$Enemies/Foe.initialize(SIDE_LEFT, SIDE_RIGHT, $Enemies/Foe.Pathing.STRAIGHT_LINES )
+	var new_foe = foe_with_path.instantiate()
+	new_foe.initialize(SIDE_LEFT,SIDE_RIGHT, new_foe.Pathing.STRAIGHT_LINES)
+	add_child(new_foe)
 	pass # Replace with function body.
 
 
