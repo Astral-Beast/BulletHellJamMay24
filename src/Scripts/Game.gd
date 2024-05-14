@@ -20,13 +20,16 @@ func _process(delta):
 	pass
 
 
-func monkey_dies():
-	pass # Replace with function body.
-
 
 func _on_player_hit():
-	monkey_dies()
+	#TODO Add sound?
+	cull_projectiles()
 
+
+func cull_projectiles():
+	# Gets all on screen bullets and queuefrees them
+	for bullet in get_tree().get_nodes_in_group("Enemy_Bullets"):
+		bullet.queue_free()
 
 func _on_player_throw_banana():
 	#var vect = get_global_mouse_position() - position
