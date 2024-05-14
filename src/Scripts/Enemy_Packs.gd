@@ -1,12 +1,12 @@
 extends Node2D
 const foe_with_path = preload("res://src/scenes/foe_with_path.tscn")
 
-var mob_packs = [
-				[add_circle_bastards,add_circle_bastards,add_circle_bastards
-				   ,add_circle_bastards,add_circle_bastards,
-				   add_circle_bastards,add_circle_bastards,]]
-#[add_first_pack, add_first_pack], 
-				#[two_left_homing],
+var mob_packs = [[add_first_pack, add_first_pack], 
+					[two_left_homing],
+					[add_circle_bastards,add_circle_bastards,add_circle_bastards
+						,add_circle_bastards,add_circle_bastards,
+						add_circle_bastards,add_circle_bastards,]]
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
