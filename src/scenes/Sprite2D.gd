@@ -9,11 +9,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	spin_sprite(delta)
-
-func spin_sprite(delta):
-	# Spins the visual part of the bullet
-	rotation+=angular_speed*delta
-	self.rotate( delta*angular_speed)
-	self.position = position
 	pass
+	#spin_sprite(delta)
+
+#func spin_sprite(delta):
+	## Spins the visual part of the bullet
+	#rotation+=angular_speed*delta
+	#self.rotate( delta*angular_speed)
+	#self.position = position
+	#pass
