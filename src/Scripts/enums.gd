@@ -17,5 +17,6 @@ enum Shot_Movement{
 	HOMING, 
 	TIMED_HOMING,
 	BURST,
-	ZIGZAG, 
+	ZIGZAG,
+	CONST_PAUSE_AIM
 }
