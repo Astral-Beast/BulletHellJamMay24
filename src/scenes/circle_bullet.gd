@@ -6,6 +6,7 @@ signal Bullet_Hit
 ### Speed Consts
 const angular_speed = PI
 @export var speed = .05
+@export var homing_speed = 5.0
 var dist
 enum {HOMING, BOUNCING}
 
@@ -23,13 +24,17 @@ func _ready():
 func _process(delta):
 	match movement_type:
 		Enums.Shot_Movement.HOMING:
-			homing_move(target, delta)
+			var player_location = get_tree().get_nodes_in_group("Player")[0].position
+			print(player_location)
+			
+			homing_move(player_location, delta)
 		Enums.Shot_Movement.CONSTANT:
 			self.position = self.position + velocity * delta
 
 func homing_move(position_to_approach, delta):
-	dist = delta*speed
-	self.position = self.position.lerp(position_to_approach, dist)
+	var vector = (position_to_approach - self.position).normalized()
+	dist = delta*homing_speed
+	self.position = self.position + vector * homing_speed
 
 
 func _on_bullet_disappear_timer_timeout():
