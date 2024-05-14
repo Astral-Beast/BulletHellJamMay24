@@ -7,13 +7,13 @@ func _ready():
 	#$Enemies/Foe.initialize(SIDE_LEFT, SIDE_RIGHT, $Enemies/Foe.Pathing.STRAIGHT_LINES )
 	#add_enemy(SIDE_LEFT,SIDE_RIGHT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.CIRCLE)
 	#add_enemy(SIDE_LEFT,SIDE_RIGHT, Enums.Pathing.HOVER_ON_POINT, Enums.Shot_Pattern.SPIRAL)
-	add_enemy(SIDE_RIGHT,SIDE_LEFT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.AIMED)
+	add_enemy(SIDE_RIGHT,SIDE_LEFT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.AIMED, Enums.Shot_Movement.CONST_PAUSE_AIM)
 	pass
 	
 
-func add_enemy(enter_side:Side, exit_side:Side, pathing_type:Enums.Pathing, shot_pattern:Enums.Shot_Pattern):
+func add_enemy(enter_side:Side, exit_side:Side, pathing_type:Enums.Pathing, shot_pattern:Enums.Shot_Pattern, shot_movement):
 	var new_foe = foe_with_path.instantiate()
-	new_foe.initialize(enter_side, exit_side, pathing_type, shot_pattern)
+	new_foe.initialize(enter_side, exit_side, pathing_type, shot_pattern, shot_movement)
 	add_child(new_foe)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
