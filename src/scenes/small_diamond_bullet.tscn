@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7g5yji46jlvu"]
+
+[ext_resource type="Script" path="res://src/scenes/circle_bullet.gd" id="1_niy2a"]
+[ext_resource type="Texture2D" uid="uid://buvn3a7avto45" path="res://assets/art/Diamond.png" id="2_4wyem"]
+[ext_resource type="Shader" path="res://src/shaders/small_diamond_bullet.gdshader" id="2_vv2xq"]
+[ext_resource type="Script" path="res://src/scenes/Sprite2D.gd" id="3_kb5by"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5vvl"]
+shader = ExtResource("2_vv2xq")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_l5dha"]
+diffuse_texture = ExtResource("2_4wyem")
+
+[node name="small_diamond_bullet" type="Node2D"]
+position = Vector2(20, 13)
+script = ExtResource("1_niy2a")
+
+[node name="BulletDisappearTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="bullet_sprite" type="Sprite2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_l5vvl")
+position = Vector2(0, -3.41061e-13)
+rotation = 3.13931
+scale = Vector2(0.323589, 0.534402)
+texture = SubResource("CanvasTexture_l5dha")
+script = ExtResource("3_kb5by")
+
+[node name="Area2D" type="Area2D" parent="."]
+use_parent_material = true
+scale = Vector2(1.5, 1.5)
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(11.3333, 1.33333)
+rotation = 2.43852
+polygon = PackedVector2Array(9.30941, 9.63797, 3.98185, 13.8616, 6.76654, 7.48276, 12.5251, 3.18156)
+
+[connection signal="timeout" from="BulletDisappearTimer" to="." method="_on_bullet_disappear_timer_timeout"]
