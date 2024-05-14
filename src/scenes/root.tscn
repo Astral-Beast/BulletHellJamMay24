@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=4 format=3 uid="uid://wsm1qqdalivd"]
 
 [ext_resource type="Script" path="res://src/Scripts/Game.gd" id="1_1q0xx"]
 [ext_resource type="PackedScene" path="res://src/scenes/textbox.tscn" id="3_65u43"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
-[ext_resource type="PackedScene" uid="uid://dv8ti85wlbxkq" path="res://src/scenes/circle_bullet.tscn" id="4_xfad1"]
 
 [node name="Root" type="Node"]
 
@@ -11,15 +10,19 @@
 position = Vector2(0, -4)
 script = ExtResource("1_1q0xx")
 
+[node name="Spawn_Pause_Timer" type="Timer" parent="Game" groups=["Pause_Spawn"]]
+
+[node name="Mob_Spawner" type="Timer" parent="Game" groups=["Mob_Spawn_Timer"]]
+wait_time = 7.0
+autostart = true
+
 [node name="textbox" parent="Game" instance=ExtResource("3_65u43")]
 
 [node name="Player" parent="Game" groups=["Player"] instance=ExtResource("3_y2ri6")]
 position = Vector2(819, 577)
 
-[node name="Circle_Bullet" parent="Game" instance=ExtResource("4_xfad1")]
-position = Vector2(445.583, 277.079)
-movement_type = 1
-
+[connection signal="timeout" from="Game/Spawn_Pause_Timer" to="Game" method="_on_spawn_pause_timer_timeout"]
+[connection signal="timeout" from="Game/Mob_Spawner" to="Game" method="_on_mob_spawner_timeout"]
 [connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
 [connection signal="hit" from="Game/Player" to="Game" method="_on_player_hit"]
 [connection signal="throw_banana" from="Game/Player" to="Game" method="_on_player_throw_banana"]

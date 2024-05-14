@@ -1,20 +1,11 @@
 extends Node2D
 const banana = preload("res://src/scenes/banana.tscn")
-const foe_with_path = preload("res://src/scenes/foe_with_path.tscn")
-
+const enemypacks = preload("res://src/Scripts/Enemy_Packs.gd")
+var mob_packs = []
+var mob_pack_index = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#$Enemies/Foe.initialize(SIDE_LEFT, SIDE_RIGHT, $Enemies/Foe.Pathing.STRAIGHT_LINES )
-	#add_enemy(SIDE_LEFT,SIDE_RIGHT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.CIRCLE)
-	#add_enemy(SIDE_LEFT,SIDE_RIGHT, Enums.Pathing.HOVER_ON_POINT, Enums.Shot_Pattern.SPIRAL)
-	add_enemy(SIDE_RIGHT,SIDE_LEFT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.CIRCLE, Enums.Shot_Movement.CONST_PAUSE_AIM)
-	pass
-	
-
-func add_enemy(enter_side:Side, exit_side:Side, pathing_type:Enums.Pathing, shot_pattern:Enums.Shot_Pattern, shot_movement):
-	var new_foe = foe_with_path.instantiate()
-	new_foe.initialize(enter_side, exit_side, pathing_type, shot_pattern, shot_movement)
-	add_child(new_foe)
+	mob_packs = EnemyPacks.mob_packs
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -38,3 +29,39 @@ func _on_player_throw_banana():
 	new_banana.position = Vector2($Player.position.x, $Player.position.y-40)
 	#new_banana.connect("banana_hit", _banana_hit)
 	add_child(new_banana)
+
+
+func _on_mob_spawner_timeout() -> void:
+	if mob_pack_index < len(mob_packs):
+		print("Normal spawn: \n", mob_packs)
+		print("Packs length: \n", len(mob_packs[mob_pack_index]))
+		for pack in mob_packs[mob_pack_index]:
+			
+			var response = pack.call()
+			print("response: ",response)
+			mob_packs[mob_pack_index].pop_front()
+			print("Packs length: \n", len(mob_packs[mob_pack_index]))
+			print("response: ",response)
+			if response != null:
+				$Mob_Spawner.stop()
+				$Spawn_Pause_Timer.wait_time = response
+				$Spawn_Pause_Timer.start()
+				return
+		mob_pack_index+=1
+	
+	
+
+func _on_spawn_pause_timer_timeout() -> void:
+	print("Spawn pause: \n", mob_packs)
+	$Mob_Spawner.start()
+	$Spawn_Pause_Timer.stop()
+	for pack in mob_packs[mob_pack_index]:
+		var response = pack.call()
+		mob_packs[mob_pack_index].pop_front()
+		if response != null:
+			print("here")
+			$Mob_Spawner.stop()
+			$Spawn_Pause_Timer.wait_time = response
+			$Spawn_Pause_Timer.start()
+			return
+		mob_pack_index+=1
