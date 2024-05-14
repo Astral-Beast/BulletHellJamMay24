@@ -97,6 +97,8 @@ func _on_shoot_timer_timeout():
 			spiral_shot()
 		Enums.Shot_Pattern.CIRCLE:
 			circle_shot()
+		Enums.Shot_Pattern.AIMED:
+			aimed_shot()
 
 
 
@@ -160,6 +162,19 @@ func circle_shot():
 		shot.add_to_group("Enemy_Bullets")
 		get_parent().add_child(shot)
 
+func aimed_shot():
+	var shot = shot_type.instantiate()
+	shot.movement_type = shot_movement_type
+	var theta = randf_range(-PI, PI)
+	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
+	
+	shot.position = delta_r*get_global_transform().affine_inverse()
+	var player_global_position = get_tree().get_nodes_in_group("Player")[0].position
+	var shot_global_position = shot.position
+	var velocity = (player_global_position - shot_global_position).normalized()	
+	shot.velocity = velocity * bullet_speed
+	shot.add_to_group("Enemy_Bullets")
+	get_parent().add_child(shot)
 
 func die():
 	print("die")

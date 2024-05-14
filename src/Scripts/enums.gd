@@ -8,7 +8,8 @@ enum Pathing {
 enum Shot_Pattern{
 	CIRCLE,
 	SPIRAL,
-	RANDOM
+	RANDOM, 
+	AIMED
 }
 
 enum Shot_Movement{
@@ -16,5 +17,5 @@ enum Shot_Movement{
 	HOMING, 
 	TIMED_HOMING,
 	BURST,
-	ZIGZAG
+	ZIGZAG, 
 }
