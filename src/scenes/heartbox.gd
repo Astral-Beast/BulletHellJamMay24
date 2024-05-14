@@ -34,6 +34,6 @@ func _on_player_hit():
 		heart2.hide()
 	elif heart1_visible == true && heart2_visible == false && heart3_visible == false:
 		heart1_visible = false
-		heart2.hide()
+		heart1.hide()
 		kill.emit()
 	

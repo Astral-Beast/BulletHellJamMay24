@@ -1,9 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://b7qk4trnkj22s"]
+[gd_scene load_steps=16 format=3 uid="uid://b7qk4trnkj22s"]
 
 [ext_resource type="Script" path="res://src/scenes/Player.gd" id="1_oytln"]
 [ext_resource type="Texture2D" uid="uid://c6qrua36xw8o8" path="res://assets/art/50067.png" id="2_5aonb"]
 [ext_resource type="Script" path="res://src/scenes/heartbox.gd" id="3_b0lwm"]
 [ext_resource type="Texture2D" uid="uid://qqjunceb6ood" path="res://assets/art/heart.png" id="4_pwyaq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mkmq"]
+atlas = ExtResource("2_5aonb")
+region = Rect2(269, 0, 43, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqlj1"]
+atlas = ExtResource("2_5aonb")
+region = Rect2(313, 0, 52, 54)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jrcsj"]
 atlas = ExtResource("2_5aonb")
@@ -31,6 +39,17 @@ region = Rect2(123, 0, 40, 37)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eadga"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mkmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqlj1")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jrcsj")
@@ -82,7 +101,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_eadga")
-animation = &"walk"
+animation = &"die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_wmph2")
