@@ -54,6 +54,6 @@ func timed_homing_move(position_to_approach, delta):
 func _on_homing_timout():
 	movement_type = Enums.Shot_Movement.CONSTANT
 	pass
-func _on_bullet_disappear_timer_timeout():
-	queue_free()
 
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()

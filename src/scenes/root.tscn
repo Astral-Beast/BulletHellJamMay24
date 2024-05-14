@@ -18,7 +18,7 @@ position = Vector2(819, 577)
 
 [node name="Circle_Bullet" parent="Game" instance=ExtResource("4_xfad1")]
 position = Vector2(445.583, 277.079)
-movement_type = 0
+movement_type = 1
 
 [connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
 [connection signal="hit" from="Game/Player" to="Game" method="_on_player_hit"]

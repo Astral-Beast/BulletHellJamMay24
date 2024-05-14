@@ -13,8 +13,8 @@ shader = ExtResource("1_4c33k")
 [sub_resource type="CanvasTexture" id="CanvasTexture_wexcb"]
 
 [node name="Circle_Bullet" type="Node2D"]
-position = Vector2(571, 266)
 script = ExtResource("1_maaas")
+movement_type = 2
 metadata/_edit_group_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -35,4 +35,7 @@ script = ExtResource("3_45lnk")
 wait_time = 10.0
 autostart = true
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
 [connection signal="timeout" from="BulletDisappearTimer" to="." method="_on_bullet_disappear_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
