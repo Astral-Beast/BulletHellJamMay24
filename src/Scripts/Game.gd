@@ -32,12 +32,17 @@ func _on_player_throw_banana():
 
 
 func _on_mob_spawner_timeout() -> void:
-	print("Normal spawn: \n", mob_packs)
 	if mob_pack_index < len(mob_packs):
+		print("Normal spawn: \n", mob_packs)
+		print("Packs length: \n", len(mob_packs[mob_pack_index]))
 		for pack in mob_packs[mob_pack_index]:
+			
 			var response = pack.call()
+			print("response: ",response)
 			mob_packs[mob_pack_index].pop_front()
-			if not response == null:
+			print("Packs length: \n", len(mob_packs[mob_pack_index]))
+			print("response: ",response)
+			if response != null:
 				$Mob_Spawner.stop()
 				$Spawn_Pause_Timer.wait_time = response
 				$Spawn_Pause_Timer.start()
@@ -53,7 +58,8 @@ func _on_spawn_pause_timer_timeout() -> void:
 	for pack in mob_packs[mob_pack_index]:
 		var response = pack.call()
 		mob_packs[mob_pack_index].pop_front()
-		if not response == null:
+		if response != null:
+			print("here")
 			$Mob_Spawner.stop()
 			$Spawn_Pause_Timer.wait_time = response
 			$Spawn_Pause_Timer.start()
