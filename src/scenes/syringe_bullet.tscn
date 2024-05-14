@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbm6dk16b6a1r"]
+
+[ext_resource type="Texture2D" uid="uid://doip06nu7iq5o" path="res://assets/art/syringe_no_background.png" id="1_34h7l"]
+[ext_resource type="Script" path="res://src/scenes/circle_bullet.gd" id="1_neyx8"]
+[ext_resource type="Script" path="res://src/scenes/Sprite2D.gd" id="2_eqpcy"]
+[ext_resource type="Shader" path="res://src/Scripts/syringe_bullet.gdshader" id="3_wowtg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ma66k"]
+shader = ExtResource("3_wowtg")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_vfbet"]
+
+[node name="syringe_bullet" type="Node2D"]
+position = Vector2(205, 93)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_neyx8")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+use_parent_material = true
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(1, 0)
+rotation = 2.43852
+polygon = PackedVector2Array(10.5263, -18.6063, 17.3921, -12.7873, -0.0650577, 7.80998, -15.4012, 19.7181, -6.16795, 2.63749)
+
+[node name="bullet_sprite" type="Sprite2D" parent="."]
+z_index = 1
+rotation = 2.32967
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_34h7l")
+script = ExtResource("2_eqpcy")
+
+[node name="BulletDisappearTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="tranq_sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ma66k")
+position = Vector2(-2, -4.23322)
+scale = Vector2(6.92, 15.6656)
+texture = SubResource("CanvasTexture_vfbet")
+centered = false
+offset = Vector2(-0.2, 0.1)
