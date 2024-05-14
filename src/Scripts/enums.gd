@@ -13,5 +13,8 @@ enum Shot_Pattern{
 
 enum Shot_Movement{
 	CONSTANT,
-	HOMING
+	HOMING, 
+	TIMED_HOMING,
+	BURST,
+	ZIGZAG
 }
