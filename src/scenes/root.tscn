@@ -13,7 +13,7 @@ script = ExtResource("1_1q0xx")
 [node name="Spawn_Pause_Timer" type="Timer" parent="Game" groups=["Pause_Spawn"]]
 
 [node name="Mob_Spawner" type="Timer" parent="Game" groups=["Mob_Spawn_Timer"]]
-wait_time = 7.0
+wait_time = 4.0
 autostart = true
 
 [node name="textbox" parent="Game" instance=ExtResource("3_65u43")]
