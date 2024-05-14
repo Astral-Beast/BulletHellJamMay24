@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://doip06nu7iq5o" path="res://assets/art/syringe_no_background.png" id="1_34h7l"]
 [ext_resource type="Script" path="res://src/scenes/circle_bullet.gd" id="1_neyx8"]
 [ext_resource type="Script" path="res://src/scenes/Sprite2D.gd" id="2_eqpcy"]
-[ext_resource type="Shader" path="res://src/Scripts/syringe_bullet.gdshader" id="3_wowtg"]
+[ext_resource type="Shader" path="res://src/shaders/syringe_bullet.gdshader" id="3_wowtg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ma66k"]
 shader = ExtResource("3_wowtg")
