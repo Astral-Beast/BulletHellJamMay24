@@ -15,7 +15,7 @@ var dist
 @export var velocity : Vector2
 @export var target: Vector2 = Vector2(0.0, 0.0)
 @export var homing_done:bool = false
-@export var homing_time_length:float = 3.0
+@export var homing_timer_length:float = 3.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,7 +23,7 @@ func _ready():
 		Enums.Shot_Movement.TIMED_HOMING:
 			var timer = Timer.new()
 			timer.autostart = true
-			timer.wait_time = homing_time_length
+			timer.wait_time = homing_timer_length
 			timer.connect("timeout", _on_homing_timout)
 			add_child(timer)
 			
