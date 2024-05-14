@@ -89,6 +89,7 @@ func start(pos):
 	$CollisionShape2D.disabled = false
 
 func _on_shoot_timer_timeout():
+	
 	match foe_shot_pattern:
 		Enums.Shot_Pattern.RANDOM:
 			random_shot()
@@ -106,12 +107,13 @@ func random_shot():
 	var theta = randf_range(-PI, PI)
 	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
 	
-	shot.position = delta_r
-	
-	var velocity = shot.position.normalized()
+	shot.position = delta_r*get_global_transform().affine_inverse()
+	var bullet_global_position = shot.position*get_global_transform().affine_inverse()
+	var self_global_position = self.position*get_global_transform().affine_inverse()
+	var velocity = (bullet_global_position - self_global_position).normalized()	
 	shot.velocity = velocity * bullet_speed
 	shot.add_to_group("Enemy_Bullets")
-	add_child(shot)
+	get_parent().add_child(shot)
 	
 
 func spiral_shot():
@@ -127,12 +129,14 @@ func spiral_shot():
 	
 	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
 	
-	shot.position = delta_r
+	shot.position = delta_r*get_global_transform().affine_inverse()
 	
-	var velocity = shot.position.normalized()
+	var bullet_global_position = shot.position*get_global_transform().affine_inverse()
+	var self_global_position = self.position*get_global_transform().affine_inverse()
+	var velocity = (bullet_global_position - self_global_position).normalized()
 	shot.velocity = velocity * bullet_speed
 	shot.add_to_group("Enemy_Bullets")
-	add_child(shot)
+	get_parent().add_child(shot)
 
 func circle_shot():
 	for i in range(circle_density):
@@ -148,15 +152,13 @@ func circle_shot():
 	
 		var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
 	
-		shot.position = delta_r
-		
-		var velocity = shot.position.normalized()
+		shot.position = delta_r*get_global_transform().affine_inverse()
+		var bullet_global_position = shot.position*get_global_transform().affine_inverse()
+		var self_global_position = self.position*get_global_transform().affine_inverse()
+		var velocity = (bullet_global_position - self_global_position).normalized()
 		shot.velocity = velocity * bullet_speed
 		shot.add_to_group("Enemy_Bullets")
-		add_child(shot)
-
-
-
+		get_parent().add_child(shot)
 
 
 func die():
