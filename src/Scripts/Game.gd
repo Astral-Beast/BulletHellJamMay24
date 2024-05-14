@@ -1,13 +1,11 @@
 extends Node2D
 const banana = preload("res://src/scenes/banana.tscn")
+const enemypacks = preload("res://src/Scripts/Enemy_Packs.gd")
 var mob_packs = []
 var mob_pack_index = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var ep = EnemyPacks.new()
-	add_to_group("EnemyPacks")
-	mob_packs = ep.mob_packs
-	add_child(ep)
+	mob_packs = EnemyPacks.mob_packs
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -34,10 +32,30 @@ func _on_player_throw_banana():
 
 
 func _on_mob_spawner_timeout() -> void:
-	print("here")
+	print("Normal spawn: \n", mob_packs)
 	if mob_pack_index < len(mob_packs):
 		for pack in mob_packs[mob_pack_index]:
-			pack.call()
+			var response = pack.call()
+			mob_packs[mob_pack_index].pop_front()
+			if not response == null:
+				$Mob_Spawner.stop()
+				$Spawn_Pause_Timer.wait_time = response
+				$Spawn_Pause_Timer.start()
+				return
 		mob_pack_index+=1
 	
 	
+
+func _on_spawn_pause_timer_timeout() -> void:
+	print("Spawn pause: \n", mob_packs)
+	$Mob_Spawner.start()
+	$Spawn_Pause_Timer.stop()
+	for pack in mob_packs[mob_pack_index]:
+		var response = pack.call()
+		mob_packs[mob_pack_index].pop_front()
+		if not response == null:
+			$Mob_Spawner.stop()
+			$Spawn_Pause_Timer.wait_time = response
+			$Spawn_Pause_Timer.start()
+			return
+		mob_pack_index+=1

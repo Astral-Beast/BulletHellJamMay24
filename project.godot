@@ -16,6 +16,10 @@ config/use_custom_user_dir=true
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+EnemyPacks="*res://src/Scripts/Enemy_Packs.gd"
+
 [display]
 
 window/size/viewport_width=1600
