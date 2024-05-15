@@ -49,7 +49,7 @@ func _on_foe_take_damage() -> void:
 
 func spell_card_one():
 	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM)
-	spiral_shot(syringe, Enums.Shot_Movement.CONSTANT)
+	spiral_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM)
 	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, 10)
 
 func _on_spell_card_timer_timeout() -> void:
