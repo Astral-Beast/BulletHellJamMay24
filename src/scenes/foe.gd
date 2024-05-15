@@ -57,8 +57,6 @@ func _process(delta):
 # Progress ratio sets the ratio for the objects position on path2d
 func move(delta):
 	self.progress_ratio += delta * SPEED
-	print(progress_ratio, delta *SPEED)
-
 
 func hover_move(delta):
 	if self.progress_ratio + (delta * SPEED) > .5 and not hovered:
