@@ -1,7 +1,8 @@
 extends Node2D
 const banana = preload("res://src/scenes/banana.tscn")
-const enemypacks = preload("res://src/Scripts/Enemy_Packs.gd")
-const death_screen = preload("res://src/scenes/death_screen.tscn")
+
+signal game_over
+
 var mob_packs = []
 var mob_pack_index = 0
 # Called when the node enters the scene tree for the first time.
@@ -67,7 +68,8 @@ func _on_spawn_pause_timer_timeout() -> void:
 
 
 func _on_player_game_over() -> void:
-	get_parent().add_child(death_screen.instantiate())
+	emit_signal("game_over")
+	
 	cull_all()
 	queue_free()
 	

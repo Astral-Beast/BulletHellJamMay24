@@ -1,6 +1,5 @@
 extends Node2D
-const game = preload("res://src/scenes/game.tscn")
-
+signal new_game
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,6 +12,6 @@ func _process(delta: float) -> void:
 
 
 func _on_play_again_pressed() -> void:
-	add_sibling(game.instantiate())
+	emit_signal("new_game")
 	queue_free()
 
