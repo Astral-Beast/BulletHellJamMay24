@@ -56,10 +56,9 @@ func _process(delta):
 ### BEGIN MOVEMENT FUNC SECTION
 # Progress ratio sets the ratio for the objects position on path2d
 func move(delta):
-	if self.progress_ratio + (delta * SPEED) < 1:
-		self.progress_ratio += delta * SPEED
-	else:
-		self.queue_free()
+	self.progress_ratio += delta * SPEED
+	print(progress_ratio, delta *SPEED)
+
 
 func hover_move(delta):
 	if self.progress_ratio + (delta * SPEED) > .5 and not hovered:
@@ -187,3 +186,7 @@ func _on_foe_take_damage() -> void:
 	if self.health <0:
 		die()
 
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()

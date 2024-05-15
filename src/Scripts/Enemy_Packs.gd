@@ -2,7 +2,8 @@ extends Node2D
 const foe_with_path = preload("res://src/scenes/foe_with_path.tscn")
 const boss = preload("res://src/scenes/boss.tscn")
 
-var mob_packs = [[boss_fight]]
+var mob_packs = [[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,]
+				,[boss_fight]]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,6 +49,12 @@ func add_circle_bastards():
 
 func boss_fight():
 	var new_foe = boss.instantiate()
-	
-	get_parent().add_child(new_foe)
+	var new_path = Path2D.new()
+	var new_curve = Curve2D.new()
+	new_curve.add_point(Vector2(0,0),Vector2(0,0),Vector2(0,0))
+	print(Vector2(get_viewport_rect().size.x/2, 40))
+	new_curve.add_point(Vector2(get_viewport_rect().size.x/2, 200), Vector2(0,0), Vector2(0,0))
+	new_path.curve = new_curve
+	new_path.add_child(new_foe)
+	get_parent().add_child(new_path)
 	
