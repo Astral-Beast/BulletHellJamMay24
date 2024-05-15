@@ -34,3 +34,4 @@ func _process(delta: float) -> void:
 func spell_card_one():
 	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM)
 	spiral_shot(syringe, Enums.Shot_Movement.CONSTANT)
+	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, 10)
