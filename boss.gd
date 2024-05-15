@@ -56,10 +56,8 @@ func _on_spell_card_timer_timeout() -> void:
 	match spell_card:
 		spell_cards.SPELL_CARD_ONE:
 			$SpellCardTimer.start(3.5)
-			print($SpellCardTimer.wait_time)
 			spell_card=spell_cards.PAUSE
 		spell_cards.PAUSE:
 			$SpellCardTimer.start(10.0)
-			print($SpellCardTimer.wait_time)
 			spell_card = spell_cards.SPELL_CARD_ONE
 	

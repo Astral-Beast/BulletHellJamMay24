@@ -52,7 +52,6 @@ func boss_fight():
 	var new_path = Path2D.new()
 	var new_curve = Curve2D.new()
 	new_curve.add_point(Vector2(0,0),Vector2(0,0),Vector2(0,0))
-	print(Vector2(get_viewport_rect().size.x/2, 40))
 	new_curve.add_point(Vector2(get_viewport_rect().size.x/2, 200), Vector2(0,0), Vector2(0,0))
 	new_path.curve = new_curve
 	new_path.add_child(new_foe)
