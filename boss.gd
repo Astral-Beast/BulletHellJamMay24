@@ -14,7 +14,8 @@ enum shot_types {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.shot_type = syringe
-	circle_shot(diamond)
+	self.health = 1500
+	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM)
 	pass # Replace with function body.
 
 

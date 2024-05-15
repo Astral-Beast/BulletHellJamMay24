@@ -102,9 +102,9 @@ func _on_shoot_timer_timeout():
 
 
 
-func random_shot(this_shot_type = shot_type):
+func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type):
 	var shot = this_shot_type.instantiate()
-	shot.movement_type = shot_movement_type
+	shot.movement_type = this_movement_type
 	
 	var theta = randf_range(-PI, PI)
 	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
@@ -118,9 +118,9 @@ func random_shot(this_shot_type = shot_type):
 	get_parent().add_child(shot)
 	
 
-func spiral_shot(this_shot_type = shot_type):
+func spiral_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type):
 	var shot = this_shot_type.instantiate()
-	shot.movement_type = shot_movement_type
+	shot.movement_type = this_movement_type
 	
 	var theta = theta_range[counter] / spiral_spread
 	
@@ -140,10 +140,10 @@ func spiral_shot(this_shot_type = shot_type):
 	shot.add_to_group("Enemy_Bullets")
 	get_parent().add_child(shot)
 
-func circle_shot(this_shot_type = shot_type):
+func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type):
 	for i in range(circle_density):
 		var shot = this_shot_type.instantiate()
-		shot.movement_type = shot_movement_type
+		shot.movement_type = this_movement_type
 	
 		var theta = 2*PI * i / float(circle_density) - PI
 	
@@ -180,13 +180,6 @@ func die():
 	print("die")
 	$Foe.queue_free()
 	pass
-
-
-func _on_aim_timer_timeout():
-	pass # Replace with function body.
-
-# Initialize uses the built in Enum Side to define enter and exit sides
-
 
 func _on_foe_take_damage() -> void:
 	self.health-=1
