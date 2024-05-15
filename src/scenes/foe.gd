@@ -56,10 +56,7 @@ func _process(delta):
 ### BEGIN MOVEMENT FUNC SECTION
 # Progress ratio sets the ratio for the objects position on path2d
 func move(delta):
-	if self.progress_ratio + (delta * SPEED) < 1:
-		self.progress_ratio += delta * SPEED
-	else:
-		self.queue_free()
+	self.progress_ratio += delta * SPEED
 
 func hover_move(delta):
 	if self.progress_ratio + (delta * SPEED) > .5 and not hovered:
@@ -102,25 +99,26 @@ func _on_shoot_timer_timeout():
 
 
 
-func random_shot():
-	var shot = shot_type.instantiate()
-	shot.movement_type = shot_movement_type
-	
-	var theta = randf_range(-PI, PI)
-	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
-	
-	shot.position = delta_r*get_global_transform().affine_inverse()
-	var bullet_global_position = shot.position*get_global_transform().affine_inverse()
-	var self_global_position = self.position*get_global_transform().affine_inverse()
-	var velocity = (bullet_global_position - self_global_position).normalized()	
-	shot.velocity = velocity * bullet_speed
-	shot.add_to_group("Enemy_Bullets")
-	get_parent().add_child(shot)
-	
+func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type, num_shots =1):
+	for i in num_shots:
+		var shot = this_shot_type.instantiate()
+		shot.movement_type = this_movement_type
+		
+		var theta = randf_range(-PI, PI)
+		var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
+		
+		shot.position = delta_r*get_global_transform().affine_inverse()
+		var bullet_global_position = shot.position*get_global_transform().affine_inverse()
+		var self_global_position = self.position*get_global_transform().affine_inverse()
+		var velocity = (bullet_global_position - self_global_position).normalized()	
+		shot.velocity = velocity * bullet_speed
+		shot.add_to_group("Enemy_Bullets")
+		get_parent().add_child(shot)
+		
 
-func spiral_shot():
-	var shot = shot_type.instantiate()
-	shot.movement_type = shot_movement_type
+func spiral_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type):
+	var shot = this_shot_type.instantiate()
+	shot.movement_type = this_movement_type
 	
 	var theta = theta_range[counter] / spiral_spread
 	
@@ -140,10 +138,10 @@ func spiral_shot():
 	shot.add_to_group("Enemy_Bullets")
 	get_parent().add_child(shot)
 
-func circle_shot():
+func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type):
 	for i in range(circle_density):
-		var shot = shot_type.instantiate()
-		shot.movement_type = shot_movement_type
+		var shot = this_shot_type.instantiate()
+		shot.movement_type = this_movement_type
 	
 		var theta = 2*PI * i / float(circle_density) - PI
 	
@@ -162,8 +160,8 @@ func circle_shot():
 		shot.add_to_group("Enemy_Bullets")
 		get_parent().add_child(shot)
 
-func aimed_shot():
-	var shot = shot_type.instantiate()
+func aimed_shot(this_shot_type = shot_type):
+	var shot = this_shot_type.instantiate()
 	shot.movement_type = shot_movement_type
 	var theta = randf_range(-PI, PI)
 	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
@@ -181,15 +179,12 @@ func die():
 	$Foe.queue_free()
 	pass
 
-
-func _on_aim_timer_timeout():
-	pass # Replace with function body.
-
-# Initialize uses the built in Enum Side to define enter and exit sides
-
-
 func _on_foe_take_damage() -> void:
 	self.health-=1
 	if self.health <0:
 		die()
 
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()

@@ -1,11 +1,9 @@
 extends Node2D
 const foe_with_path = preload("res://src/scenes/foe_with_path.tscn")
+const boss = preload("res://src/scenes/boss.tscn")
 
-var mob_packs = [[add_first_pack, add_first_pack], 
-					[two_left_homing],
-					[add_circle_bastards,add_circle_bastards,add_circle_bastards
-						,add_circle_bastards,add_circle_bastards,
-						add_circle_bastards,add_circle_bastards,]]
+var mob_packs = [[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,]
+				,[boss_fight]]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -48,3 +46,15 @@ func add_circle_bastards():
 	add_enemy(SIDE_RIGHT,SIDE_LEFT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.CIRCLE, Enums.Shot_Movement.TIMED_HOMING)
 	add_enemy(SIDE_LEFT,SIDE_RIGHT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.CIRCLE, Enums.Shot_Movement.TIMED_HOMING)
 	return 1.0
+
+func boss_fight():
+	var new_foe = boss.instantiate()
+	var new_path = Path2D.new()
+	var new_curve = Curve2D.new()
+	new_curve.add_point(Vector2(0,0),Vector2(0,0),Vector2(0,0))
+	print(Vector2(get_viewport_rect().size.x/2, 40))
+	new_curve.add_point(Vector2(get_viewport_rect().size.x/2, 200), Vector2(0,0), Vector2(0,0))
+	new_path.curve = new_curve
+	new_path.add_child(new_foe)
+	get_parent().add_child(new_path)
+	
