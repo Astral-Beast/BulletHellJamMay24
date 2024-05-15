@@ -10,12 +10,12 @@ func _physics_process(delta):
 	velocity.y += SPEED * delta * -1 # -1 makes it go up
 	rotation += SPEED * cos( delta ) 
 	move_and_slide()
-	if get_slide_collision(0):
+	if is_instance_valid(self) and get_slide_collision_count() > 0:
 		var collision = get_slide_collision(0)
 		var body = collision.get_collider()
 		body.emit_signal("take_damage")
 		kill_banana()
-		
+
 func kill_banana():
 	queue_free()
 

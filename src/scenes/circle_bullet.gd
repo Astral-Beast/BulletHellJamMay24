@@ -45,6 +45,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+
 	match movement_type:
 		Enums.Shot_Movement.HOMING:
 			var player_location = get_tree().get_nodes_in_group("Player")[0].position

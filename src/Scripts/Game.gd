@@ -1,6 +1,7 @@
 extends Node2D
 const banana = preload("res://src/scenes/banana.tscn")
 const enemypacks = preload("res://src/Scripts/Enemy_Packs.gd")
+const death_screen = preload("res://src/scenes/death_screen.tscn")
 var mob_packs = []
 var mob_pack_index = 0
 # Called when the node enters the scene tree for the first time.
@@ -22,6 +23,14 @@ func cull_projectiles():
 	# Gets all on screen bullets and queuefrees them
 	for bullet in get_tree().get_nodes_in_group("Enemy_Bullets"):
 		bullet.queue_free()
+		
+func cull_all():
+	# Gets all on screen bullets and queuefrees them
+	for bullet in get_tree().get_nodes_in_group("Enemy_Bullets"):
+		bullet.queue_free()
+	for enemy in get_tree().get_nodes_in_group("Enemies"):
+		enemy.queue_free()
+	get_tree().get_first_node_in_group("Player").queue_free()
 
 func _on_player_throw_banana():
 	#var vect = get_global_mouse_position() - position
@@ -55,3 +64,10 @@ func _on_spawn_pause_timer_timeout() -> void:
 			$Spawn_Pause_Timer.start(response)
 			return
 		mob_pack_index+=1
+
+
+func _on_player_game_over() -> void:
+	get_parent().add_child(death_screen.instantiate())
+	cull_all()
+	queue_free()
+	

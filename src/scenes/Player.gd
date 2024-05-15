@@ -1,6 +1,7 @@
 extends Area2D
 signal hit
 signal throw_banana
+signal game_over
 
 @export var speed = 400
 var screen_size
@@ -71,6 +72,7 @@ func _on_control_kill():
 	hit_increment = 0
 	$AnimatedSprite2D.animation ="die"
 	dead = true
+	emit_signal("game_over")
 		
 
 
