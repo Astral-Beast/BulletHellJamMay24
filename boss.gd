@@ -20,6 +20,8 @@ enum spell_cards {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.health = 1500
+	$HealthBar.max_value = health
+	$HealthBar.value = health
 	self.spell_card = spell_cards.SPELL_CARD_ONE
 	pass # Replace with function body.
 
@@ -37,16 +39,18 @@ func _on_shoot_timer_timeout():
 	match self.spell_card:
 		self.spell_cards.SPELL_CARD_ONE:
 			spell_card_one()
-		spell_cards.PAUSE:
-			print("paused")
+
+func _on_foe_take_damage() -> void:
+	self.health-=1
+	$HealthBar.value-=1
+	if self.health <0:
+		die()
+
 
 func spell_card_one():
 	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM)
 	spiral_shot(syringe, Enums.Shot_Movement.CONSTANT)
 	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, 10)
-
-func spell_card_pause():
-	pass
 
 func _on_spell_card_timer_timeout() -> void:
 	match spell_card:
