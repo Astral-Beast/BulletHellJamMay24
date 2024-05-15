@@ -1,32 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://wsm1qqdalivd"]
+[gd_scene load_steps=2 format=3 uid="uid://wsm1qqdalivd"]
 
-[ext_resource type="Script" path="res://src/Scripts/Game.gd" id="1_1q0xx"]
-[ext_resource type="PackedScene" path="res://src/scenes/textbox.tscn" id="3_65u43"]
-[ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_y2ri6"]
-[ext_resource type="PackedScene" uid="uid://f3mu8k1ddf53" path="res://src/scenes/path_left_to_right.tscn" id="4_ywnus"]
+[ext_resource type="PackedScene" uid="uid://b8m0ond22wcf0" path="res://src/scenes/game.tscn" id="1_6xyhh"]
 
 [node name="Root" type="Node"]
 
-[node name="Game" type="Node2D" parent="."]
-position = Vector2(0, -4)
-script = ExtResource("1_1q0xx")
-
-[node name="Spawn_Pause_Timer" type="Timer" parent="Game" groups=["Pause_Spawn"]]
-
-[node name="Mob_Spawner" type="Timer" parent="Game" groups=["Mob_Spawn_Timer"]]
-wait_time = 3.0
-autostart = true
-
-[node name="textbox" parent="Game" instance=ExtResource("3_65u43")]
-
-[node name="Player" parent="Game" groups=["Player"] instance=ExtResource("3_y2ri6")]
-position = Vector2(819, 577)
-
-[node name="path_left_to_right" parent="Game" instance=ExtResource("4_ywnus")]
-
-[connection signal="timeout" from="Game/Spawn_Pause_Timer" to="Game" method="_on_spawn_pause_timer_timeout"]
-[connection signal="timeout" from="Game/Mob_Spawner" to="Game" method="_on_mob_spawner_timeout"]
-[connection signal="area_entered" from="Game/Player" to="Game/Player" method="_on_area_entered"]
-[connection signal="game_over" from="Game/Player" to="Game" method="_on_player_game_over"]
-[connection signal="hit" from="Game/Player" to="Game" method="_on_player_hit"]
-[connection signal="throw_banana" from="Game/Player" to="Game" method="_on_player_throw_banana"]
+[node name="Game" parent="." instance=ExtResource("1_6xyhh")]

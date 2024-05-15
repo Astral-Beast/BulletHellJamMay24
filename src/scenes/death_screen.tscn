@@ -85,3 +85,5 @@ label_settings = ExtResource("1_mo5rp")
 position = Vector2(799, 263)
 scale = Vector2(5, 5)
 texture = ExtResource("2_xudkm")
+
+[connection signal="pressed" from="CanvasLayer/PlayAgain" to="." method="_on_play_again_pressed"]
