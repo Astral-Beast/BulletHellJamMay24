@@ -6,6 +6,12 @@ signal throw_banana
 var screen_size
 var dead = false
 var hit_increment = 0
+var hit_state = state.VULNERABLE
+
+enum state {
+	IMMUNE, # To bullets
+	VULNERABLE # To bullets
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,18 +59,21 @@ func start(pos):
 	$CollisionShape2D.disabled = false
 
 func _on_area_entered(area):
-	
-	hit_increment += 1
-	hit.emit()
-	$CollisionShape2D.set_deferred("diabled", true)
+	if self.hit_state == state.VULNERABLE:
+		self.hit_state = state.IMMUNE
+		$Immunity_timer.start()
+		hit_increment += 1
+		hit.emit()
+		$CollisionShape2D.set_deferred("diabled", true)
 
 #vvv this is the signal that happens when the final heart goes away, from the control script
 func _on_control_kill():
-	
 	hit_increment = 0
-	
 	$AnimatedSprite2D.animation ="die"
 	dead = true
-	
-	print("add death animation here pls")
-	
+		
+
+
+func _on_immunity_timer_timeout() -> void:
+	$Immunity_timer.stop()
+	self.hit_state = state.VULNERABLE

@@ -130,6 +130,9 @@ position = Vector2(399.5, 203.5)
 scale = Vector2(0.0698614, 0.0801213)
 sprite_frames = SubResource("SpriteFrames_m6mxm")
 
+[node name="Immunity_timer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="hit" from="." to="Control" method="_on_player_hit"]
 [connection signal="kill" from="Control" to="." method="_on_control_kill"]
+[connection signal="timeout" from="Immunity_timer" to="." method="_on_immunity_timer_timeout"]
