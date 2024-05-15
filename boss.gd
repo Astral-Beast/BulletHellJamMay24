@@ -1,16 +1,7 @@
 extends Foe
 class_name Boss
 
-const syringe = preload("res://src/scenes/syringe_bullet.tscn")
-const diamond = preload("res://src/scenes/small_diamond_bullet.tscn")
-const circle_bullet = preload("res://src/scenes/circle_bullet.tscn")
 var spell_card
-
-enum shot_types {
-	SYRINGE,
-	DIAMOND,
-	CIRCLE_BULLET
-}
 
 enum spell_cards {
 	SPELL_CARD_ONE,
@@ -48,9 +39,9 @@ func _on_foe_take_damage() -> void:
 
 
 func spell_card_one():
-	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM)
-	spiral_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM)
-	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, 10)
+	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND)
+	spiral_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.SYRINGE)
+	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 10)
 
 func _on_spell_card_timer_timeout() -> void:
 	match spell_card:

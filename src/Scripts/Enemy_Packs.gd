@@ -3,9 +3,10 @@ const foe_with_path = preload("res://src/scenes/foe_with_path.tscn")
 const boss = preload("res://src/scenes/boss.tscn")
 
 var mob_packs = [
-				[left_homing_1, left_homing_2, left_homing_1, left_homing_2],
+				
+				[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,],
 				[boss_fight]]
-#[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,]
+#[left_homing_1, left_homing_2, left_homing_1, left_homing_2]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -30,7 +31,7 @@ func _process(delta: float) -> void:
 
 func left_homing_1():
 	add_enemy(SIDE_LEFT,SIDE_RIGHT, Enums.Pathing.STRAIGHT_LINES, 
-				Enums.Shot_Pattern.RANDOM, Enums.Shot_Movement.TIMED_HOMING, Enums.Shot_Types.DIAMOND)
+				Enums.Shot_Pattern.RANDOM, Enums.Shot_Movement.TIMED_HOMING, Enums.Shot_Types.CIRCLE_BULLET)
 	return 1.0
 
 func left_homing_2():

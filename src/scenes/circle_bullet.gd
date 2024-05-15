@@ -25,7 +25,7 @@ enum const_pause_aimed_state {
 }
 
 # Visuals attributes
-var shot_type = Enums.Shot_Types.SYRINGE
+var shot_type:Enums.Shot_Types
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,7 +48,6 @@ func _ready():
 			timer.connect("timeout", _begin_movement_pause)
 			add_child(timer)
 			self.state = const_pause_aimed_state.CONST
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

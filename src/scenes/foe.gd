@@ -3,6 +3,9 @@ class_name Foe
 signal hit
 signal shoot
 
+const syringe = preload("res://src/scenes/syringe_bullet.tscn")
+const diamond = preload("res://src/scenes/small_diamond_bullet.tscn")
+const circle_bullet = preload("res://src/scenes/circle_bullet.tscn")
 
 @export var shot_type: PackedScene
 var shot_enum: Enums.Shot_Types
@@ -37,6 +40,14 @@ func _ready():
 	$Foe/AnimatedSprite2D.animation = "idle"
 	$Foe/ShootTimer.wait_time = shoot_timer
 	self.progress_ratio = 0 #starts at the begining of the path2d
+	
+	match shot_enum:
+		Enums.Shot_Types.CIRCLE_BULLET:
+			self.shot_type = circle_bullet
+		Enums.Shot_Types.DIAMOND:
+			self.shot_type = diamond
+		Enums.Shot_Types.SYRINGE:
+			self.shot_type = syringe
 	
 	#shot_pattern = circle_shot_scene #basic shot 
 	
@@ -85,7 +96,7 @@ func start(pos):
 	$CollisionShape2D.disabled = false
 
 func _on_shoot_timer_timeout():
-	
+
 	match foe_shot_pattern:
 		Enums.Shot_Pattern.RANDOM:
 			random_shot()
@@ -98,10 +109,11 @@ func _on_shoot_timer_timeout():
 
 
 
-func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type, num_shots =1):
+func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type,
+					this_shot_type_enum=shot_enum, num_shots =1):
 	for i in num_shots:
 		var shot = this_shot_type.instantiate()
-		shot.shot_type = shot_enum
+		shot.shot_type = this_shot_type_enum
 		shot.movement_type = this_movement_type
 		
 		var theta = randf_range(-PI, PI)
@@ -116,10 +128,11 @@ func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 		get_parent().add_child(shot)
 		
 
-func spiral_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type):
+func spiral_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type, 
+					this_shot_type_enum=shot_enum):
 	var shot = this_shot_type.instantiate()
 	shot.movement_type = this_movement_type
-	shot.shot_type = shot_enum
+	shot.shot_type = this_shot_type_enum
 	var theta = theta_range[counter] / spiral_spread
 	
 	if counter == len(theta_range) - 1:
@@ -138,11 +151,12 @@ func spiral_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 	shot.add_to_group("Enemy_Bullets")
 	get_parent().add_child(shot)
 
-func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type):
+func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type,
+					this_shot_type_enum=shot_enum):
 	for i in range(circle_density):
 		var shot = this_shot_type.instantiate()
 		shot.movement_type = this_movement_type
-		shot.shot_type = shot_enum
+		shot.shot_type = this_shot_type_enum
 		var theta = 2*PI * i / float(circle_density) - PI
 	
 		if counter == len(theta_range) - 1:
@@ -160,10 +174,10 @@ func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 		shot.add_to_group("Enemy_Bullets")
 		get_parent().add_child(shot)
 
-func aimed_shot(this_shot_type = shot_type):
+func aimed_shot(this_shot_type = shot_type, this_shot_type_enum=shot_enum):
 	var shot = this_shot_type.instantiate()
 	shot.movement_type = shot_movement_type
-	shot.shot_type = shot_enum
+	shot.shot_type = this_shot_type_enum
 	var theta = randf_range(-PI, PI)
 	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
 	shot.position = delta_r*get_global_transform().affine_inverse()
@@ -175,7 +189,6 @@ func aimed_shot(this_shot_type = shot_type):
 	get_parent().add_child(shot)
 
 func die():
-	print("die")
 	$Foe.queue_free()
 	pass
 
