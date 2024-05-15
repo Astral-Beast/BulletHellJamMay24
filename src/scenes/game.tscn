@@ -1,12 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8m0ond22wcf0"]
+[gd_scene load_steps=4 format=3 uid="uid://cv3ht25h5jrfe"]
 
-[ext_resource type="Script" path="res://src/Scripts/Game.gd" id="1_esnmb"]
-[ext_resource type="PackedScene" path="res://src/scenes/textbox.tscn" id="2_oalj2"]
+[ext_resource type="Script" path="res://src/Scripts/game.gd" id="1_saebl"]
+[ext_resource type="PackedScene" uid="uid://s1vdrlv4plql" path="res://src/scenes/textbox.tscn" id="2_oalj2"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_hfd40"]
 
 [node name="Game" type="Node2D"]
-position = Vector2(0, -4)
-script = ExtResource("1_esnmb")
+script = ExtResource("1_saebl")
 
 [node name="Spawn_Pause_Timer" type="Timer" parent="." groups=["Pause_Spawn"]]
 
