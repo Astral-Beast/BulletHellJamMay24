@@ -20,3 +20,9 @@ enum Shot_Movement{
 	ZIGZAG,
 	CONST_PAUSE_AIM
 }
+
+enum Shot_Types {
+	SYRINGE,
+	DIAMOND,
+	CIRCLE_BULLET
+}
