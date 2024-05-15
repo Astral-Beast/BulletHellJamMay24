@@ -40,6 +40,7 @@ func add_first_pack():
 func add_enemy(enter_side:Side, exit_side:Side, pathing_type:Enums.Pathing, shot_pattern:Enums.Shot_Pattern, shot_movement):
 	var new_foe = foe_with_path.instantiate()
 	new_foe.initialize(enter_side, exit_side, pathing_type, shot_pattern, shot_movement)
+	new_foe.add_to_group("Enemies")
 	get_parent().add_child(new_foe)
 
 func add_circle_bastards():
@@ -54,6 +55,7 @@ func boss_fight():
 	new_curve.add_point(Vector2(0,0),Vector2(0,0),Vector2(0,0))
 	new_curve.add_point(Vector2(get_viewport_rect().size.x/2, 200), Vector2(0,0), Vector2(0,0))
 	new_path.curve = new_curve
+	new_foe.add_to_group("Enemies")
 	new_path.add_child(new_foe)
 	get_parent().add_child(new_path)
 	

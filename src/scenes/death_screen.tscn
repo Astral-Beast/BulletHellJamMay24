@@ -1,14 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://owaphhaqi7dh"]
+[gd_scene load_steps=8 format=3 uid="uid://owaphhaqi7dh"]
 
 [ext_resource type="LabelSettings" uid="uid://b3r3rqi6h7450" path="res://assets/fonts/Death_screen_labels.tres" id="1_mo5rp"]
+[ext_resource type="Script" path="res://src/Scripts/death_screen.gd" id="1_y4nu3"]
+[ext_resource type="Shader" path="res://src/shaders/death_screen.gdshader" id="2_stbnk"]
 [ext_resource type="Texture2D" uid="uid://bson4v43lilwi" path="res://assets/art/Grave.png" id="2_xudkm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ym2f2"]
+shader = ExtResource("2_stbnk")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nktjf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uk0s6"]
 font_size = 40
 
 [node name="Death Screen" type="Node2D"]
+script = ExtResource("1_y4nu3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Background" type="Sprite2D" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ym2f2")
+position = Vector2(805.75, 461.75)
+scale = Vector2(1612.5, 924.5)
+texture = SubResource("CanvasTexture_nktjf")
 
 [node name="Returned" type="Label" parent="CanvasLayer"]
 anchors_preset = 8
