@@ -102,8 +102,8 @@ func _on_shoot_timer_timeout():
 
 
 
-func random_shot():
-	var shot = shot_type.instantiate()
+func random_shot(this_shot_type = shot_type):
+	var shot = this_shot_type.instantiate()
 	shot.movement_type = shot_movement_type
 	
 	var theta = randf_range(-PI, PI)
@@ -118,8 +118,8 @@ func random_shot():
 	get_parent().add_child(shot)
 	
 
-func spiral_shot():
-	var shot = shot_type.instantiate()
+func spiral_shot(this_shot_type = shot_type):
+	var shot = this_shot_type.instantiate()
 	shot.movement_type = shot_movement_type
 	
 	var theta = theta_range[counter] / spiral_spread
@@ -140,9 +140,9 @@ func spiral_shot():
 	shot.add_to_group("Enemy_Bullets")
 	get_parent().add_child(shot)
 
-func circle_shot():
+func circle_shot(this_shot_type = shot_type):
 	for i in range(circle_density):
-		var shot = shot_type.instantiate()
+		var shot = this_shot_type.instantiate()
 		shot.movement_type = shot_movement_type
 	
 		var theta = 2*PI * i / float(circle_density) - PI
@@ -162,8 +162,8 @@ func circle_shot():
 		shot.add_to_group("Enemy_Bullets")
 		get_parent().add_child(shot)
 
-func aimed_shot():
-	var shot = shot_type.instantiate()
+func aimed_shot(this_shot_type = shot_type):
+	var shot = this_shot_type.instantiate()
 	shot.movement_type = shot_movement_type
 	var theta = randf_range(-PI, PI)
 	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe

@@ -38,8 +38,7 @@ func _on_mob_spawner_timeout() -> void:
 			mob_packs[mob_pack_index].pop_front()
 			if response != null:
 				$Mob_Spawner.stop()
-				$Spawn_Pause_Timer.wait_time = response
-				$Spawn_Pause_Timer.start()
+				$Spawn_Pause_Timer.start(response)
 				return
 		mob_pack_index+=1
 	
@@ -53,7 +52,6 @@ func _on_spawn_pause_timer_timeout() -> void:
 		mob_packs[mob_pack_index].pop_front()
 		if response != null:
 			$Mob_Spawner.stop()
-			$Spawn_Pause_Timer.wait_time = response
-			$Spawn_Pause_Timer.start()
+			$Spawn_Pause_Timer.start(response)
 			return
 		mob_pack_index+=1
