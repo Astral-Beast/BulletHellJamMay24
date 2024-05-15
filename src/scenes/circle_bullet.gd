@@ -24,8 +24,15 @@ enum const_pause_aimed_state {
 	AIMED
 }
 
+# Visuals attributes
+var shot_type = Enums.Shot_Types.SYRINGE
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	match shot_type:
+		Enums.Shot_Types.SYRINGE:
+			var angle_to = self.transform.x.angle_to(velocity)
+			self.rotate(cos(angle_to))
 	match movement_type:
 		Enums.Shot_Movement.TIMED_HOMING:
 			var timer = Timer.new()
@@ -45,7 +52,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
+	match shot_type:
+		Enums.Shot_Types.CIRCLE_BULLET:
+			rotation+=angular_speed*delta
+			self.rotate( delta*angular_speed)
+		Enums.Shot_Types.SYRINGE:
+			var angle_to = self.transform.x.angle_to(velocity)
+			self.rotate(cos(angle_to)*delta*angular_speed)
+					
 	match movement_type:
 		Enums.Shot_Movement.HOMING:
 			var player_location = get_tree().get_nodes_in_group("Player")[0].position

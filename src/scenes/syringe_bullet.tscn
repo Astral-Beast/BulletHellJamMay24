@@ -11,7 +11,7 @@ shader = ExtResource("4_ay8si")
 [sub_resource type="CanvasTexture" id="CanvasTexture_vfbet"]
 
 [node name="syringe_bullet" type="Node2D"]
-position = Vector2(205, 93)
+rotation = 3.14159
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_neyx8")
 metadata/_edit_group_ = true

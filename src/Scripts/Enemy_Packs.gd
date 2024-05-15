@@ -2,9 +2,9 @@ extends Node2D
 const foe_with_path = preload("res://src/scenes/foe_with_path.tscn")
 const boss = preload("res://src/scenes/boss.tscn")
 
-var mob_packs = [[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,]
-				,[boss_fight]]
-
+var mob_packs = [
+				[boss_fight]]
+#[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
