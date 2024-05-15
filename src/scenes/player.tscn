@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7qk4trnkj22s"]
+[gd_scene load_steps=19 format=3 uid="uid://b7qk4trnkj22s"]
 
 [ext_resource type="Script" path="res://src/scenes/Player.gd" id="1_oytln"]
 [ext_resource type="Texture2D" uid="uid://c6qrua36xw8o8" path="res://assets/art/50067.png" id="2_5aonb"]
 [ext_resource type="Script" path="res://src/scenes/heartbox.gd" id="3_b0lwm"]
 [ext_resource type="Texture2D" uid="uid://qqjunceb6ood" path="res://assets/art/heart.png" id="4_pwyaq"]
+[ext_resource type="Shader" path="res://src/shaders/player_hitbox.gdshader" id="5_sih3t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0mkmq"]
 atlas = ExtResource("2_5aonb")
@@ -82,6 +83,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_wmph2"]
 radius = 6.08276
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xc4l8"]
+shader = ExtResource("5_sih3t")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_obo5k"]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_m6mxm"]
 animations = [{
 "frames": [{
@@ -105,6 +111,11 @@ animation = &"die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_wmph2")
+
+[node name="hitbox" type="Sprite2D" parent="CollisionShape2D"]
+material = SubResource("ShaderMaterial_xc4l8")
+scale = Vector2(12, 12)
+texture = SubResource("CanvasTexture_obo5k")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
