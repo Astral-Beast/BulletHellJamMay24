@@ -3,10 +3,9 @@ class_name Foe
 signal hit
 signal shoot
 
-const circle_shot_scene = preload("res://src/scenes/circle_bullet.tscn")
-
 
 @export var shot_type: PackedScene
+var shot_enum: Enums.Shot_Types
 @export var bullet_speed = 200
 @export var spawn_dist_from_foe = 20
 @export var foe_shot_pattern: Enums.Shot_Pattern = Enums.Shot_Pattern.CIRCLE  # random, spiral, or circle
@@ -102,6 +101,7 @@ func _on_shoot_timer_timeout():
 func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type, num_shots =1):
 	for i in num_shots:
 		var shot = this_shot_type.instantiate()
+		shot.shot_type = shot_enum
 		shot.movement_type = this_movement_type
 		
 		var theta = randf_range(-PI, PI)
@@ -119,7 +119,7 @@ func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 func spiral_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type):
 	var shot = this_shot_type.instantiate()
 	shot.movement_type = this_movement_type
-	
+	shot.shot_type = shot_enum
 	var theta = theta_range[counter] / spiral_spread
 	
 	if counter == len(theta_range) - 1:
@@ -142,7 +142,7 @@ func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 	for i in range(circle_density):
 		var shot = this_shot_type.instantiate()
 		shot.movement_type = this_movement_type
-	
+		shot.shot_type = shot_enum
 		var theta = 2*PI * i / float(circle_density) - PI
 	
 		if counter == len(theta_range) - 1:
@@ -163,9 +163,9 @@ func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 func aimed_shot(this_shot_type = shot_type):
 	var shot = this_shot_type.instantiate()
 	shot.movement_type = shot_movement_type
+	shot.shot_type = shot_enum
 	var theta = randf_range(-PI, PI)
 	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
-	
 	shot.position = delta_r*get_global_transform().affine_inverse()
 	var player_global_position = get_tree().get_nodes_in_group("Player")[0].position
 	var shot_global_position = shot.position
