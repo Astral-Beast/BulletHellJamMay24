@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://owaphhaqi7dh"]
+
+[ext_resource type="LabelSettings" uid="uid://b3r3rqi6h7450" path="res://assets/fonts/Death_screen_labels.tres" id="1_mo5rp"]
+[ext_resource type="Texture2D" uid="uid://bson4v43lilwi" path="res://assets/art/Grave.png" id="2_xudkm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uk0s6"]
+font_size = 40
+
+[node name="Death Screen" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Returned" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.0
+offset_top = -75.0
+offset_right = 186.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Returned to Monke"
+label_settings = SubResource("LabelSettings_uk0s6")
+horizontal_alignment = 1
+
+[node name="PlayAgain" type="Button" parent="CanvasLayer"]
+offset_left = 757.0
+offset_top = 621.0
+offset_right = 844.0
+offset_bottom = 652.0
+size_flags_horizontal = 4
+text = "Play again"
+
+[node name="EnemiesKilled" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.5
+offset_top = 103.5
+offset_right = 60.5
+offset_bottom = 126.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Enemies Killed: "
+label_settings = ExtResource("1_mo5rp")
+
+[node name="BossesKilled" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.5
+offset_top = 66.5
+offset_right = 52.5
+offset_bottom = 89.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Bosses Killed:"
+label_settings = ExtResource("1_mo5rp")
+
+[node name="Grave" type="Sprite2D" parent="."]
+position = Vector2(799, 263)
+scale = Vector2(5, 5)
+texture = ExtResource("2_xudkm")
