@@ -81,7 +81,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wmph2"]
-radius = 6.08276
+radius = 3.04138
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xc4l8"]
 shader = ExtResource("5_sih3t")
@@ -114,7 +114,8 @@ shape = SubResource("CircleShape2D_wmph2")
 
 [node name="hitbox" type="Sprite2D" parent="CollisionShape2D"]
 material = SubResource("ShaderMaterial_xc4l8")
-scale = Vector2(12, 12)
+position = Vector2(0.25, 0.25)
+scale = Vector2(6.5, 6.5)
 texture = SubResource("CanvasTexture_obo5k")
 
 [node name="Control" type="Control" parent="."]

@@ -8,9 +8,9 @@ void fragment() {
 	// Called for every pixel the material is visible on.
 	float dist = distance(UV, vec2(.5));
 	if (dist <=.4){
-		COLOR = vec4(1,.2,.5,1);
+		COLOR = vec4(1,1,1,1);
 	} else if (dist <=.5){
-		COLOR = vec4(0,0,1,1);
+		COLOR = vec4(0,0,0,1);
 	} else{
 		COLOR = vec4(0);
 	}
