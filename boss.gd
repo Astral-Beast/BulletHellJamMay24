@@ -5,7 +5,8 @@ var spell_card
 
 enum spell_cards {
 	SPELL_CARD_ONE,
-	PAUSE
+	PAUSE,
+	BIG_ASS_BULLET
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -30,6 +31,8 @@ func _on_shoot_timer_timeout():
 	match self.spell_card:
 		self.spell_cards.SPELL_CARD_ONE:
 			spell_card_one()
+		self.spell_cards.BIG_ASS_BULLET:
+			big_ass_bullet_card()
 
 func _on_foe_take_damage() -> void:
 	self.health-=1
@@ -43,6 +46,11 @@ func spell_card_one():
 	spiral_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.SYRINGE)
 	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 10)
 
+func big_ass_bullet_card():
+	aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
+	circle_shot(syringe, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE)
+	
+
 func _on_spell_card_timer_timeout() -> void:
 	match spell_card:
 		spell_cards.SPELL_CARD_ONE:
@@ -50,5 +58,5 @@ func _on_spell_card_timer_timeout() -> void:
 			spell_card=spell_cards.PAUSE
 		spell_cards.PAUSE:
 			$SpellCardTimer.start(10.0)
-			spell_card = spell_cards.SPELL_CARD_ONE
+			spell_card = spell_cards.BIG_ASS_BULLET
 	

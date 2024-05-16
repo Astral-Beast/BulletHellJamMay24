@@ -6,6 +6,7 @@ signal shoot
 const syringe = preload("res://src/scenes/syringe_bullet.tscn")
 const diamond = preload("res://src/scenes/small_diamond_bullet.tscn")
 const circle_bullet = preload("res://src/scenes/circle_bullet.tscn")
+const big_ass_bullet = preload("res://src/scenes/big_ass_bullet.tscn")
 
 @export var shot_type: PackedScene
 var shot_enum: Enums.Shot_Types
@@ -174,14 +175,15 @@ func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 		shot.add_to_group("Enemy_Bullets")
 		get_parent().add_child(shot)
 
-func aimed_shot(this_shot_type = shot_type, this_shot_type_enum=shot_enum):
+func aimed_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type,
+					this_shot_type_enum=shot_enum):
 	var shot = this_shot_type.instantiate()
 	shot.movement_type = shot_movement_type
 	shot.shot_type = this_shot_type_enum
 	var theta = randf_range(-PI, PI)
 	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
 	shot.position = delta_r*get_global_transform().affine_inverse()
-	var player_global_position = get_tree().get_nodes_in_group("Player")[0].position
+	var player_global_position = get_tree ().get_nodes_in_group("Player")[0].position
 	var shot_global_position = shot.position
 	var velocity = (player_global_position - shot_global_position).normalized()	
 	shot.velocity = velocity * bullet_speed

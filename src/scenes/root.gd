@@ -17,7 +17,6 @@ func _on_new_game():
 	add_child(new_game)
 
 func _on_death_screen():
-	print("here")
 	var death_screen_instance = death_screen.instantiate()
 	death_screen_instance.connect("new_game", _on_new_game)
 	add_child(death_screen_instance)

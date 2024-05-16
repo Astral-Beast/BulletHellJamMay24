@@ -71,3 +71,7 @@ Skip_Text={
 2d_physics/layer_4="Enemy"
 2d_physics/layer_5="Collectible Objects"
 2d_physics/layer_6="Obstacles"
+
+[rendering]
+
+viewport/hdr_2d=true
