@@ -191,7 +191,7 @@ func aimed_shot(this_shot_type = shot_type, this_movement_type = shot_movement_t
 	get_parent().add_child(shot)
 
 func die():
-	$Foe.queue_free()
+	self.queue_free()
 	pass
 
 func _on_foe_take_damage() -> void:
