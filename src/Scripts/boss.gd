@@ -28,11 +28,12 @@ func _process(delta: float) -> void:
 
 func _on_shoot_timer_timeout():
 	# Overrides super class func
-	match self.spell_card:
-		self.spell_cards.SPELL_CARD_ONE:
-			spell_card_one()
-		self.spell_cards.BIG_ASS_BULLET:
-			big_ass_bullet_card()
+	#match self.spell_card:
+		#self.spell_cards.SPELL_CARD_ONE:
+			#spell_card_one()
+		#self.spell_cards.BIG_ASS_BULLET:
+			#big_ass_bullet_card()
+	pass
 
 func _on_foe_take_damage() -> void:
 	self.health-=1

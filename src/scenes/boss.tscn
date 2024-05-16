@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://kmeoatunxi6i"]
 
 [ext_resource type="PackedScene" uid="uid://nio4gkoinqbu" path="res://src/scenes/foe.tscn" id="1_eivsv"]
-[ext_resource type="Script" path="res://src/Scripts/boss.gd" id="2_ijnr4"]
+[ext_resource type="Script" path="res://src/Scripts/boss.gd" id="2_kvuit"]
 
 [node name="Boss" instance=ExtResource("1_eivsv")]
-script = ExtResource("2_ijnr4")
+script = ExtResource("2_kvuit")
 shot_type = null
 
 [node name="Foe" parent="." index="0"]
