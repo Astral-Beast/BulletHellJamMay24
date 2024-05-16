@@ -1,23 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://34dapub8jo7c"]
+[gd_scene load_steps=7 format=3 uid="uid://34dapub8jo7c"]
 
 [ext_resource type="Script" path="res://src/scenes/circle_bullet.gd" id="1_hv85x"]
-[ext_resource type="Shader" path="res://src/shaders/circle_bullet.gdshader" id="2_k4hoe"]
+[ext_resource type="Shader" path="res://src/shaders/big_bullet.gdshader" id="2_qunuc"]
 [ext_resource type="Script" path="res://src/scenes/Sprite2D.gd" id="3_w6atn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o2o0y"]
-shader = ExtResource("2_k4hoe")
+shader = ExtResource("2_qunuc")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_wexcb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_my7ny"]
 radius = 8.0
-
-[sub_resource type="Environment" id="Environment_aicag"]
-background_mode = 3
-glow_enabled = true
-glow_hdr_threshold = 0.6
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_rv4s5"]
 
 [node name="Big_Ass_Bullet" type="Node2D"]
 script = ExtResource("1_hv85x")
@@ -38,7 +31,3 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(10, 10)
 shape = SubResource("CircleShape2D_my7ny")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_aicag")
-camera_attributes = SubResource("CameraAttributesPractical_rv4s5")
