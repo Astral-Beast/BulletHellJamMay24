@@ -24,5 +24,6 @@ enum Shot_Movement{
 enum Shot_Types {
 	SYRINGE,
 	DIAMOND,
-	CIRCLE_BULLET
+	CIRCLE_BULLET,
+	BIG_ASS_BULLET
 }
