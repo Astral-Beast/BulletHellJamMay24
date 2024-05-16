@@ -22,7 +22,7 @@ void vertex() {
 void fragment() {
 	//Called for every pixel the material is visible on.
 	if (UV.y-.15> SineWave(UV.x, TIME)){
-	COLOR = vec4(UV.x,UV.y,sin(UV.x-UV.y), 1);
+	COLOR = vec4(UV.x+75.0,UV.y,sin(UV.x-UV.y+50.0), 1);
 	} else {
 		COLOR = vec4(0,0,0,0);
 	}

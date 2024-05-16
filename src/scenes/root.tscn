@@ -5,6 +5,7 @@
 [sub_resource type="Environment" id="Environment_e6ihu"]
 background_mode = 3
 glow_enabled = true
+glow_normalized = true
 glow_hdr_threshold = 0.6
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_wis43"]

@@ -5,14 +5,18 @@ void vertex() {
 }
 
 void fragment() {
-	// Called for every pixel the material is visible on.
 	float x_diff = distance( UV,vec2(0.5));
-	if (x_diff > .4) {
+	if (x_diff > .4 && x_diff < .5) {
 		COLOR = vec4(0);
 	}
-	else {
-		COLOR = vec4(0.0, 80., 100, .95);
+	else if ( x_diff > .4 ) {
+	vec3 color = vec3(0.0, 80., 100);
+		COLOR = vec4(color, .95);
 	
+	}
+	else {
+		vec3 color = vec3(100, 0.0, 100);
+		COLOR = vec4(color, .95);
 	}
 
 }
