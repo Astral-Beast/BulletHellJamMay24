@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_my7ny"]
 radius = 8.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o2o0y"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_48che"]
 shader = ExtResource("1_4c33k")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_wexcb"]
@@ -25,7 +25,7 @@ collision_mask = 0
 shape = SubResource("CircleShape2D_my7ny")
 
 [node name="bullet_sprite" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_o2o0y")
+material = SubResource("ShaderMaterial_48che")
 position = Vector2(0.500043, 1.57952e-06)
 scale = Vector2(21, 20)
 texture = SubResource("CanvasTexture_wexcb")

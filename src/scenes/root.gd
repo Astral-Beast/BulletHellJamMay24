@@ -4,6 +4,7 @@ const game = preload("res://src/scenes/game.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("starting")
 	_on_new_game()
 
 
