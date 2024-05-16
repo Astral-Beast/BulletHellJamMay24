@@ -22,5 +22,12 @@ offset_bottom = 105.0
 scale = Vector2(1, 1.071)
 max_value = 1500.0
 step = 1.0
+fill_mode = 1
+show_percentage = false
+
+[node name="TimeoutTimer" type="Timer" parent="." index="3"]
+wait_time = 90.0
+autostart = true
 
 [connection signal="timeout" from="SpellCardTimer" to="." method="_on_spell_card_timer_timeout"]
+[connection signal="timeout" from="TimeoutTimer" to="." method="_on_timeout_timer_timeout"]

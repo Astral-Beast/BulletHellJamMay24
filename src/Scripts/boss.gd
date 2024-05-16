@@ -60,4 +60,12 @@ func _on_spell_card_timer_timeout() -> void:
 		spell_cards.PAUSE:
 			$SpellCardTimer.start(10.0)
 			spell_card = spell_cards.BIG_ASS_BULLET
+
+
+func _on_timeout_timer_timeout() -> void:
+	print("here")
+	get_parent().curve.clear_points()
+	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
+	get_parent().curve.add_point(Vector2(get_viewport_rect().size.x+100, 200), Vector2(0,0), Vector2(0,0))
+	self.progress_ratio = 0
 	
