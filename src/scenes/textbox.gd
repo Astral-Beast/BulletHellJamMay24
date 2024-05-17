@@ -20,8 +20,8 @@ func _ready():
 	hide_textbox()
 	queue_text("I hate this place. I hate living in a zoo, where my whole purpose is to be stared at by curious onlookers.")
 	queue_text("I need to get out.")
-	queue_text("Take this, cage!")
-	queue_text("I'm free!")
+	queue_text("You zookeepers can't hold me back!!!!!")
+	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

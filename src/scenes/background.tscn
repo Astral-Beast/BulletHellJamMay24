@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc1jluiwylexp"]
+
+[ext_resource type="Shader" path="res://src/scenes/root.gdshader" id="1_gbkyo"]
+[ext_resource type="Texture2D" uid="uid://dedqpsqhpn282" path="res://assets/art/background.png" id="2_sfsmq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pjc0d"]
+shader = ExtResource("1_gbkyo")
+
+[node name="Background" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_pjc0d")
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_sfsmq")
