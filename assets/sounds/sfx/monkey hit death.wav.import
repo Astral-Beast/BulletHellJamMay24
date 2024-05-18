@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://n0l68sex64ut"
+path="res://.godot/imported/monkey hit death.wav-f71ce84f06d10baa136edb46281a6525.sample"
+
+[deps]
+
+source_file="res://assets/sounds/sfx/monkey hit death.wav"
+dest_files=["res://.godot/imported/monkey hit death.wav-f71ce84f06d10baa136edb46281a6525.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

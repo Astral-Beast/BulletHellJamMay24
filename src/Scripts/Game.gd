@@ -3,6 +3,7 @@ const banana = preload("res://src/scenes/banana.tscn")
 
 signal game_over
 
+var sound_count = 0
 var mob_packs = []
 var mob_pack_index = 0
 # Called when the node enters the scene tree for the first time.
@@ -14,9 +15,8 @@ func _process(delta):
 	pass
 
 func _on_player_hit():
-	#TODO Add sound?
+	$player_sfx_handler.play()
 	cull_projectiles()
-
 
 func cull_projectiles():
 	# Gets all on screen bullets and queuefrees them
@@ -36,10 +36,16 @@ func _on_player_throw_banana():
 	var new_banana = banana.instantiate()
 	new_banana.position = Vector2($Player.position.x, $Player.position.y-40)
 	#new_banana.connect("banana_hit", _banana_hit)
+	if $player_sfx_handler_banana.get_playback_position() < 0.17 && sound_count <= 5:
+		sound_count += 1
+	else:
+		$player_sfx_handler_banana.play(0)
+		sound_count = 0
 	add_child(new_banana)
 
 
 func _on_mob_spawner_timeout() -> void:
+	
 	if mob_pack_index < len(mob_packs):
 		for pack in mob_packs[mob_pack_index]:
 			var response = pack.call()
@@ -66,12 +72,11 @@ func _on_spawn_pause_timer_timeout() -> void:
 
 
 func _on_player_game_over() -> void:
-	emit_signal("game_over")
+
 	
+	emit_signal("game_over")
 	cull_all()
 	queue_free()
 	
-
-
 func _on_music_finished():
 	$music.play()

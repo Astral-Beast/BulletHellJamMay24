@@ -2,6 +2,7 @@ extends PathFollow2D
 class_name Foe
 signal hit
 signal shoot
+signal death_sfx
 
 const syringe = preload("res://src/scenes/syringe_bullet.tscn")
 const diamond = preload("res://src/scenes/small_diamond_bullet.tscn")
@@ -34,7 +35,6 @@ enum Movement {
 var counter: int = 0
 var theta_range = range(-PI*spiral_spread, PI*spiral_spread, 1)
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Foe/AnimatedSprite2D.play()
@@ -52,8 +52,6 @@ func _ready():
 	
 	#shot_pattern = circle_shot_scene #basic shot 
 	
-
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	match self.pathing_type:
@@ -127,6 +125,7 @@ func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 		shot.velocity = velocity * bullet_speed
 		shot.add_to_group("Enemy_Bullets")
 		get_parent().add_child(shot)
+		$foe_audio_shot.play()
 		
 
 func spiral_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type, 
@@ -151,6 +150,7 @@ func spiral_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 	shot.velocity = velocity * bullet_speed
 	shot.add_to_group("Enemy_Bullets")
 	get_parent().add_child(shot)
+	$foe_audio_shot.play()
 
 func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type,
 					this_shot_type_enum=shot_enum):
@@ -174,6 +174,7 @@ func circle_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 		shot.velocity = velocity * bullet_speed
 		shot.add_to_group("Enemy_Bullets")
 		get_parent().add_child(shot)
+		$foe_audio_shot.play()
 
 func aimed_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type,
 					this_shot_type_enum=shot_enum):
@@ -189,17 +190,21 @@ func aimed_shot(this_shot_type = shot_type, this_movement_type = shot_movement_t
 	shot.velocity = velocity * bullet_speed
 	shot.add_to_group("Enemy_Bullets")
 	get_parent().add_child(shot)
+	$foe_audio_shot.play()
 
 func die():
+	death_sfx.emit()
+	await get_tree().create_timer(1.22).timeout
 	self.queue_free()
 	pass
 
 func _on_foe_take_damage() -> void:
 	self.health-=1
 	if self.health <0:
+		$Foe/ShootTimer.wait_time = 9999
+		$Foe/CollisionShape2D.queue_free()
+		$Foe/AnimatedSprite2D.queue_free()
 		die()
-
-
-
+		
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()

@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://cv3ht25h5jrfe"]
+[gd_scene load_steps=7 format=3 uid="uid://cv3ht25h5jrfe"]
 
 [ext_resource type="Script" path="res://src/Scripts/game.gd" id="1_saebl"]
 [ext_resource type="PackedScene" uid="uid://s1vdrlv4plql" path="res://src/scenes/textbox.tscn" id="2_oalj2"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_hfd40"]
 [ext_resource type="PackedScene" uid="uid://b751xtyy7y8g8" path="res://src/scenes/music.tscn" id="4_vfoa6"]
+[ext_resource type="AudioStream" uid="uid://cdmrak7qjjsxa" path="res://assets/sounds/sfx/player shoot.wav" id="6_hmc3a"]
+[ext_resource type="AudioStream" uid="uid://n0l68sex64ut" path="res://assets/sounds/sfx/monkey hit death.wav" id="7_w7so8"]
 
-[node name="Game" type="Node2D"]
+[node name="game" type="Node2D"]
 script = ExtResource("1_saebl")
 
 [node name="Spawn_Pause_Timer" type="Timer" parent="." groups=["Pause_Spawn"]]
@@ -20,6 +22,15 @@ autostart = true
 position = Vector2(819, 577)
 
 [node name="music" parent="." instance=ExtResource("4_vfoa6")]
+volume_db = -5.523
+
+[node name="player_sfx_handler" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_w7so8")
+volume_db = -1.686
+
+[node name="player_sfx_handler_banana" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_hmc3a")
+volume_db = -7.87
 
 [connection signal="timeout" from="Spawn_Pause_Timer" to="." method="_on_spawn_pause_timer_timeout"]
 [connection signal="timeout" from="Mob_Spawner" to="." method="_on_mob_spawner_timeout"]

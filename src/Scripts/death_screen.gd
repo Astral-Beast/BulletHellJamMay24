@@ -14,4 +14,3 @@ func _process(delta: float) -> void:
 func _on_play_again_pressed() -> void:
 	emit_signal("new_game")
 	queue_free()
-

@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://nio4gkoinqbu"]
+[gd_scene load_steps=11 format=3 uid="uid://nio4gkoinqbu"]
 
 [ext_resource type="Script" path="res://src/scenes/foe.gd" id="1_r30vb"]
 [ext_resource type="PackedScene" uid="uid://b7g5yji46jlvu" path="res://src/scenes/small_diamond_bullet.tscn" id="2_41gyd"]
 [ext_resource type="Texture2D" uid="uid://d4mt08tk45h0u" path="res://assets/art/foe1.png" id="3_8ftrg"]
+[ext_resource type="AudioStream" uid="uid://b7w033ai6x038" path="res://assets/sounds/sfx/laser.wav" id="3_qwjs5"]
 [ext_resource type="Script" path="res://src/Scripts/Foe_body.gd" id="3_rsdik"]
 [ext_resource type="Texture2D" uid="uid://poc0k3362ilv" path="res://assets/art/foe2.png" id="4_btrxf"]
+[ext_resource type="Script" path="res://src/scenes/foe_audio.gd" id="6_a4cgx"]
+[ext_resource type="AudioStream" uid="uid://c0vgtfokx2gqq" path="res://assets/sounds/sfx/enemy death sound.wav" id="6_dk8vi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_itb1r"]
 animations = [{
@@ -27,6 +30,15 @@ radius = 14.0357
 rotates = false
 script = ExtResource("1_r30vb")
 shot_type = ExtResource("2_41gyd")
+
+[node name="foe_audio_shot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_qwjs5")
+volume_db = -9.556
+
+[node name="foe_audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_dk8vi")
+volume_db = 2.811
+script = ExtResource("6_a4cgx")
 
 [node name="Foe" type="CharacterBody2D" parent="."]
 collision_layer = 8
@@ -55,6 +67,7 @@ one_shot = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Foe"]
 
+[connection signal="death_sfx" from="." to="foe_audio" method="_on_path_follow_2d_death_sfx"]
 [connection signal="take_damage" from="Foe" to="." method="_on_foe_take_damage"]
 [connection signal="timeout" from="Foe/ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="Foe/ShootTimer" to="Foe" method="_on_shoot_timer_timeout"]
