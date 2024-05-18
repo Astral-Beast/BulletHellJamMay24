@@ -1,13 +1,21 @@
 extends CharacterBody2D
 
 const SPEED = 2000.0
+const horizontal_speed = 500
+var banana_side
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 
 func _physics_process(delta):
 	# Banana go burr
 	velocity.y += SPEED * delta * -1 # -1 makes it go up
+	match banana_side:
+		SIDE_LEFT:
+			velocity.x += delta * horizontal_speed*-1
+		SIDE_RIGHT:
+			velocity.x += delta *horizontal_speed
+			
 	rotation += SPEED * cos( delta ) 
 	move_and_slide()
 	if is_instance_valid(self) and get_slide_collision_count() > 0:

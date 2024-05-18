@@ -1,8 +1,9 @@
 extends Node2D
 const banana = preload("res://src/scenes/banana.tscn")
-
+var rng = RandomNumberGenerator.new()
 signal game_over
 var score:int
+var banana_counter : bool = true
 
 var mob_packs = []
 var mob_pack_index = 0
@@ -42,10 +43,27 @@ func cull_all():
 
 func _on_player_throw_banana():
 	#var vect = get_global_mouse_position() - position
-	var new_banana = banana.instantiate()
+	var new_banana = banana.duplicate().instantiate()
 	new_banana.position = Vector2($Player.position.x, $Player.position.y-40)
-	#new_banana.connect("banana_hit", _banana_hit)
 	add_child(new_banana)
+	if banana_counter :
+		banana_counter = !banana_counter
+		var left_banana = get_banana()
+		left_banana.position = Vector2($Player.position.x-10, $Player.position.y-40)
+		left_banana.banana_side = SIDE_LEFT
+		print(left_banana)
+		add_child(left_banana)
+		var right_banana = get_banana()
+		right_banana.position = Vector2($Player.position.x-10, $Player.position.y-40)
+		right_banana.banana_side = SIDE_RIGHT
+		print(right_banana)
+		add_child(right_banana)
+	else: 
+		banana_counter = !banana_counter
+
+func get_banana():
+	var nanner = banana.duplicate().instantiate()
+	return nanner
 
 
 func _on_mob_spawner_timeout() -> void:
