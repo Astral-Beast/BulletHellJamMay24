@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 			progress_ratio = 1.0
 			$SpellCardTimer.start(spell_card_length)
 			
-			self.spell_card = self.spell_cards.CLAUSTROPHOBIA
+			self.spell_card = self.spell_cards.BIG_ASS_BULLET
 			$Foe/ShootTimer.start(.05)
 			$Foe/ShootTimer2.start(.05)
 			$Foe/ShootTimer3.start(.05)
@@ -61,7 +61,7 @@ func get_new_move_curve():
 	var vp_size = get_viewport_rect().size
 	get_parent().curve.clear_points()
 	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
-	get_parent().curve.add_point(Vector2( rng.randf_range( 3*vp_size.x/7 , 5 * vp_size.x/7), rng.randf_range(0, vp_size.y/4)), Vector2(0,0), Vector2(0,0))
+	get_parent().curve.add_point(Vector2( rng.randf_range( 2*vp_size.x/7 , 4 * vp_size.x/7), rng.randf_range(0, vp_size.y/4)), Vector2(0,0), Vector2(0,0))
 	self.progress_ratio = 0
 
 func move_to_center():
@@ -78,7 +78,6 @@ func _on_foe_take_damage() -> void:
 		progress_spellcards()
 
 func chaotic_tracked(part):
-	
 	match part:
 		self.parts.ONE:
 			$Foe/ShootTimer.start(1)
@@ -108,12 +107,13 @@ func big_ass_bullet_card(part):
 			$Foe/ShootTimer.start(1)
 			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 		self.parts.TWO:
-			$Foe/ShootTimer2.start(.5)
+			$Foe/ShootTimer2.start(.7)
 			circle_shot(syringe, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE)
 		self.parts.THREE:
 			pass
 
 func claustrophobia(part):
+	$MoveTimer.stop()
 	move_to_center()
 	match part:
 		self.parts.ONE:
@@ -141,34 +141,31 @@ func progress_spellcards() -> void:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
-			$HealthBar.value = self.health
 		spell_cards.RAIN_FROM_ABOVE:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
-			$HealthBar.value = self.health
 		spell_cards.CLAUSTROPHOBIA:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
 			$HealthBar.value = self.health
 		spell_cards.PAUSE:
+			$MoveTimer.start(3)
 			spell_card_idx += 1
 			if spell_card_idx % 2 == 0:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.BIG_ASS_BULLET
-				self.health = 1000
+				self.health = 750
 				$HealthBar.value = self.health
 			elif spell_card_idx == 1:
 				$SpellCardTimer.start(spell_card_length)
-				#spell_card = spell_cards.CLAUSTROPHOBIA
-				spell_card = spell_cards.RAIN_FROM_ABOVE
+				spell_card = spell_cards.CLAUSTROPHOBIA
 				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 3:
 				$SpellCardTimer.start(spell_card_length)
-				#spell_card = spell_cards.RAIN_FROM_ABOVE
-				spell_card = spell_cards.CHAOTIC_TRACKED
+				spell_card = spell_cards.RAIN_FROM_ABOVE
 				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 5:
@@ -178,7 +175,7 @@ func progress_spellcards() -> void:
 				$HealthBar.value = self.health
 			elif spell_card_idx == 7:
 				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.PAUSE # This one should be swapped
+				spell_card = spell_cards.PAUSE # Swap with another
 				self.health = 1000
 				$HealthBar.value = self.health
 			else:
