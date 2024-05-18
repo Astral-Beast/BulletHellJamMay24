@@ -10,6 +10,7 @@ shader = ExtResource("2_vv2xq")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_l5dha"]
 diffuse_texture = ExtResource("2_4wyem")
+specular_color = Color(0.0394741, 0.650528, 0.687122, 1)
 
 [node name="small_diamond_bullet" type="Node2D"]
 position = Vector2(20, 13)
