@@ -79,7 +79,7 @@ func rain_from_above(part):
 			$Foe/ShootTimer.start(.02)
 			sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
 		self.parts.TWO:
-			$Foe/ShootTimer2.start(.05)
+			$Foe/ShootTimer2.start(.1)
 			inverted_fan_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND, 100, PI/8)
 		self.parts.THREE:
 			$Foe/ShootTimer3.start(2)
