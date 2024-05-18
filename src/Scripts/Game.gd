@@ -9,11 +9,15 @@ var mob_pack_index = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mob_packs = EnemyPacks.mob_packs
-	score = 0
+	score = -1
 	_on_score_increase()
+	SignalManager.connect("score_increase", _on_score_increase)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#child_entered_tree.connect(_on_score_increase)
+	print(get_signal_connection_list("score_increase"))
 	pass
 
 func _on_player_hit():
