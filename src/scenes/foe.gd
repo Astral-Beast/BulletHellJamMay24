@@ -14,12 +14,14 @@ var shot_enum: Enums.Shot_Types
 @export var bullet_speed = 200
 @export var spawn_dist_from_foe = 20
 @export var foe_shot_pattern: Enums.Shot_Pattern = Enums.Shot_Pattern.CIRCLE  # random, spiral, or circle
+@export var foe_shot_pattern2: Enums.Shot_Pattern = Enums.Shot_Pattern.CIRCLE  # random, spiral, or circle
+@export var foe_shot_pattern3: Enums.Shot_Pattern = Enums.Shot_Pattern.CIRCLE  # random, spiral, or circle
 @export var spiral_spread: float = 3
 @export var circle_density: int = 30
 @export var shot_movement_type: Enums.Shot_Movement = Enums.Shot_Movement.CONSTANT # constant or aimed
 @export var shoot_timer: float = 0.5
 @export var health: int = 10
-@export var SPEED:float = .1
+@export var SPEED:float = 1
 
 ## Pathing vars
 @export var side_exit:Side
@@ -205,3 +207,33 @@ func _on_foe_take_damage() -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
+
+
+func _on_shoot_timer_2_timeout():
+
+	match foe_shot_pattern2:
+		Enums.Shot_Pattern.RANDOM:
+			random_shot()
+		Enums.Shot_Pattern.SPIRAL:
+			spiral_shot()
+		Enums.Shot_Pattern.CIRCLE:
+			circle_shot()
+		Enums.Shot_Pattern.AIMED:
+			aimed_shot()
+		Enums.Shot_Pattern.NONE:
+			pass
+
+
+func _on_shoot_timer_3_timeout():
+
+	match foe_shot_pattern3:
+		Enums.Shot_Pattern.RANDOM:
+			random_shot()
+		Enums.Shot_Pattern.SPIRAL:
+			spiral_shot()
+		Enums.Shot_Pattern.CIRCLE:
+			circle_shot()
+		Enums.Shot_Pattern.AIMED:
+			aimed_shot()
+		Enums.Shot_Pattern.NONE:
+			pass

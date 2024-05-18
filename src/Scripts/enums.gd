@@ -9,7 +9,8 @@ enum Shot_Pattern{
 	CIRCLE,
 	SPIRAL,
 	RANDOM, 
-	AIMED
+	AIMED,
+	NONE
 }
 
 enum Shot_Movement{
