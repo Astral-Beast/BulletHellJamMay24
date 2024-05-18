@@ -94,13 +94,13 @@ func rain_from_above(part):
 	match part:
 		self.parts.ONE:
 			$Foe/ShootTimer.start(.02)
-			#sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
+			sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
 		self.parts.TWO:
 			$Foe/ShootTimer2.start(.1)
 			inverted_fan_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND, 100, PI/8)
 		self.parts.THREE:
 			$Foe/ShootTimer3.start(2)
-			#aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
+			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 
 func big_ass_bullet_card(part):
 	match part:
@@ -138,6 +138,9 @@ func _on_spell_card_timer_timeout() -> void:
 		spell_cards.RAIN_FROM_ABOVE:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
+		spell_cards.CLAUSTROPHOBIA:
+			$SpellCardTimer.start(2.0)
+			spell_card=spell_cards.PAUSE
 		spell_cards.PAUSE:
 			spell_card_idx += 1
 			if spell_card_idx % 2 == 0:
@@ -145,16 +148,18 @@ func _on_spell_card_timer_timeout() -> void:
 				spell_card = spell_cards.BIG_ASS_BULLET
 			elif spell_card_idx == 1:
 				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.CHAOTIC_TRACKED
+				#spell_card = spell_cards.CLAUSTROPHOBIA
+				spell_card = spell_cards.RAIN_FROM_ABOVE
 			elif spell_card_idx == 3:
 				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.RAIN_FROM_ABOVE
+				#spell_card = spell_cards.RAIN_FROM_ABOVE
+				spell_card = spell_cards.CHAOTIC_TRACKED
 			elif spell_card_idx == 5:
 				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.RAIN_FROM_ABOVE
+				spell_card = spell_cards.CHAOTIC_TRACKED
 			elif spell_card_idx == 7:
 				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.RAIN_FROM_ABOVE
+				spell_card = spell_cards.PAUSE # This one should be swapped
 			else:
 				die()
 				

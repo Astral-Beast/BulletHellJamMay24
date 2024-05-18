@@ -23,7 +23,7 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2(1, 0)
 rotation = 2.43852
-polygon = PackedVector2Array(10.5263, -18.6063, 17.3921, -12.7873, -0.0650577, 7.80998, -15.4012, 19.7181, -6.16795, 2.63749)
+polygon = PackedVector2Array(5.82375, -12.5422, 12.4352, -6.9386, -0.0650577, 7.80998, -15.4012, 19.7181, -6.16795, 2.63749)
 
 [node name="bullet_sprite" type="Sprite2D" parent="."]
 z_index = 1
