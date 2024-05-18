@@ -31,7 +31,6 @@ func _process(delta: float) -> void:
 		match self.spell_card:
 			self.spell_cards.PAUSE_UNTIL_RATIO_100:
 				self.spell_card = self.spell_cards.SPELL_CARD_ONE
-				print("here")
 				$Foe/ShootTimer.start()
 		get_parent().curve.clear_points()
 
@@ -74,7 +73,6 @@ func _on_spell_card_timer_timeout() -> void:
 
 
 func _on_timeout_timer_timeout() -> void:
-	print("here")
 	get_parent().curve.clear_points()
 	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
 	get_parent().curve.add_point(Vector2(get_viewport_rect().size.x+100, 200), Vector2(0,0), Vector2(0,0))
