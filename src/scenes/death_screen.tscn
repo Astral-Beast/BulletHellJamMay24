@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://owaphhaqi7dh"]
+[gd_scene load_steps=9 format=3 uid="uid://owaphhaqi7dh"]
 
 [ext_resource type="LabelSettings" uid="uid://b3r3rqi6h7450" path="res://assets/fonts/Death_screen_labels.tres" id="1_mo5rp"]
 [ext_resource type="Script" path="res://src/Scripts/death_screen.gd" id="1_y4nu3"]
 [ext_resource type="Shader" path="res://src/shaders/death_screen.gdshader" id="2_stbnk"]
 [ext_resource type="Texture2D" uid="uid://bson4v43lilwi" path="res://assets/art/Grave.png" id="2_xudkm"]
+[ext_resource type="AudioStream" uid="uid://doay07ba81oph" path="res://assets/sounds/music/death music.wav" id="5_xwx3s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ym2f2"]
 shader = ExtResource("2_stbnk")
@@ -86,5 +87,10 @@ label_settings = ExtResource("1_mo5rp")
 position = Vector2(799, 263)
 scale = Vector2(5, 5)
 texture = ExtResource("2_xudkm")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_priority = 1
+stream = ExtResource("5_xwx3s")
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/PlayAgain" to="." method="_on_play_again_pressed"]

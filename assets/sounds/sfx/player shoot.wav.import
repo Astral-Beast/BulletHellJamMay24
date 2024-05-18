@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cdmrak7qjjsxa"
+path="res://.godot/imported/player shoot.wav-d3e99e1f1a1f79eb54db7fad44a1eb2e.sample"
+
+[deps]
+
+source_file="res://assets/sounds/sfx/player shoot.wav"
+dest_files=["res://.godot/imported/player shoot.wav-d3e99e1f1a1f79eb54db7fad44a1eb2e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
