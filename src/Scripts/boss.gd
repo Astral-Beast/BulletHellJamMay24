@@ -1,6 +1,7 @@
 extends Foe
 class_name Boss
 
+var inc: float = 0.0
 var spell_card
 var rng = RandomNumberGenerator.new()
 var first_move:bool = true
@@ -9,10 +10,11 @@ var base_card_idx: int
 var spell_card_length: float = 15.0
 
 enum spell_cards {
-	BASIC_SPELL,
+	CHAOTIC_TRACKED,
 	PAUSE,
 	BIG_ASS_BULLET,
 	RAIN_FROM_ABOVE,
+	CLAUSTROPHOBIA,
 	PAUSE_UNTIL_RATIO_100
 }
 
@@ -28,12 +30,14 @@ func _ready() -> void:
 	self.health = 1500
 	$HealthBar.max_value = health
 	$HealthBar.value = health
-	self.spell_card = spell_cards.RAIN_FROM_ABOVE
-	#self.spell_card = spell_cards.BASIC_SPELL
+	self.spell_card = spell_cards.CLAUSTROPHOBIA
+	#self.spell_card = spell_cards.RAIN_FROM_ABOVE
+	#self.spell_card = spell_cards.CHAOTIC_TRACKED
 	$Foe/ShootTimer.stop()
 	first_move = true
 	spell_card_idx = 0
 	base_card_idx = 0
+	inc = 10.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -43,7 +47,7 @@ func _process(delta: float) -> void:
 			progress_ratio = 1.0
 			$SpellCardTimer.start(spell_card_length)
 			
-			self.spell_card = self.spell_cards.BIG_ASS_BULLET
+			self.spell_card = self.spell_cards.CLAUSTROPHOBIA
 			$Foe/ShootTimer.start(.05)
 			$Foe/ShootTimer2.start(.05)
 			$Foe/ShootTimer3.start(.05)
@@ -60,13 +64,20 @@ func get_new_move_curve():
 	get_parent().curve.add_point(Vector2( rng.randf_range( 3*vp_size.x/7 , 5 * vp_size.x/7), rng.randf_range(0, vp_size.y/4)), Vector2(0,0), Vector2(0,0))
 	self.progress_ratio = 0
 
+func move_to_center():
+	var vp_size = get_viewport_rect().size
+	get_parent().curve.clear_points()
+	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
+	get_parent().curve.add_point(Vector2(vp_size.x / 2, vp_size.y / 4), Vector2(0,0), Vector2(0,0))
+	$MoveTimer.stop()
+
 func _on_foe_take_damage() -> void:
 	self.health-=1
 	$HealthBar.value-=1
 	if self.health <0:
 		die()
 
-func basic_spell(part):
+func chaotic_tracked(part):
 	
 	match part:
 		self.parts.ONE:
@@ -83,13 +94,13 @@ func rain_from_above(part):
 	match part:
 		self.parts.ONE:
 			$Foe/ShootTimer.start(.02)
-			sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
+			#sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
 		self.parts.TWO:
 			$Foe/ShootTimer2.start(.1)
 			inverted_fan_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND, 100, PI/8)
 		self.parts.THREE:
 			$Foe/ShootTimer3.start(2)
-			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
+			#aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 
 func big_ass_bullet_card(part):
 	match part:
@@ -102,9 +113,23 @@ func big_ass_bullet_card(part):
 		self.parts.THREE:
 			pass
 
+func claustrophobia(part):
+	move_to_center()
+	match part:
+		self.parts.ONE:
+			$Foe/ShootTimer.start(.02)
+			#sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
+		self.parts.TWO:
+			$Foe/ShootTimer2.start(.5)
+			inc += 1
+			inverted_fan_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 100, PI/inc)
+		self.parts.THREE:
+			$Foe/ShootTimer3.start(.2)
+			aimed_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND)
+
 func _on_spell_card_timer_timeout() -> void:
 	match spell_card:
-		spell_cards.BASIC_SPELL:
+		spell_cards.CHAOTIC_TRACKED:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
 		spell_cards.BIG_ASS_BULLET:
@@ -120,7 +145,7 @@ func _on_spell_card_timer_timeout() -> void:
 				spell_card = spell_cards.BIG_ASS_BULLET
 			elif spell_card_idx == 1:
 				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.BASIC_SPELL
+				spell_card = spell_cards.CHAOTIC_TRACKED
 			elif spell_card_idx == 3:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.RAIN_FROM_ABOVE
@@ -148,32 +173,38 @@ func _on_move_timer_timeout() -> void:
 func _on_shoot_timer_timeout():
 	# Overrides super class func
 	match self.spell_card:
-		self.spell_cards.BASIC_SPELL:
-			basic_spell(parts.ONE)
+		self.spell_cards.CHAOTIC_TRACKED:
+			chaotic_tracked(parts.ONE)
 		self.spell_cards.BIG_ASS_BULLET:
 			big_ass_bullet_card(parts.ONE)
 		self.spell_cards.RAIN_FROM_ABOVE:
 			rain_from_above(parts.ONE)
+		self.spell_cards.CLAUSTROPHOBIA:
+			claustrophobia(parts.ONE)
 	pass
 
 func _on_shoot_timer_2_timeout():
 	# Overrides super class func
 	match self.spell_card:
-		self.spell_cards.BASIC_SPELL:
-			basic_spell(parts.TWO)
+		self.spell_cards.CHAOTIC_TRACKED:
+			chaotic_tracked(parts.TWO)
 		self.spell_cards.BIG_ASS_BULLET:
 			big_ass_bullet_card(parts.TWO)
 		self.spell_cards.RAIN_FROM_ABOVE:
 			rain_from_above(parts.TWO)
+		self.spell_cards.CLAUSTROPHOBIA:
+			claustrophobia(parts.TWO)
 	pass
 
 func _on_shoot_timer_3_timeout():
 	# Overrides super class func
 	match self.spell_card:
-		self.spell_cards.BASIC_SPELL:
-			basic_spell(parts.THREE)
+		self.spell_cards.CHAOTIC_TRACKED:
+			chaotic_tracked(parts.THREE)
 		self.spell_cards.BIG_ASS_BULLET:
 			big_ass_bullet_card(parts.THREE)
 		self.spell_cards.RAIN_FROM_ABOVE:
 			rain_from_above(parts.THREE)
+		self.spell_cards.CLAUSTROPHOBIA:
+			claustrophobia(parts.THREE)
 	pass
