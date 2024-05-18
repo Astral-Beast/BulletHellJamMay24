@@ -26,9 +26,8 @@ show_percentage = false
 wait_time = 90.0
 autostart = true
 
-[node name="MoveTimer" type="Timer" parent="." index="4"]
-wait_time = 3.0
+[node name="Foe" parent="." index="5"]
+scale = Vector2(5, 5)
 
 [connection signal="timeout" from="SpellCardTimer" to="." method="_on_spell_card_timer_timeout"]
 [connection signal="timeout" from="TimeoutTimer" to="." method="_on_timeout_timer_timeout"]
-[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

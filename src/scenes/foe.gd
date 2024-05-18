@@ -303,3 +303,4 @@ func _on_shoot_timer_3_timeout():
 			aimed_shot()
 		Enums.Shot_Pattern.NONE:
 			pass
+
