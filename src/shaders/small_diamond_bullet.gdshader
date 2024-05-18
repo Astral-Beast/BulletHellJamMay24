@@ -10,7 +10,7 @@ void fragment() {
 		//float g = clamp(sin(TIME*UV.y), .7,1.0);
 		//float b = sin(UV.x/2.0);
 		//COLOR = vec4(r+7.0, g+7.0, .7,50.0);
-		COLOR = vec4(.2, 0.5, 0.55, 1);
+		COLOR = vec4(.2, 1, 0.55, 1);
 	}
 	
 	// Called for every pixel the material is visible on.

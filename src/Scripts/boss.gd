@@ -27,7 +27,7 @@ enum parts {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	self.health = 1500
+	self.health = 1000
 	$HealthBar.max_value = health
 	$HealthBar.value = health
 	self.spell_card = spell_cards.CLAUSTROPHOBIA
@@ -75,7 +75,7 @@ func _on_foe_take_damage() -> void:
 	self.health-=1
 	$HealthBar.value-=1
 	if self.health <0:
-		die()
+		progress_spellcards()
 
 func chaotic_tracked(part):
 	
@@ -128,38 +128,59 @@ func claustrophobia(part):
 			aimed_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND)
 
 func _on_spell_card_timer_timeout() -> void:
+	progress_spellcards()
+
+func progress_spellcards() -> void:
 	match spell_card:
 		spell_cards.CHAOTIC_TRACKED:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
+			self.health = 1000
+			$HealthBar.value = self.health
 		spell_cards.BIG_ASS_BULLET:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
+			self.health = 1000
+			$HealthBar.value = self.health
 		spell_cards.RAIN_FROM_ABOVE:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
+			self.health = 1000
+			$HealthBar.value = self.health
 		spell_cards.CLAUSTROPHOBIA:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
+			self.health = 1000
+			$HealthBar.value = self.health
 		spell_cards.PAUSE:
 			spell_card_idx += 1
 			if spell_card_idx % 2 == 0:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.BIG_ASS_BULLET
+				self.health = 1000
+				$HealthBar.value = self.health
 			elif spell_card_idx == 1:
 				$SpellCardTimer.start(spell_card_length)
 				#spell_card = spell_cards.CLAUSTROPHOBIA
 				spell_card = spell_cards.RAIN_FROM_ABOVE
+				self.health = 1000
+				$HealthBar.value = self.health
 			elif spell_card_idx == 3:
 				$SpellCardTimer.start(spell_card_length)
 				#spell_card = spell_cards.RAIN_FROM_ABOVE
 				spell_card = spell_cards.CHAOTIC_TRACKED
+				self.health = 1000
+				$HealthBar.value = self.health
 			elif spell_card_idx == 5:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.CHAOTIC_TRACKED
+				self.health = 1000
+				$HealthBar.value = self.health
 			elif spell_card_idx == 7:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.PAUSE # This one should be swapped
+				self.health = 1000
+				$HealthBar.value = self.health
 			else:
 				die()
 				
