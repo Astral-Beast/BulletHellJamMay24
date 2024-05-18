@@ -35,7 +35,8 @@ func _process(delta: float) -> void:
 	if progress_ratio > .98:
 		progress_ratio = 1.0
 		$SpellCardTimer.start(30)
-		self.spell_card = self.spell_cards.BASIC_SPELL
+		self.spell_card = spell_cards.RAIN_FROM_ABOVE
+		#self.spell_card = self.spell_cards.BASIC_SPELL
 		$Foe/ShootTimer.start(.05)
 		$Foe/ShootTimer2.start(.05)
 		$Foe/ShootTimer3.start(.05)
@@ -49,7 +50,7 @@ func _on_shoot_timer_timeout():
 		self.spell_cards.BIG_ASS_BULLET:
 			big_ass_bullet_card(parts.ONE)
 		self.spell_cards.RAIN_FROM_ABOVE:
-			rain_from_above()
+			rain_from_above(parts.ONE)
 	pass
 
 func _on_foe_take_damage() -> void:
@@ -72,11 +73,17 @@ func basic_spell(part):
 			$Foe/ShootTimer3.start(.1)
 			random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 10)
 
-
-func rain_from_above():
-	#circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND)
-	sweep_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND)
-	random_shot(circle_bullet, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.CIRCLE_BULLET, 10)
+func rain_from_above(part):
+	match part:
+		self.parts.ONE:
+			$Foe/ShootTimer.start(.02)
+			sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
+		self.parts.TWO:
+			$Foe/ShootTimer2.start(.05)
+			inverted_fan_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND, 100, PI/8)
+		self.parts.THREE:
+			$Foe/ShootTimer3.start(2)
+			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 
 func big_ass_bullet_card(part):
 	match part:
@@ -115,6 +122,8 @@ func _on_shoot_timer_2_timeout():
 			basic_spell(parts.TWO)
 		self.spell_cards.BIG_ASS_BULLET:
 			big_ass_bullet_card(parts.TWO)
+		self.spell_cards.RAIN_FROM_ABOVE:
+			rain_from_above(parts.TWO)
 	pass
 
 
@@ -125,4 +134,6 @@ func _on_shoot_timer_3_timeout():
 			basic_spell(parts.THREE)
 		self.spell_cards.BIG_ASS_BULLET:
 			big_ass_bullet_card(parts.THREE)
+		self.spell_cards.RAIN_FROM_ABOVE:
+			rain_from_above(parts.THREE)
 	pass

@@ -18,6 +18,7 @@ var shot_enum: Enums.Shot_Types
 @export var foe_shot_pattern3: Enums.Shot_Pattern = Enums.Shot_Pattern.CIRCLE  # random, spiral, or circle
 @export var spiral_spread: float = 3
 @export var circle_density: int = 30
+@export var inv_fan_density: int = 100
 @export var shot_movement_type: Enums.Shot_Movement = Enums.Shot_Movement.CONSTANT # constant or aimed
 @export var shoot_timer: float = 0.5
 @export var health: int = 10
@@ -226,6 +227,32 @@ func sweep_shot(this_shot_type = shot_type, this_movement_type = shot_movement_t
 	shot.velocity = velocity * bullet_speed
 	shot.add_to_group("Enemy_Bullets")
 	get_parent().add_child(shot)
+
+func fan_shot():
+	pass
+	
+func inverted_fan_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type,
+					this_shot_type_enum=shot_enum, density=self.inv_fan_density, limit=PI/4):
+	for i in range(density):
+		var shot = this_shot_type.instantiate()
+		shot.movement_type = this_movement_type
+		shot.shot_type = this_shot_type_enum
+		var theta = limit + 2*(PI - limit) * i / float(density)
+	
+		if counter == len(theta_range) - 1:
+			counter = 0
+		else:
+			counter += 1
+	
+		var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
+	
+		shot.position = delta_r*get_global_transform().affine_inverse()
+		var bullet_global_position = shot.position*get_global_transform().affine_inverse()
+		var self_global_position = self.position*get_global_transform().affine_inverse()
+		var velocity = (bullet_global_position - self_global_position).normalized()
+		shot.velocity = velocity * bullet_speed
+		shot.add_to_group("Enemy_Bullets")
+		get_parent().add_child(shot)
 
 func die():
 	SignalManager.emit_signal("score_increase")

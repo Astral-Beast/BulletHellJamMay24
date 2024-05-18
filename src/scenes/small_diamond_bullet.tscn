@@ -39,4 +39,7 @@ position = Vector2(11.3333, 1.33333)
 rotation = 2.43852
 polygon = PackedVector2Array(9.30941, 9.63797, 3.98185, 13.8616, 6.76654, 7.48276, 12.5251, 3.18156)
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
 [connection signal="timeout" from="BulletDisappearTimer" to="." method="_on_bullet_disappear_timer_timeout"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
