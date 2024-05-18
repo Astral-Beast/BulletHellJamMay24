@@ -2,6 +2,7 @@ extends PathFollow2D
 class_name Foe
 signal hit
 signal shoot
+signal score_increase
 
 const syringe = preload("res://src/scenes/syringe_bullet.tscn")
 const diamond = preload("res://src/scenes/small_diamond_bullet.tscn")
@@ -191,6 +192,7 @@ func aimed_shot(this_shot_type = shot_type, this_movement_type = shot_movement_t
 	get_parent().add_child(shot)
 
 func die():
+	SignalManager.emit_signal("score_increase")
 	self.queue_free()
 	pass
 

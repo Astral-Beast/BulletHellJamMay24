@@ -44,9 +44,14 @@ func add_first_pack():
 		Enums.Shot_Movement.TIMED_HOMING, Enums.Shot_Types.SYRINGE)
 	return 2.0
 
+func add_signal(entity):
+	#entity.connect("score_increase", get_parent().add_user_signal())
+	pass
+
 func add_enemy(enter_side:Side, exit_side:Side, pathing_type:Enums.Pathing, shot_pattern:Enums.Shot_Pattern, shot_movement, shot_type):
 	var new_foe = foe_with_path.instantiate()
 	new_foe.initialize(enter_side, exit_side, pathing_type, shot_pattern, shot_movement, shot_type)
+	add_signal(new_foe)
 	new_foe.add_to_group("Enemies")
 	get_parent().add_child(new_foe)
 

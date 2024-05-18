@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 func _on_new_game():
 	var new_game = game.instantiate()
 	new_game.connect("game_over", _on_death_screen)
+	add_to_group("Game")
 	add_child(new_game)
 
 func _on_death_screen():
