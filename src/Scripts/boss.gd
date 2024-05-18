@@ -4,6 +4,9 @@ class_name Boss
 var spell_card
 var rng = RandomNumberGenerator.new()
 var first_move:bool = true
+var spell_card_idx: int
+var base_card_idx: int
+var spell_card_length: float = 15.0
 
 enum spell_cards {
 	BASIC_SPELL,
@@ -29,6 +32,8 @@ func _ready() -> void:
 	#self.spell_card = spell_cards.BASIC_SPELL
 	$Foe/ShootTimer.stop()
 	first_move = true
+	spell_card_idx = 0
+	base_card_idx = 0
 	pass # Replace with function body.
 
 
@@ -38,9 +43,9 @@ func _process(delta: float) -> void:
 	if progress_ratio > .98:
 		if first_move:
 			progress_ratio = 1.0
-			$SpellCardTimer.start(30)
+			$SpellCardTimer.start(spell_card_length)
 			
-			self.spell_card = self.spell_cards.RAIN_FROM_ABOVE
+			self.spell_card = self.spell_cards.BIG_ASS_BULLET
 			$Foe/ShootTimer.start(.05)
 			$Foe/ShootTimer2.start(.05)
 			$Foe/ShootTimer3.start(.05)
@@ -63,12 +68,10 @@ func _on_shoot_timer_timeout():
 
 
 func get_new_move_curve():
-	print("here")
 	var vp_size = get_viewport_rect().size
 	get_parent().curve.clear_points()
-	print(self.position.x, " ", self.position.y, "  ", get_parent().curve)
 	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
-	get_parent().curve.add_point(Vector2( rng.randf_range( vp_size.x/3 , 2 * vp_size.x/3), rng.randf_range(0, vp_size.y/3)), Vector2(0,0), Vector2(0,0))
+	get_parent().curve.add_point(Vector2( rng.randf_range( 3*vp_size.x/7 , 5 * vp_size.x/7), rng.randf_range(0, vp_size.y/4)), Vector2(0,0), Vector2(0,0))
 	self.progress_ratio = 0
 
 func _on_foe_take_damage() -> void:
@@ -118,11 +121,31 @@ func big_ass_bullet_card(part):
 func _on_spell_card_timer_timeout() -> void:
 	match spell_card:
 		spell_cards.BASIC_SPELL:
-			$SpellCardTimer.start(30)
+			$SpellCardTimer.start(2.0)
+			spell_card=spell_cards.PAUSE
+		spell_cards.BIG_ASS_BULLET:
+			$SpellCardTimer.start(2.0)
+			spell_card=spell_cards.PAUSE
+		spell_cards.RAIN_FROM_ABOVE:
+			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
 		spell_cards.PAUSE:
-			$SpellCardTimer.start(10.0)
-			spell_card = spell_cards.BIG_ASS_BULLET
+			spell_card_idx += 1
+			if spell_card_idx % 2 == 0:
+				$SpellCardTimer.start(spell_card_length)
+				spell_card = spell_cards.BIG_ASS_BULLET
+			elif spell_card_idx == 1:
+				$SpellCardTimer.start(spell_card_length)
+				spell_card = spell_cards.BASIC_SPELL
+			elif spell_card_idx == 3:
+				$SpellCardTimer.start(spell_card_length)
+				spell_card = spell_cards.RAIN_FROM_ABOVE
+			else:
+				die()
+				
+		spell_cards.PAUSE:
+			$SpellCardTimer.start(2.0)
+			spell_card = spell_cards.PAUSE
 
 
 func _on_timeout_timer_timeout() -> void:
