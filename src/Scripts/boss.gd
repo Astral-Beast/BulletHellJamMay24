@@ -7,7 +7,7 @@ var rng = RandomNumberGenerator.new()
 var first_move:bool = true
 var spell_card_idx: int
 var base_card_idx: int
-var spell_card_length: float = 15.0
+var spell_card_length: float = 30.0
 
 enum spell_cards {
 	CHAOTIC_TRACKED,
@@ -121,7 +121,7 @@ func claustrophobia(part):
 			#sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
 		self.parts.TWO:
 			$Foe/ShootTimer2.start(.5)
-			inc += 1
+			inc += 2
 			inverted_fan_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 100, PI/inc)
 		self.parts.THREE:
 			$Foe/ShootTimer3.start(.2)
