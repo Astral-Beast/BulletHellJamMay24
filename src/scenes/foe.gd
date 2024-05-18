@@ -270,10 +270,9 @@ func _on_foe_take_damage() -> void:
 		$Foe/CollisionShape2D.queue_free()
 		$Foe/AnimatedSprite2D.queue_free()
 		die()
-		
+
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
-
 
 func _on_shoot_timer_2_timeout():
 
@@ -288,7 +287,6 @@ func _on_shoot_timer_2_timeout():
 			aimed_shot()
 		Enums.Shot_Pattern.NONE:
 			pass
-
 
 func _on_shoot_timer_3_timeout():
 

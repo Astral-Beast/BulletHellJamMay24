@@ -34,8 +34,6 @@ func _ready() -> void:
 	first_move = true
 	spell_card_idx = 0
 	base_card_idx = 0
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -55,18 +53,6 @@ func _process(delta: float) -> void:
 			$MoveTimer.start(3)
 			get_parent().curve.clear_points()
 
-func _on_shoot_timer_timeout():
-	# Overrides super class func
-	match self.spell_card:
-		self.spell_cards.BASIC_SPELL:
-			basic_spell(parts.ONE)
-		self.spell_cards.BIG_ASS_BULLET:
-			big_ass_bullet_card(parts.ONE)
-		self.spell_cards.RAIN_FROM_ABOVE:
-			rain_from_above(parts.ONE)
-	pass
-
-
 func get_new_move_curve():
 	var vp_size = get_viewport_rect().size
 	get_parent().curve.clear_points()
@@ -79,7 +65,6 @@ func _on_foe_take_damage() -> void:
 	$HealthBar.value-=1
 	if self.health <0:
 		die()
-
 
 func basic_spell(part):
 	
@@ -116,7 +101,6 @@ func big_ass_bullet_card(part):
 			circle_shot(syringe, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE)
 		self.parts.THREE:
 			pass
-	
 
 func _on_spell_card_timer_timeout() -> void:
 	match spell_card:
@@ -140,6 +124,12 @@ func _on_spell_card_timer_timeout() -> void:
 			elif spell_card_idx == 3:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.RAIN_FROM_ABOVE
+			elif spell_card_idx == 5:
+				$SpellCardTimer.start(spell_card_length)
+				spell_card = spell_cards.RAIN_FROM_ABOVE
+			elif spell_card_idx == 7:
+				$SpellCardTimer.start(spell_card_length)
+				spell_card = spell_cards.RAIN_FROM_ABOVE
 			else:
 				die()
 				
@@ -147,16 +137,24 @@ func _on_spell_card_timer_timeout() -> void:
 			$SpellCardTimer.start(2.0)
 			spell_card = spell_cards.PAUSE
 
-
 func _on_timeout_timer_timeout() -> void:
 	get_parent().curve.add_point(Vector2(get_viewport_rect().size.x+100, 200), Vector2(0,0), Vector2(0,0))
 	self.progress_ratio = 0
-	
-
 
 func _on_move_timer_timeout() -> void:
 	
 	get_new_move_curve()
+
+func _on_shoot_timer_timeout():
+	# Overrides super class func
+	match self.spell_card:
+		self.spell_cards.BASIC_SPELL:
+			basic_spell(parts.ONE)
+		self.spell_cards.BIG_ASS_BULLET:
+			big_ass_bullet_card(parts.ONE)
+		self.spell_cards.RAIN_FROM_ABOVE:
+			rain_from_above(parts.ONE)
+	pass
 
 func _on_shoot_timer_2_timeout():
 	# Overrides super class func
@@ -168,7 +166,6 @@ func _on_shoot_timer_2_timeout():
 		self.spell_cards.RAIN_FROM_ABOVE:
 			rain_from_above(parts.TWO)
 	pass
-
 
 func _on_shoot_timer_3_timeout():
 	# Overrides super class func
