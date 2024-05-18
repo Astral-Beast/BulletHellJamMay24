@@ -28,11 +28,11 @@ func _process(delta: float) -> void:
 
 func _on_shoot_timer_timeout():
 	# Overrides super class func
-	#match self.spell_card:
-		#self.spell_cards.SPELL_CARD_ONE:
-			#spell_card_one()
-		#self.spell_cards.BIG_ASS_BULLET:
-			#big_ass_bullet_card()
+	match self.spell_card:
+		self.spell_cards.SPELL_CARD_ONE:
+			spell_card_one()
+		self.spell_cards.BIG_ASS_BULLET:
+			big_ass_bullet_card()
 	pass
 
 func _on_foe_take_damage() -> void:
@@ -43,11 +43,13 @@ func _on_foe_take_damage() -> void:
 
 
 func spell_card_one():
+	$Foe/ShootTimer.start(.5)
 	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND)
 	spiral_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.SYRINGE)
 	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 10)
 
 func big_ass_bullet_card():
+	$Foe/ShootTimer.start(2)
 	aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 	circle_shot(syringe, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE)
 	
