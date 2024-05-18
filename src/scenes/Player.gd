@@ -35,12 +35,14 @@ func _process(delta):
 		if Input.is_action_pressed("Throw_banana"):
 			emit_signal("throw_banana")
 		
+		
 		if velocity.length() > 0:
 			velocity = velocity.normalized() * speed
 			$AnimatedSprite2D.play()
 		else:
 			$AnimatedSprite2D.play()
-		
+		if Input.is_action_pressed("Slow_Move"):
+			velocity= velocity *.5
 		position += velocity * delta
 		position = position.clamp(Vector2.ZERO, screen_size)
 		

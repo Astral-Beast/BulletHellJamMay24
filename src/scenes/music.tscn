@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b751xtyy7y8g8"]
+
+[ext_resource type="AudioStream" uid="uid://b0kt2rf8yb4ld" path="res://assets/sounds/music/monkey wrench 2.wav" id="1_050pa"]
+
+[node name="music" type="AudioStreamPlayer"]
+stream = ExtResource("1_050pa")
+autoplay = true

@@ -13,8 +13,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
-
 func _on_player_hit():
 	#TODO Add sound?
 	cull_projectiles()
@@ -73,3 +71,7 @@ func _on_player_game_over() -> void:
 	cull_all()
 	queue_free()
 	
+
+
+func _on_music_finished():
+	$music.play()
