@@ -18,7 +18,8 @@ func _on_new_game():
 	add_to_group("Game")
 	add_child(new_game)
 
-func _on_death_screen():
+func _on_death_screen(score):
 	var death_screen_instance = death_screen.instantiate()
 	death_screen_instance.connect("new_game", _on_new_game)
+	death_screen_instance.score = score
 	add_child(death_screen_instance)
