@@ -17,7 +17,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#child_entered_tree.connect(_on_score_increase)
-	print(get_signal_connection_list("score_increase"))
 	pass
 
 func _on_player_hit():

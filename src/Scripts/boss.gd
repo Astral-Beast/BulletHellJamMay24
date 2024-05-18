@@ -2,6 +2,7 @@ extends Foe
 class_name Boss
 
 var spell_card
+var rng = RandomNumberGenerator.new()
 
 enum spell_cards {
 	SPELL_CARD_ONE,
@@ -26,13 +27,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	move(delta)
-	if progress_ratio > .5:
-		progress_ratio = 1.0
+	if progress_ratio > .998:
+		#progress_ratio = 1.0
 		match self.spell_card:
 			self.spell_cards.PAUSE_UNTIL_RATIO_100:
 				self.spell_card = self.spell_cards.SPELL_CARD_ONE
 				$Foe/ShootTimer.start()
-		get_parent().curve.clear_points()
+				$MoveTimer.start
+		#get_new_move_curve()
 
 func _on_shoot_timer_timeout():
 	# Overrides super class func
@@ -41,7 +43,15 @@ func _on_shoot_timer_timeout():
 			spell_card_one()
 		self.spell_cards.BIG_ASS_BULLET:
 			big_ass_bullet_card()
-	pass
+
+func get_new_move_curve():
+	print("here")
+	var vp_size = get_viewport_rect().size
+	get_parent().curve.clear_points()
+	print(self.position.x, " ", self.position.y, "  ", get_parent().curve)
+	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
+	get_parent().curve.add_point(Vector2( rng.randf_range( vp_size.x/3 , 2 * vp_size.x/3), rng.randf_range(0, vp_size.y/3)), Vector2(0,0), Vector2(0,0))
+	self.progress_ratio = 0
 
 func _on_foe_take_damage() -> void:
 	self.health-=1
@@ -73,8 +83,12 @@ func _on_spell_card_timer_timeout() -> void:
 
 
 func _on_timeout_timer_timeout() -> void:
-	get_parent().curve.clear_points()
-	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
 	get_parent().curve.add_point(Vector2(get_viewport_rect().size.x+100, 200), Vector2(0,0), Vector2(0,0))
 	self.progress_ratio = 0
 	
+
+
+func _on_move_timer_timeout() -> void:
+	
+	get_new_move_curve()
+
