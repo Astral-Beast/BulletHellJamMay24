@@ -18,7 +18,7 @@ var shot_enum: Enums.Shot_Types
 @export var shot_movement_type: Enums.Shot_Movement = Enums.Shot_Movement.CONSTANT # constant or aimed
 @export var shoot_timer: float = 0.5
 @export var health: int = 10
-@export var SPEED:float = .1
+@export var SPEED:float = 1
 
 ## Pathing vars
 @export var side_exit:Side
@@ -32,7 +32,10 @@ enum Movement {
 }
 
 var counter: int = 0
+var sweep_counter: int = 0
+var sweep_left: bool = false
 var theta_range = range(-PI*spiral_spread, PI*spiral_spread, 1)
+var shooting: bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -186,6 +189,37 @@ func aimed_shot(this_shot_type = shot_type, this_movement_type = shot_movement_t
 	var player_global_position = get_tree ().get_nodes_in_group("Player")[0].position
 	var shot_global_position = shot.position
 	var velocity = (player_global_position - shot_global_position).normalized()	
+	shot.velocity = velocity * bullet_speed
+	shot.add_to_group("Enemy_Bullets")
+	get_parent().add_child(shot)
+
+func sweep_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type,
+					this_shot_type_enum=shot_enum, max_theta = PI/4, density: float = 10):
+	var sweep_range = range(-max_theta*density, max_theta*density, 1)
+	
+	var shot = this_shot_type.instantiate()
+	shot.movement_type = this_movement_type
+	shot.shot_type = this_shot_type_enum
+	var theta = sweep_range[sweep_counter] / density + randfn(0, 0.5/density)
+	
+	if (sweep_counter == len(sweep_range) - 1) and (sweep_left != true):
+		sweep_counter -= 1
+		sweep_left = true
+	elif sweep_left and (sweep_counter != len(sweep_range) - 1) and (sweep_counter != 0):
+		sweep_counter -= 1
+	elif sweep_left and sweep_counter == 0:
+		sweep_counter += 1
+		sweep_left = false
+	else:
+		sweep_counter += 1
+	
+	var delta_r = Vector2(sin(theta), cos(theta)) * spawn_dist_from_foe
+	
+	shot.position = delta_r*get_global_transform().affine_inverse()
+	
+	var bullet_global_position = shot.position*get_global_transform().affine_inverse()
+	var self_global_position = self.position*get_global_transform().affine_inverse()
+	var velocity = (bullet_global_position - self_global_position).normalized()
 	shot.velocity = velocity * bullet_speed
 	shot.add_to_group("Enemy_Bullets")
 	get_parent().add_child(shot)

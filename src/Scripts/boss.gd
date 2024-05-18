@@ -6,7 +6,8 @@ var spell_card
 enum spell_cards {
 	SPELL_CARD_ONE,
 	PAUSE,
-	BIG_ASS_BULLET
+	BIG_ASS_BULLET,
+	RAIN_FROM_ABOVE
 }
 
 # Called when the node enters the scene tree for the first time.
@@ -14,7 +15,7 @@ func _ready() -> void:
 	self.health = 1500
 	$HealthBar.max_value = health
 	$HealthBar.value = health
-	self.spell_card = spell_cards.SPELL_CARD_ONE
+	self.spell_card = spell_cards.RAIN_FROM_ABOVE
 	pass # Replace with function body.
 
 
@@ -27,12 +28,14 @@ func _process(delta: float) -> void:
 		get_parent().curve.clear_points()
 
 func _on_shoot_timer_timeout():
-	# Overrides super class func
-	#match self.spell_card:
-		#self.spell_cards.SPELL_CARD_ONE:
-			#spell_card_one()
-		#self.spell_cards.BIG_ASS_BULLET:
-			#big_ass_bullet_card()
+	#Overrides super class func
+	match self.spell_card:
+		self.spell_cards.SPELL_CARD_ONE:
+			spell_card_one()
+		self.spell_cards.BIG_ASS_BULLET:
+			big_ass_bullet_card()
+		self.spell_cards.RAIN_FROM_ABOVE:
+			rain_from_above()
 	pass
 
 func _on_foe_take_damage() -> void:
@@ -46,6 +49,11 @@ func spell_card_one():
 	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND)
 	spiral_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.SYRINGE)
 	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 10)
+
+func rain_from_above():
+	#circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND)
+	sweep_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND)
+	random_shot(circle_bullet, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.CIRCLE_BULLET, 10)
 
 func big_ass_bullet_card():
 	aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
