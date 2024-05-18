@@ -6,15 +6,19 @@ var spell_card
 enum spell_cards {
 	SPELL_CARD_ONE,
 	PAUSE,
-	BIG_ASS_BULLET
+	BIG_ASS_BULLET,
+	PAUSE_UNTIL_RATIO_100
 }
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.health = 1500
 	$HealthBar.max_value = health
 	$HealthBar.value = health
-	self.spell_card = spell_cards.SPELL_CARD_ONE
+	self.spell_card = spell_cards.PAUSE_UNTIL_RATIO_100
+	$Foe/ShootTimer.stop()
 	pass # Replace with function body.
 
 
@@ -22,8 +26,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	move(delta)
-	if progress_ratio > .98:
+	if progress_ratio > .5:
 		progress_ratio = 1.0
+		match self.spell_card:
+			self.spell_cards.PAUSE_UNTIL_RATIO_100:
+				self.spell_card = self.spell_cards.SPELL_CARD_ONE
+				print("here")
+				$Foe/ShootTimer.start()
 		get_parent().curve.clear_points()
 
 func _on_shoot_timer_timeout():
