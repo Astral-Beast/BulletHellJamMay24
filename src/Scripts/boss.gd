@@ -2,6 +2,8 @@ extends Foe
 class_name Boss
 
 var spell_card
+var rng = RandomNumberGenerator.new()
+var first_move:bool = true
 
 enum spell_cards {
 	BASIC_SPELL,
@@ -26,6 +28,7 @@ func _ready() -> void:
 	self.spell_card = spell_cards.RAIN_FROM_ABOVE
 	#self.spell_card = spell_cards.BASIC_SPELL
 	$Foe/ShootTimer.stop()
+	first_move = true
 	pass # Replace with function body.
 
 
@@ -33,14 +36,19 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	move(delta)
 	if progress_ratio > .98:
-		progress_ratio = 1.0
-		$SpellCardTimer.start(30)
-		self.spell_card = spell_cards.RAIN_FROM_ABOVE
-		#self.spell_card = self.spell_cards.BASIC_SPELL
-		$Foe/ShootTimer.start(.05)
-		$Foe/ShootTimer2.start(.05)
-		$Foe/ShootTimer3.start(.05)
-		get_parent().curve.clear_points()
+		if first_move:
+			progress_ratio = 1.0
+			$SpellCardTimer.start(30)
+			
+			self.spell_card = self.spell_cards.RAIN_FROM_ABOVE
+			$Foe/ShootTimer.start(.05)
+			$Foe/ShootTimer2.start(.05)
+			$Foe/ShootTimer3.start(.05)
+			get_new_move_curve()
+			first_move = !first_move
+		else:
+			$MoveTimer.start(3)
+			get_parent().curve.clear_points()
 
 func _on_shoot_timer_timeout():
 	# Overrides super class func
@@ -52,6 +60,16 @@ func _on_shoot_timer_timeout():
 		self.spell_cards.RAIN_FROM_ABOVE:
 			rain_from_above(parts.ONE)
 	pass
+
+
+func get_new_move_curve():
+	print("here")
+	var vp_size = get_viewport_rect().size
+	get_parent().curve.clear_points()
+	print(self.position.x, " ", self.position.y, "  ", get_parent().curve)
+	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
+	get_parent().curve.add_point(Vector2( rng.randf_range( vp_size.x/3 , 2 * vp_size.x/3), rng.randf_range(0, vp_size.y/3)), Vector2(0,0), Vector2(0,0))
+	self.progress_ratio = 0
 
 func _on_foe_take_damage() -> void:
 	self.health-=1
@@ -108,12 +126,14 @@ func _on_spell_card_timer_timeout() -> void:
 
 
 func _on_timeout_timer_timeout() -> void:
-	get_parent().curve.clear_points()
-	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
 	get_parent().curve.add_point(Vector2(get_viewport_rect().size.x+100, 200), Vector2(0,0), Vector2(0,0))
 	self.progress_ratio = 0
 	
 
+
+func _on_move_timer_timeout() -> void:
+	
+	get_new_move_curve()
 
 func _on_shoot_timer_2_timeout():
 	# Overrides super class func

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://wsm1qqdalivd"]
 
 [ext_resource type="Script" path="res://src/scenes/root.gd" id="1_acrqh"]
-[ext_resource type="PackedScene" path="res://src/scenes/background.tscn" id="2_631lm"]
+[ext_resource type="PackedScene" uid="uid://cc1jluiwylexp" path="res://src/scenes/background.tscn" id="2_631lm"]
 
 [sub_resource type="Environment" id="Environment_e6ihu"]
 background_mode = 3
