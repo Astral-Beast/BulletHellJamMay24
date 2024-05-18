@@ -2,6 +2,7 @@ extends PathFollow2D
 class_name Foe
 signal hit
 signal shoot
+signal score_increase
 
 const syringe = preload("res://src/scenes/syringe_bullet.tscn")
 const diamond = preload("res://src/scenes/small_diamond_bullet.tscn")
@@ -13,6 +14,8 @@ var shot_enum: Enums.Shot_Types
 @export var bullet_speed = 200
 @export var spawn_dist_from_foe = 20
 @export var foe_shot_pattern: Enums.Shot_Pattern = Enums.Shot_Pattern.CIRCLE  # random, spiral, or circle
+@export var foe_shot_pattern2: Enums.Shot_Pattern = Enums.Shot_Pattern.CIRCLE  # random, spiral, or circle
+@export var foe_shot_pattern3: Enums.Shot_Pattern = Enums.Shot_Pattern.CIRCLE  # random, spiral, or circle
 @export var spiral_spread: float = 3
 @export var circle_density: int = 30
 @export var shot_movement_type: Enums.Shot_Movement = Enums.Shot_Movement.CONSTANT # constant or aimed
@@ -225,6 +228,7 @@ func sweep_shot(this_shot_type = shot_type, this_movement_type = shot_movement_t
 	get_parent().add_child(shot)
 
 func die():
+	SignalManager.emit_signal("score_increase")
 	self.queue_free()
 	pass
 
@@ -237,3 +241,33 @@ func _on_foe_take_damage() -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
+
+
+func _on_shoot_timer_2_timeout():
+
+	match foe_shot_pattern2:
+		Enums.Shot_Pattern.RANDOM:
+			random_shot()
+		Enums.Shot_Pattern.SPIRAL:
+			spiral_shot()
+		Enums.Shot_Pattern.CIRCLE:
+			circle_shot()
+		Enums.Shot_Pattern.AIMED:
+			aimed_shot()
+		Enums.Shot_Pattern.NONE:
+			pass
+
+
+func _on_shoot_timer_3_timeout():
+
+	match foe_shot_pattern3:
+		Enums.Shot_Pattern.RANDOM:
+			random_shot()
+		Enums.Shot_Pattern.SPIRAL:
+			spiral_shot()
+		Enums.Shot_Pattern.CIRCLE:
+			circle_shot()
+		Enums.Shot_Pattern.AIMED:
+			aimed_shot()
+		Enums.Shot_Pattern.NONE:
+			pass
