@@ -18,7 +18,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	move(delta)
@@ -29,8 +28,8 @@ func _process(delta: float) -> void:
 func _on_shoot_timer_timeout():
 	# Overrides super class func
 	#match self.spell_card:
-		#self.spell_cards.SPELL_CARD_ONE:
-			#spell_card_one()
+		#self.spell_cards.BASIC_SPELL:
+			#basic_spell()
 		#self.spell_cards.BIG_ASS_BULLET:
 			#big_ass_bullet_card()
 	pass
@@ -42,7 +41,7 @@ func _on_foe_take_damage() -> void:
 		die()
 
 
-func spell_card_one():
+func basic_spell():
 	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND)
 	spiral_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.SYRINGE)
 	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 10)
@@ -72,8 +71,20 @@ func _on_timeout_timer_timeout() -> void:
 
 
 func _on_shoot_timer_2_timeout():
-	pass # Replace with function body.
+	# Overrides super class func
+	#match self.spell_card:
+		#self.spell_cards.BASIC_SPELL:
+			#basic_spell()
+		#self.spell_cards.BIG_ASS_BULLET:
+			#big_ass_bullet_card()
+	pass
 
 
 func _on_shoot_timer_3_timeout():
-	pass # Replace with function body.
+	# Overrides super class func
+	#match self.spell_card:
+		#self.spell_cards.BASIC_SPELL:
+			#basic_spell()
+		#self.spell_cards.BIG_ASS_BULLET:
+			#big_ass_bullet_card()
+	pass
