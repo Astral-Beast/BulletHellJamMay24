@@ -4,7 +4,7 @@ class_name Boss
 var spell_card
 
 enum spell_cards {
-	SPELL_CARD_ONE,
+	BASIC_SPELL,
 	PAUSE,
 	BIG_ASS_BULLET
 }
@@ -14,7 +14,7 @@ func _ready() -> void:
 	self.health = 1500
 	$HealthBar.max_value = health
 	$HealthBar.value = health
-	self.spell_card = spell_cards.SPELL_CARD_ONE
+	self.spell_card = spell_cards.BASIC_SPELL
 	pass # Replace with function body.
 
 
@@ -54,7 +54,7 @@ func big_ass_bullet_card():
 
 func _on_spell_card_timer_timeout() -> void:
 	match spell_card:
-		spell_cards.SPELL_CARD_ONE:
+		spell_cards.BASIC_SPELL:
 			$SpellCardTimer.start(3.5)
 			spell_card=spell_cards.PAUSE
 		spell_cards.PAUSE:
@@ -69,3 +69,11 @@ func _on_timeout_timer_timeout() -> void:
 	get_parent().curve.add_point(Vector2(get_viewport_rect().size.x+100, 200), Vector2(0,0), Vector2(0,0))
 	self.progress_ratio = 0
 	
+
+
+func _on_shoot_timer_2_timeout():
+	pass # Replace with function body.
+
+
+func _on_shoot_timer_3_timeout():
+	pass # Replace with function body.
