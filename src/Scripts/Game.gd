@@ -46,15 +46,13 @@ func _on_player_throw_banana():
 	#var vect = get_global_mouse_position() - position
 	var new_banana = banana.duplicate().instantiate()
 	new_banana.position = Vector2($Player.position.x, $Player.position.y-40)
-<<<<<<< HEAD
 	#new_banana.connect("banana_hit", _banana_hit)
 	if $player_sfx_handler_banana.get_playback_position() < 0.17 && sound_count <= 5:
 		sound_count += 1
 	else:
 		$player_sfx_handler_banana.play(0)
 		sound_count = 0
-=======
->>>>>>> main
+		
 	add_child(new_banana)
 	if banana_counter :
 		banana_counter = !banana_counter
