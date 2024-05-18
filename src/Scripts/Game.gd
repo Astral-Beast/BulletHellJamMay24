@@ -2,21 +2,31 @@ extends Node2D
 const banana = preload("res://src/scenes/banana.tscn")
 
 signal game_over
+var score:int
 
 var sound_count = 0
 var mob_packs = []
 var mob_pack_index = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	mob_packs = EnemyPacks.mob_packs
+	mob_packs = EnemyPacks.mob_packs.duplicate(true)
+	score = -1
+	_on_score_increase()
+	SignalManager.connect("score_increase", _on_score_increase)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#child_entered_tree.connect(_on_score_increase)
 	pass
 
 func _on_player_hit():
 	$player_sfx_handler.play()
 	cull_projectiles()
+
+func _on_score_increase():
+	score += 1
+	$UI/Score.text = "Score: %s" % score
 
 func cull_projectiles():
 	# Gets all on screen bullets and queuefrees them
@@ -72,7 +82,7 @@ func _on_spawn_pause_timer_timeout() -> void:
 
 
 func _on_player_game_over() -> void:
-
+	emit_signal("game_over", score)
 	
 	emit_signal("game_over")
 	cull_all()

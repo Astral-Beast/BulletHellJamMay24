@@ -57,8 +57,12 @@ position = Vector2(-0.00012207, -3.8147e-06)
 shape = SubResource("CircleShape2D_bqmta")
 
 [node name="ShootTimer" type="Timer" parent="Foe"]
-wait_time = 0.5
+wait_time = 0.05
 autostart = true
+
+[node name="ShootTimer2" type="Timer" parent="Foe"]
+
+[node name="ShootTimer3" type="Timer" parent="Foe"]
 
 [node name="AimTimer" type="Timer" parent="Foe"]
 one_shot = true
@@ -71,6 +75,8 @@ one_shot = true
 [connection signal="take_damage" from="Foe" to="." method="_on_foe_take_damage"]
 [connection signal="timeout" from="Foe/ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="Foe/ShootTimer" to="Foe" method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="Foe/ShootTimer2" to="." method="_on_shoot_timer_2_timeout"]
+[connection signal="timeout" from="Foe/ShootTimer3" to="." method="_on_shoot_timer_3_timeout"]
 [connection signal="timeout" from="Foe/AimTimer" to="." method="_on_aim_timer_timeout"]
 [connection signal="timeout" from="Foe/AimTimer" to="Foe" method="_on_aim_timer_timeout"]
 [connection signal="screen_exited" from="Foe/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

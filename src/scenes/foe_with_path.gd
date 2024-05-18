@@ -12,6 +12,7 @@ const path_right_to_left = preload("res://src/scenes/path_right_to_left.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("parent", get_parent())
 	pass # Replace with function body.
 
 
@@ -20,8 +21,11 @@ func _process(delta):
 	
 	pass
 
+
+
 func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_pattern, shot_movement, shot_type):
 	# Set movement type
+	#print(get_tree().get_first_node_in_group("Game"))
 	match path:
 		Enums.Pathing.STRAIGHT_LINES:
 			match side_exit:
@@ -33,6 +37,7 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_patter
 					new_foe.shot_movement_type = shot_movement
 					new_foe.shot_enum = shot_type
 					new_path.add_child(new_foe)
+					#add_signal(new_foe)
 					add_child(new_path)
 					
 
@@ -44,6 +49,7 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_patter
 					new_foe.shot_movement_type = shot_movement
 					new_foe.shot_enum = shot_type
 					new_path.add_child(new_foe)
+					#add_signal(new_foe)
 					add_child(new_path)
 					
 		Enums.Pathing.HOVER_ON_POINT:
@@ -57,6 +63,7 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_patter
 					new_foe.pathing_type = Enums.Pathing.HOVER_ON_POINT
 					new_foe.shot_enum = shot_type
 					new_path.add_child(new_foe)
+					#add_signal(new_foe)
 					add_child(new_path)
 				SIDE_RIGHT:
 					var new_path = path_hover.instantiate()
@@ -67,6 +74,10 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_patter
 					new_foe.shot_movement_type = shot_movement
 					
 					new_path.add_child(new_foe)
+					#add_signal(new_foe)
 					add_child(new_path)
 
 
+func _on_score_increase():
+	
+	emit_signal("score_increase")
