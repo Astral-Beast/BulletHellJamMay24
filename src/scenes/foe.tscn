@@ -62,6 +62,8 @@ one_shot = true
 [connection signal="take_damage" from="Foe" to="." method="_on_foe_take_damage"]
 [connection signal="timeout" from="Foe/ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="Foe/ShootTimer" to="Foe" method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="Foe/ShootTimer2" to="." method="_on_shoot_timer_2_timeout"]
+[connection signal="timeout" from="Foe/ShootTimer3" to="." method="_on_shoot_timer_3_timeout"]
 [connection signal="timeout" from="Foe/AimTimer" to="." method="_on_aim_timer_timeout"]
 [connection signal="timeout" from="Foe/AimTimer" to="Foe" method="_on_aim_timer_timeout"]
 [connection signal="screen_exited" from="Foe/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
