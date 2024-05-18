@@ -75,7 +75,7 @@ func _on_spawn_pause_timer_timeout() -> void:
 
 
 func _on_player_game_over() -> void:
-	emit_signal("game_over")
+	emit_signal("game_over", score)
 	
 	cull_all()
 	queue_free()
