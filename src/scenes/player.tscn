@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b7qk4trnkj22s"]
+[gd_scene load_steps=20 format=3 uid="uid://b7qk4trnkj22s"]
 
 [ext_resource type="Script" path="res://src/scenes/Player.gd" id="1_oytln"]
 [ext_resource type="Texture2D" uid="uid://c6qrua36xw8o8" path="res://assets/art/50067.png" id="2_5aonb"]
@@ -99,6 +99,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rxcrj"]
+radius = 12.1655
+
 [node name="Player" type="Area2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_oytln")
@@ -144,7 +147,14 @@ sprite_frames = SubResource("SpriteFrames_m6mxm")
 
 [node name="Immunity_timer" type="Timer" parent="."]
 
+[node name="Grazer" type="Area2D" parent="."]
+
+[node name="GrazeCollider" type="CollisionShape2D" parent="Grazer" groups=["Graze"]]
+shape = SubResource("CircleShape2D_rxcrj")
+
+[connection signal="body_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="hit" from="." to="Control" method="_on_player_hit"]
 [connection signal="kill" from="Control" to="." method="_on_control_kill"]
 [connection signal="timeout" from="Immunity_timer" to="." method="_on_immunity_timer_timeout"]
+[connection signal="area_entered" from="Grazer" to="." method="_on_grazer_area_entered"]

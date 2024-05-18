@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cv3ht25h5jrfe"]
+[gd_scene load_steps=7 format=3 uid="uid://cv3ht25h5jrfe"]
 
 [ext_resource type="Script" path="res://src/Scripts/game.gd" id="1_saebl"]
 [ext_resource type="PackedScene" uid="uid://s1vdrlv4plql" path="res://src/scenes/textbox.tscn" id="2_oalj2"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_hfd40"]
 [ext_resource type="PackedScene" uid="uid://b751xtyy7y8g8" path="res://src/scenes/music.tscn" id="4_vfoa6"]
+[ext_resource type="LabelSettings" uid="uid://b3r3rqi6h7450" path="res://assets/fonts/Death_screen_labels.tres" id="5_ebg8u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sjx6o"]
 font_size = 22
@@ -42,6 +43,13 @@ size_flags_horizontal = 4
 text = "Score: "
 label_settings = SubResource("LabelSettings_sjx6o")
 horizontal_alignment = 1
+
+[node name="Graze" type="Label" parent="UI"]
+offset_left = 147.0
+offset_top = 64.0
+offset_right = 187.0
+offset_bottom = 87.0
+label_settings = ExtResource("5_ebg8u")
 
 [connection signal="timeout" from="Spawn_Pause_Timer" to="." method="_on_spawn_pause_timer_timeout"]
 [connection signal="timeout" from="Mob_Spawner" to="." method="_on_mob_spawner_timeout"]

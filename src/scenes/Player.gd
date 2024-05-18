@@ -2,6 +2,7 @@ extends Area2D
 signal hit
 signal throw_banana
 signal game_over
+signal graze
 
 @export var speed = 400
 var screen_size
@@ -16,7 +17,6 @@ enum state {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	screen_size = get_viewport_rect().size
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -55,20 +55,26 @@ func _process(delta):
 			$AnimatedSprite2D.animation = "walk"
 		elif hit_increment != 3:
 			$AnimatedSprite2D.animation = "idle"
-
+	var overlaps = $Grazer.get_overlapping_areas()
+	for i in overlaps:
+		if len(overlaps) > 0:
+			i
+	
 func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
 
-func _on_area_entered(area):
-	if self.hit_state == state.VULNERABLE:
+func _on_area_entered(area:Object):
+	if self.hit_state == state.VULNERABLE and !area.is_in_group("Graze"):
 		self.hit_state = state.IMMUNE
 		$Immunity_timer.start()
 		hit_increment += 1
 		hit.emit()
-		$CollisionShape2D.set_deferred("diabled", true)
-
+		$CollisionShape2D.set_deferred("disabled", true)
+	else:
+		$CollisionShape2D.set_deferred("disabled", true)
+	pass
 #vvv this is the signal that happens when the final heart goes away, from the control script
 func _on_control_kill():
 	hit_increment = 0
@@ -81,3 +87,9 @@ func _on_control_kill():
 func _on_immunity_timer_timeout() -> void:
 	$Immunity_timer.stop()
 	self.hit_state = state.VULNERABLE
+
+
+func _on_grazer_area_entered(area: Area2D) -> void:
+	print("Grazing")
+	emit_signal("graze")
+	pass # Replace with function body.

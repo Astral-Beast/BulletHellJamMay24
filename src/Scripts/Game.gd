@@ -4,13 +4,14 @@ var rng = RandomNumberGenerator.new()
 signal game_over
 var score:int
 var banana_counter : bool = true
-
+var graze:float = .5
 var mob_packs = []
 var mob_pack_index = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mob_packs = EnemyPacks.mob_packs.duplicate(true)
 	score = -1
+	$Player.connect("graze", _on_graze)
 	_on_score_increase()
 	SignalManager.connect("score_increase", _on_score_increase)
 
@@ -94,11 +95,13 @@ func _on_spawn_pause_timer_timeout() -> void:
 
 func _on_player_game_over() -> void:
 	emit_signal("game_over", score)
-	
 	cull_all()
 	queue_free()
 	
 
+func _on_graze():
+	graze = clamp(graze+.001 ,.5,2.5)
+	$UI/Graze.text = "%s" % graze
 
 func _on_music_finished():
 	$music.play()
