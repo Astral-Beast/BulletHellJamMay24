@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 EnemyPacks="*res://src/Scripts/Enemy_Packs.gd"
+SignalManager="*res://src/Scripts/signal_manager.gd"
 
 [display]
 

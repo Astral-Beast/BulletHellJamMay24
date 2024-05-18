@@ -6,32 +6,52 @@ var spell_card
 enum spell_cards {
 	BASIC_SPELL,
 	PAUSE,
-	BIG_ASS_BULLET
+	BIG_ASS_BULLET,
+	PAUSE_UNTIL_RATIO_100
 }
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.health = 1500
 	$HealthBar.max_value = health
 	$HealthBar.value = health
+<<<<<<< HEAD
 	self.spell_card = spell_cards.BASIC_SPELL
+=======
+	self.spell_card = spell_cards.PAUSE_UNTIL_RATIO_100
+	$Foe/ShootTimer.stop()
+>>>>>>> main
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	move(delta)
-	if progress_ratio > .98:
+	if progress_ratio > .5:
 		progress_ratio = 1.0
+		match self.spell_card:
+			self.spell_cards.PAUSE_UNTIL_RATIO_100:
+				self.spell_card = self.spell_cards.SPELL_CARD_ONE
+				$Foe/ShootTimer.start()
 		get_parent().curve.clear_points()
 
 func _on_shoot_timer_timeout():
 	# Overrides super class func
+<<<<<<< HEAD
 	#match self.spell_card:
 		#self.spell_cards.BASIC_SPELL:
 			#basic_spell()
 		#self.spell_cards.BIG_ASS_BULLET:
 			#big_ass_bullet_card()
+=======
+	match self.spell_card:
+		self.spell_cards.SPELL_CARD_ONE:
+			spell_card_one()
+		self.spell_cards.BIG_ASS_BULLET:
+			big_ass_bullet_card()
+>>>>>>> main
 	pass
 
 func _on_foe_take_damage() -> void:
@@ -41,12 +61,18 @@ func _on_foe_take_damage() -> void:
 		die()
 
 
+<<<<<<< HEAD
 func basic_spell():
+=======
+func spell_card_one():
+	$Foe/ShootTimer.start(.5)
+>>>>>>> main
 	circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND)
 	spiral_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.SYRINGE)
 	random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 10)
 
 func big_ass_bullet_card():
+	$Foe/ShootTimer.start(2)
 	aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 	circle_shot(syringe, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE)
 	
@@ -62,7 +88,6 @@ func _on_spell_card_timer_timeout() -> void:
 
 
 func _on_timeout_timer_timeout() -> void:
-	print("here")
 	get_parent().curve.clear_points()
 	get_parent().curve.add_point(self.position, Vector2(0,0), Vector2(0,0))
 	get_parent().curve.add_point(Vector2(get_viewport_rect().size.x+100, 200), Vector2(0,0), Vector2(0,0))
