@@ -9,6 +9,7 @@ var spell_card_idx: int
 var base_card_idx: int
 var spell_card_length: float = 45.0
 var movement_stopped: bool = false
+var bab_timer = 0.65
 
 enum spell_cards {
 	CHAOTIC_TRACKED,
@@ -105,13 +106,13 @@ func rain_from_above(part):
 			$Foe/ShootTimer3.start(2)
 			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 
-func big_ass_bullet_card(part):
+func big_ass_bullet_card(part, part_two_timer=0.2):
 	match part:
 		self.parts.ONE:
 			$Foe/ShootTimer.start(1)
 			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 		self.parts.TWO:
-			$Foe/ShootTimer2.start(.7)
+			$Foe/ShootTimer2.start(part_two_timer)
 			circle_shot(syringe, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE)
 		self.parts.THREE:
 			pass
@@ -178,6 +179,7 @@ func progress_spellcards() -> void:
 			if spell_card_idx % 2 == 0:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.BIG_ASS_BULLET
+				bab_timer -= 0.1
 				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 1:
@@ -235,7 +237,7 @@ func _on_shoot_timer_2_timeout():
 		self.spell_cards.CHAOTIC_TRACKED:
 			chaotic_tracked(parts.TWO)
 		self.spell_cards.BIG_ASS_BULLET:
-			big_ass_bullet_card(parts.TWO)
+			big_ass_bullet_card(parts.TWO, bab_timer)
 		self.spell_cards.RAIN_FROM_ABOVE:
 			rain_from_above(parts.TWO)
 		self.spell_cards.CLAUSTROPHOBIA:
