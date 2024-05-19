@@ -19,6 +19,9 @@ func _ready():
 	
 	screen_size = get_viewport_rect().size
 
+func _physics_process(delta):
+	if Input.is_action_pressed("Throw_banana"):
+		emit_signal("throw_banana")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if not dead:
@@ -32,8 +35,7 @@ func _process(delta):
 			velocity.y -= 1
 		if Input.is_action_pressed("move_down"):
 			velocity.y += 1
-		if Input.is_action_pressed("Throw_banana"):
-			emit_signal("throw_banana")
+		
 		
 		
 		if velocity.length() > 0:
