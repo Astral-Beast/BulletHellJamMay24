@@ -22,8 +22,8 @@ var shot_enum: Enums.Shot_Types
 @export var inv_fan_density: int = 100
 @export var shot_movement_type: Enums.Shot_Movement = Enums.Shot_Movement.CONSTANT # constant or aimed
 @export var shoot_timer: float = 0.5
-@export var health: int = 10
-@export var SPEED:float = 1
+@export var health: int = 7
+@export var SPEED:float = .1
 
 ## Pathing vars
 @export var side_exit:Side

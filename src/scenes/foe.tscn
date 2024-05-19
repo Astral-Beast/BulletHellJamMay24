@@ -1,22 +1,43 @@
-[gd_scene load_steps=11 format=3 uid="uid://nio4gkoinqbu"]
+[gd_scene load_steps=14 format=3 uid="uid://nio4gkoinqbu"]
 
 [ext_resource type="Script" path="res://src/scenes/foe.gd" id="1_r30vb"]
 [ext_resource type="PackedScene" uid="uid://b7g5yji46jlvu" path="res://src/scenes/small_diamond_bullet.tscn" id="2_41gyd"]
-[ext_resource type="Texture2D" uid="uid://d4mt08tk45h0u" path="res://assets/art/foe1.png" id="3_8ftrg"]
 [ext_resource type="AudioStream" uid="uid://b7w033ai6x038" path="res://assets/sounds/sfx/laser.wav" id="3_romc5"]
 [ext_resource type="Script" path="res://src/Scripts/Foe_body.gd" id="3_rsdik"]
-[ext_resource type="Texture2D" uid="uid://poc0k3362ilv" path="res://assets/art/foe2.png" id="4_btrxf"]
 [ext_resource type="AudioStream" uid="uid://c0vgtfokx2gqq" path="res://assets/sounds/sfx/enemy death sound.wav" id="4_uemf7"]
+[ext_resource type="Texture2D" uid="uid://c80ej7rnyybdg" path="res://assets/art/octopus.png" id="5_xii6s"]
 [ext_resource type="Script" path="res://src/scenes/foe_audio.gd" id="6_a4cgx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_biw0o"]
+atlas = ExtResource("5_xii6s")
+region = Rect2(0, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qus8"]
+atlas = ExtResource("5_xii6s")
+region = Rect2(28, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7h5y"]
+atlas = ExtResource("5_xii6s")
+region = Rect2(56, 0, 28, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hj34"]
+atlas = ExtResource("5_xii6s")
+region = Rect2(84, 0, 28, 37)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_itb1r"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_8ftrg")
+"texture": SubResource("AtlasTexture_biw0o")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_btrxf")
+"texture": SubResource("AtlasTexture_8qus8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7h5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hj34")
 }],
 "loop": true,
 "name": &"idle",
@@ -41,16 +62,16 @@ volume_db = 2.811
 script = ExtResource("6_a4cgx")
 
 [node name="Foe" type="CharacterBody2D" parent="."]
+scale = Vector2(3, 3)
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("3_rsdik")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Foe"]
-scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_itb1r")
 animation = &"idle"
-frame_progress = 0.355225
+frame_progress = 0.565847
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Foe"]
 position = Vector2(-0.00012207, -3.8147e-06)

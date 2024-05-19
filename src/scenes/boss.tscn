@@ -1,7 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://kmeoatunxi6i"]
+[gd_scene load_steps=9 format=3 uid="uid://kmeoatunxi6i"]
 
 [ext_resource type="PackedScene" uid="uid://nio4gkoinqbu" path="res://src/scenes/foe.tscn" id="1_eivsv"]
 [ext_resource type="Script" path="res://src/Scripts/boss.gd" id="2_kvuit"]
+[ext_resource type="Texture2D" uid="uid://bt21gcvrspmxy" path="res://assets/art/jumper-idle.png" id="3_7i6eu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i410j"]
+atlas = ExtResource("3_7i6eu")
+region = Rect2(0, 0, 47, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g40aq"]
+atlas = ExtResource("3_7i6eu")
+region = Rect2(47, 0, 47, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqvm1"]
+atlas = ExtResource("3_7i6eu")
+region = Rect2(94, 0, 47, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ak01y"]
+atlas = ExtResource("3_7i6eu")
+region = Rect2(141, 0, 47, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_is2te"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i410j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g40aq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqvm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ak01y")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="Boss" instance=ExtResource("1_eivsv")]
 script = ExtResource("2_kvuit")
@@ -32,8 +69,20 @@ autostart = true
 [node name="MoveTimer" type="Timer" parent="." index="4"]
 wait_time = 3.0
 
-[node name="Foe" parent="." index="6"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="6"]
 scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_is2te")
+animation = &"idle"
+frame_progress = 0.626036
+
+[node name="Foe" parent="." index="7"]
+scale = Vector2(5, 5)
+
+[node name="AnimatedSprite2D" parent="Foe" index="0"]
+visible = false
+
+[node name="CollisionShape2D" parent="Foe" index="1"]
+visible = false
 
 [connection signal="timeout" from="SpellCardTimer" to="." method="_on_spell_card_timer_timeout"]
 [connection signal="timeout" from="TimeoutTimer" to="." method="_on_timeout_timer_timeout"]

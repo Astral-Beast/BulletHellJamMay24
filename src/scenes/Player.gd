@@ -3,7 +3,7 @@ signal hit
 signal throw_banana
 signal game_over
 
-@export var speed = 400
+@export var speed = 500
 var screen_size
 var dead = false
 var hit_increment = 0
@@ -42,7 +42,7 @@ func _process(delta):
 		else:
 			$AnimatedSprite2D.play()
 		if Input.is_action_pressed("Slow_Move"):
-			velocity= velocity *.5
+			velocity= velocity *.3
 		position += velocity * delta
 		position = position.clamp(Vector2.ZERO, screen_size)
 		

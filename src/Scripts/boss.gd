@@ -9,6 +9,8 @@ var spell_card_idx: int
 var base_card_idx: int
 var spell_card_length: float = 45.0
 var movement_stopped: bool = false
+var bab_timer = 0.7
+var screen_size
 
 enum spell_cards {
 	CHAOTIC_TRACKED,
@@ -29,6 +31,9 @@ enum parts {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	screen_size = get_viewport_rect().size
+	$AnimatedSprite2D.play()
+	$AnimatedSprite2D.animation = "idle"
 	self.health = 1000
 	$HealthBar.max_value = health
 	$HealthBar.value = health
@@ -40,10 +45,12 @@ func _ready() -> void:
 	spell_card_idx = 0
 	base_card_idx = 0
 	inc = 10.0
+	self.SPEED = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	move(delta)
+	position = position.clamp(Vector2(screen_size.x/5, 0), Vector2(4*screen_size.x/5, screen_size.y/4))
 	if progress_ratio > .98:
 		if first_move:
 			progress_ratio = 1.0
@@ -75,8 +82,8 @@ func move_to_center():
 	$MoveTimer.stop()
 
 func _on_foe_take_damage() -> void:
-	self.health-=1
-	$HealthBar.value-=1
+	self.health-=10
+	$HealthBar.value-=10
 	if self.health <0:
 		progress_spellcards()
 
@@ -105,13 +112,13 @@ func rain_from_above(part):
 			$Foe/ShootTimer3.start(2)
 			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 
-func big_ass_bullet_card(part):
+func big_ass_bullet_card(part, part_two_timer=0.2):
 	match part:
 		self.parts.ONE:
 			$Foe/ShootTimer.start(1)
 			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 		self.parts.TWO:
-			$Foe/ShootTimer2.start(.7)
+			$Foe/ShootTimer2.start(part_two_timer)
 			circle_shot(syringe, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE)
 		self.parts.THREE:
 			pass
@@ -155,7 +162,7 @@ func progress_spellcards() -> void:
 	
 	match spell_card:
 		spell_cards.CHAOTIC_TRACKED:
-			$SpellCardTimer.start(2.0)
+			$SpellCardTimer.start(3.0)
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
 			$HealthBar.value = self.health
@@ -187,11 +194,11 @@ func progress_spellcards() -> void:
 				if spell_card_idx <= 6:
 					$SpellCardTimer.start(spell_card_length)
 					spell_card = spell_cards.BIG_ASS_BULLET
+					bab_timer -= 0.05
 					self.health = 1000
 					$HealthBar.value = self.health
 				else:
 					die()
-					
 			elif spell_card_idx == 1:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.CLAUSTROPHOBIA
@@ -245,7 +252,7 @@ func _on_shoot_timer_2_timeout():
 		self.spell_cards.CHAOTIC_TRACKED:
 			chaotic_tracked(parts.TWO)
 		self.spell_cards.BIG_ASS_BULLET:
-			big_ass_bullet_card(parts.TWO)
+			big_ass_bullet_card(parts.TWO, bab_timer)
 		self.spell_cards.RAIN_FROM_ABOVE:
 			rain_from_above(parts.TWO)
 		self.spell_cards.CLAUSTROPHOBIA:
