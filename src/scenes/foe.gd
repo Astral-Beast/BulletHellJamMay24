@@ -349,7 +349,7 @@ func die():
 	pass
 
 func _on_foe_take_damage() -> void:
-	self.health-=1
+	self.health-=10
 	if self.health <0:
 		$Foe/ShootTimer.wait_time = 9999
 		$Foe/CollisionShape2D.queue_free()

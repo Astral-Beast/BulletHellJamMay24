@@ -16,7 +16,7 @@ enum spell_cards {
 	BIG_ASS_BULLET,
 	RAIN_FROM_ABOVE,
 	CLAUSTROPHOBIA,
-	FINAL_SPELL_STEUP,
+	FINAL_SPELL_SETUP,
 	FINAL_SPELL,
 	PAUSE_UNTIL_RATIO_100
 }
@@ -76,7 +76,7 @@ func move_to_center():
 	$MoveTimer.stop()
 
 func _on_foe_take_damage() -> void:
-	self.health-=1
+	self.health-=10
 	$HealthBar.value-=1
 	if self.health <0:
 		progress_spellcards()
@@ -133,23 +133,6 @@ func claustrophobia(part):
 			$Foe/ShootTimer3.start(.2)
 			aimed_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND)
 
-func final_spell_setup(part):
-	print("we made it")
-	$MoveTimer.stop()
-	movement_stopped = true
-	move_to_center()
-	
-	
-	match part:
-		self.parts.ONE:
-			SignalManager.textbox_ping.emit()
-		var timer = get_tree().create_timer(1)
-		await timer.timeout
-		self.parts.TWO:
-			pass
-		self.parts.THREE:
-			pass
-
 func final_spell(part):
 	
 	match part:
@@ -167,6 +150,10 @@ func _on_spell_card_timer_timeout() -> void:
 	progress_spellcards()
 
 func progress_spellcards() -> void:
+	
+	print(spell_cards)
+	print("index: ", spell_card_idx)
+	
 	match spell_card:
 		spell_cards.CHAOTIC_TRACKED:
 			$SpellCardTimer.start(2.0)
@@ -186,12 +173,18 @@ func progress_spellcards() -> void:
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
 			$HealthBar.value = self.health
+		spell_cards.FINAL_SPELL_SETUP:
+			$SpellCardTimer.start(2.0)
+			spell_card=spell_cards.PAUSE
+			self.health = 1000
+			$HealthBar.value = self.health
 		spell_cards.PAUSE:
 			if movement_stopped:
 				$MoveTimer.start(3)
 				movement_stopped = false
 			spell_card_idx += 1
 			if spell_card_idx % 2 == 0:
+				
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.BIG_ASS_BULLET
 				self.health = 1000
@@ -212,11 +205,7 @@ func progress_spellcards() -> void:
 				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 7:
-				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.FINAL_SPELL_STEUP
-				self.health = 1000
-				$HealthBar.value = self.health
-			elif spell_card_idx == 9:
+				print("made it to index 9")
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.FINAL_SPELL
 				self.health = 1000
@@ -248,8 +237,6 @@ func _on_shoot_timer_timeout():
 			claustrophobia(parts.ONE)
 		self.spell_cards.FINAL_SPELL:
 			final_spell(parts.ONE)
-		self.spell_cards.FINAL_SPELL_SETUP:
-			final_spell_setup(parts.ONE)
 	pass
 
 func _on_shoot_timer_2_timeout():
@@ -265,8 +252,6 @@ func _on_shoot_timer_2_timeout():
 			claustrophobia(parts.TWO)
 		self.spell_cards.FINAL_SPELL:
 			final_spell(parts.TWO)
-		self.spell_cards.FINAL_SPELL_SETUP:
-			final_spell_setup(parts.TWO)
 	pass
 
 func _on_shoot_timer_3_timeout():
@@ -282,6 +267,4 @@ func _on_shoot_timer_3_timeout():
 			claustrophobia(parts.THREE)
 		self.spell_cards.FINAL_SPELL:
 			final_spell(parts.THREE)
-		self.spell_cards.FINAL_SPELL_SETUP:
-			final_spell_setup(parts.THREE)
 	pass
