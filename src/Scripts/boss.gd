@@ -16,7 +16,6 @@ enum spell_cards {
 	BIG_ASS_BULLET,
 	RAIN_FROM_ABOVE,
 	CLAUSTROPHOBIA,
-	FINAL_SPELL_SETUP,
 	FINAL_SPELL,
 	PAUSE_UNTIL_RATIO_100
 }
@@ -76,7 +75,7 @@ func move_to_center():
 	$MoveTimer.stop()
 
 func _on_foe_take_damage() -> void:
-	self.health-=10
+	self.health-=1
 	$HealthBar.value-=1
 	if self.health <0:
 		progress_spellcards()
@@ -173,22 +172,26 @@ func progress_spellcards() -> void:
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
 			$HealthBar.value = self.health
-		spell_cards.FINAL_SPELL_SETUP:
-			$SpellCardTimer.start(2.0)
-			spell_card=spell_cards.PAUSE
-			self.health = 1000
-			$HealthBar.value = self.health
 		spell_cards.PAUSE:
+			
 			if movement_stopped:
 				$MoveTimer.start(3)
 				movement_stopped = false
 			spell_card_idx += 1
+			
 			if spell_card_idx % 2 == 0:
-				
-				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.BIG_ASS_BULLET
-				self.health = 1000
-				$HealthBar.value = self.health
+				if spell_card_idx == 6:
+					SignalManager.textbox_ping.emit()
+					await get_tree().create_timer(7).timeout
+					
+				if spell_card_idx <= 6:
+					$SpellCardTimer.start(spell_card_length)
+					spell_card = spell_cards.BIG_ASS_BULLET
+					self.health = 1000
+					$HealthBar.value = self.health
+				else:
+					die()
+					
 			elif spell_card_idx == 1:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.CLAUSTROPHOBIA
@@ -205,13 +208,10 @@ func progress_spellcards() -> void:
 				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 7:
-				print("made it to index 9")
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.FINAL_SPELL
 				self.health = 1000
 				$HealthBar.value = self.health
-			else:
-				die()
 				
 		spell_cards.PAUSE:
 			$SpellCardTimer.start(2.0)
