@@ -136,6 +136,12 @@ func final_spell(part):
 	$MoveTimer.stop()
 	movement_stopped = true
 	move_to_center()
+	$Foe/ShootTimer.stop() 
+	$Foe/ShootTimer2.stop()
+	$Foe/ShootTimer3.stop()
+	SignalManager.textbox_ping.emit()
+	var timer = get_tree().create_timer(5)
+	await timer.timeout
 	match part:
 		self.parts.ONE:
 			$Foe/ShootTimer.start(2)
