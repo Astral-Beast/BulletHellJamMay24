@@ -6,6 +6,23 @@
 [node name="Boss" instance=ExtResource("1_eivsv")]
 script = ExtResource("2_kvuit")
 shot_type = null
+bullet_speed = null
+spawn_dist_from_foe = null
+foe_shot_pattern = null
+foe_shot_pattern2 = null
+foe_shot_pattern3 = null
+spiral_spread = null
+circle_density = null
+inv_fan_density = null
+shot_movement_type = null
+shoot_timer = null
+health = null
+SPEED = null
+side_exit = null
+pathing_type = null
+hovered = null
+hover_time = null
+movement_state = null
 
 [node name="SpellCardTimer" type="Timer" parent="." index="1"]
 wait_time = 10.0

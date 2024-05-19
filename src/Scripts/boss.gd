@@ -16,6 +16,7 @@ enum spell_cards {
 	BIG_ASS_BULLET,
 	RAIN_FROM_ABOVE,
 	CLAUSTROPHOBIA,
+	FINAL_SPELL_STEUP,
 	FINAL_SPELL,
 	PAUSE_UNTIL_RATIO_100
 }
@@ -132,16 +133,25 @@ func claustrophobia(part):
 			$Foe/ShootTimer3.start(.2)
 			aimed_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND)
 
-func final_spell(part):
+func final_spell_setup(part):
+	print("we made it")
 	$MoveTimer.stop()
 	movement_stopped = true
 	move_to_center()
-	$Foe/ShootTimer.stop() 
-	$Foe/ShootTimer2.stop()
-	$Foe/ShootTimer3.stop()
-	SignalManager.textbox_ping.emit()
-	var timer = get_tree().create_timer(5)
-	await timer.timeout
+	
+	
+	match part:
+		self.parts.ONE:
+			SignalManager.textbox_ping.emit()
+		var timer = get_tree().create_timer(1)
+		await timer.timeout
+		self.parts.TWO:
+			pass
+		self.parts.THREE:
+			pass
+
+func final_spell(part):
+	
 	match part:
 		self.parts.ONE:
 			$Foe/ShootTimer.start(2)
@@ -203,6 +213,11 @@ func progress_spellcards() -> void:
 				$HealthBar.value = self.health
 			elif spell_card_idx == 7:
 				$SpellCardTimer.start(spell_card_length)
+				spell_card = spell_cards.FINAL_SPELL_STEUP
+				self.health = 1000
+				$HealthBar.value = self.health
+			elif spell_card_idx == 9:
+				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.FINAL_SPELL
 				self.health = 1000
 				$HealthBar.value = self.health
@@ -233,6 +248,8 @@ func _on_shoot_timer_timeout():
 			claustrophobia(parts.ONE)
 		self.spell_cards.FINAL_SPELL:
 			final_spell(parts.ONE)
+		self.spell_cards.FINAL_SPELL_SETUP:
+			final_spell_setup(parts.ONE)
 	pass
 
 func _on_shoot_timer_2_timeout():
@@ -248,6 +265,8 @@ func _on_shoot_timer_2_timeout():
 			claustrophobia(parts.TWO)
 		self.spell_cards.FINAL_SPELL:
 			final_spell(parts.TWO)
+		self.spell_cards.FINAL_SPELL_SETUP:
+			final_spell_setup(parts.TWO)
 	pass
 
 func _on_shoot_timer_3_timeout():
@@ -263,4 +282,6 @@ func _on_shoot_timer_3_timeout():
 			claustrophobia(parts.THREE)
 		self.spell_cards.FINAL_SPELL:
 			final_spell(parts.THREE)
+		self.spell_cards.FINAL_SPELL_SETUP:
+			final_spell_setup(parts.THREE)
 	pass
