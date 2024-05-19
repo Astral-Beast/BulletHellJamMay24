@@ -170,6 +170,9 @@ func progress_spellcards() -> void:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
+			if spell_card_idx == 6:
+				await get_tree().create_timer(7).timeout
+				SignalManager.textbox_ping.emit()
 		spell_cards.RAIN_FROM_ABOVE:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
@@ -187,10 +190,6 @@ func progress_spellcards() -> void:
 			spell_card_idx += 1
 			
 			if spell_card_idx % 2 == 0:
-				if spell_card_idx == 6:
-					SignalManager.textbox_ping.emit()
-					await get_tree().create_timer(7).timeout
-					
 				if spell_card_idx <= 6:
 					$SpellCardTimer.start(spell_card_length)
 					spell_card = spell_cards.BIG_ASS_BULLET
@@ -215,6 +214,7 @@ func progress_spellcards() -> void:
 				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 7:
+				await get_tree().create_timer(10).timeout
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.FINAL_SPELL
 				self.health = 1000
