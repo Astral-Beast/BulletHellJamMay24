@@ -58,6 +58,7 @@ volume_db = 2.811
 script = ExtResource("6_a4cgx")
 
 [node name="Foe" type="CharacterBody2D" parent="."]
+scale = Vector2(3, 3)
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("3_rsdik")
@@ -66,7 +67,7 @@ metadata/_edit_group_ = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Foe"]
 sprite_frames = SubResource("SpriteFrames_itb1r")
 animation = &"idle"
-frame_progress = 0.381708
+frame_progress = 0.565847
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Foe"]
 position = Vector2(-0.00012207, -3.8147e-06)
