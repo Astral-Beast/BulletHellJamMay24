@@ -81,7 +81,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wmph2"]
-radius = 3.04138
+radius = 1.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xc4l8"]
 shader = ExtResource("5_sih3t")
