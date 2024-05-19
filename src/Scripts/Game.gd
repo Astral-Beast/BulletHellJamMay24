@@ -100,11 +100,15 @@ func _on_spawn_pause_timer_timeout() -> void:
 
 
 func _on_player_game_over() -> void:
+	await get_tree().create_timer(3).timeout
 	emit_signal("game_over", score)
-	
-	emit_signal("game_over")
 	cull_all()
 	queue_free()
-	
+
+func death_screen():
+	emit_signal("game_over", score)
+	cull_all()
+	queue_free()
+
 func _on_music_finished():
 	$music.play()
