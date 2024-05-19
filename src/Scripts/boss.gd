@@ -85,6 +85,7 @@ func _on_foe_take_damage() -> void:
 	self.health-=10
 	$HealthBar.value-=10
 	if self.health <0:
+		print("progressing spell")
 		progress_spellcards()
 
 func chaotic_tracked(part):
@@ -140,7 +141,9 @@ func claustrophobia(part):
 			aimed_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND)
 
 func final_spell(part):
-	
+	$MoveTimer.stop()
+	movement_stopped = true
+	move_to_center()
 	match part:
 		self.parts.ONE:
 			$Foe/ShootTimer.start(2)
@@ -156,9 +159,6 @@ func _on_spell_card_timer_timeout() -> void:
 	progress_spellcards()
 
 func progress_spellcards() -> void:
-	
-	print(spell_cards)
-	print("index: ", spell_card_idx)
 	
 	match spell_card:
 		spell_cards.CHAOTIC_TRACKED:
@@ -182,12 +182,14 @@ func progress_spellcards() -> void:
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
 			$HealthBar.value = self.health
+		spell_cards.FINAL_SPELL:
+			die()
 		spell_cards.PAUSE:
-			
 			if movement_stopped:
 				$MoveTimer.start(3)
 				movement_stopped = false
 			spell_card_idx += 1
+			print(spell_card_idx)
 			
 			if spell_card_idx % 2 == 0:
 				if spell_card_idx <= 6:
@@ -196,8 +198,6 @@ func progress_spellcards() -> void:
 					bab_timer -= 0.05
 					self.health = 1000
 					$HealthBar.value = self.health
-				else:
-					die()
 			elif spell_card_idx == 1:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.CLAUSTROPHOBIA
@@ -214,6 +214,7 @@ func progress_spellcards() -> void:
 				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 7:
+				$SpellCardTimer.stop()
 				await get_tree().create_timer(10).timeout
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.FINAL_SPELL
