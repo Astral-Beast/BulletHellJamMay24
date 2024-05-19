@@ -32,8 +32,8 @@ enum parts {
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	$Foe/AnimatedSprite2D.play()
-	$Foe/AnimatedSprite2D.animation = "idle"
+	$AnimatedSprite2D.play()
+	$AnimatedSprite2D.animation = "idle"
 	self.health = 1000
 	$HealthBar.max_value = health
 	$HealthBar.value = health
@@ -50,7 +50,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	move(delta)
-	position = position.clamp(Vector2.ZERO, screen_size)
+	position = position.clamp(Vector2(screen_size.x/5, 0), Vector2(4*screen_size.x/5, screen_size.y/4))
 	if progress_ratio > .98:
 		if first_move:
 			progress_ratio = 1.0
