@@ -9,7 +9,8 @@ var spell_card_idx: int
 var base_card_idx: int
 var spell_card_length: float = 45.0
 var movement_stopped: bool = false
-var bab_timer = 0.65
+var bab_timer = 0.7
+var screen_size
 
 enum spell_cards {
 	CHAOTIC_TRACKED,
@@ -30,6 +31,7 @@ enum parts {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	screen_size = get_viewport_rect().size
 	self.health = 1000
 	$HealthBar.max_value = health
 	$HealthBar.value = health
@@ -45,6 +47,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	move(delta)
+	position = position.clamp(Vector2.ZERO, screen_size)
 	if progress_ratio > .98:
 		if first_move:
 			progress_ratio = 1.0
@@ -154,7 +157,7 @@ func _on_spell_card_timer_timeout() -> void:
 func progress_spellcards() -> void:
 	match spell_card:
 		spell_cards.CHAOTIC_TRACKED:
-			$SpellCardTimer.start(2.0)
+			$SpellCardTimer.start(3.0)
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
 			$HealthBar.value = self.health
@@ -179,7 +182,7 @@ func progress_spellcards() -> void:
 			if spell_card_idx % 2 == 0:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.BIG_ASS_BULLET
-				bab_timer -= 0.1
+				bab_timer -= 0.05
 				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 1:
