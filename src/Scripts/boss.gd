@@ -7,7 +7,8 @@ var rng = RandomNumberGenerator.new()
 var first_move:bool = true
 var spell_card_idx: int
 var base_card_idx: int
-var spell_card_length: float = 30.0
+var spell_card_length: float = 45.0
+var movement_stopped: bool = false
 
 enum spell_cards {
 	CHAOTIC_TRACKED,
@@ -15,6 +16,7 @@ enum spell_cards {
 	BIG_ASS_BULLET,
 	RAIN_FROM_ABOVE,
 	CLAUSTROPHOBIA,
+	FINAL_SPELL,
 	PAUSE_UNTIL_RATIO_100
 }
 
@@ -47,7 +49,8 @@ func _process(delta: float) -> void:
 			progress_ratio = 1.0
 			$SpellCardTimer.start(spell_card_length)
 			
-			self.spell_card = self.spell_cards.BIG_ASS_BULLET
+			self.spell_card = self.spell_cards.FINAL_SPELL # BIG_ASS_BULLET should be the default
+			
 			$Foe/ShootTimer.start(.05)
 			$Foe/ShootTimer2.start(.05)
 			$Foe/ShootTimer3.start(.05)
@@ -83,10 +86,10 @@ func chaotic_tracked(part):
 			$Foe/ShootTimer.start(1)
 			circle_shot(diamond, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND)
 		self.parts.TWO:
-			$Foe/ShootTimer2.start(.08)
+			$Foe/ShootTimer2.start(.1)
 			spiral_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.SYRINGE)
 		self.parts.THREE:
-			$Foe/ShootTimer3.start(.1)
+			$Foe/ShootTimer3.start(.2)
 			random_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 10)
 
 func rain_from_above(part):
@@ -95,7 +98,8 @@ func rain_from_above(part):
 			$Foe/ShootTimer.start(.02)
 			sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
 		self.parts.TWO:
-			$Foe/ShootTimer2.start(.1)
+			# TODO: Replace diamonds with lasers to help with chunking
+			$Foe/ShootTimer2.start(.5)
 			inverted_fan_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND, 100, PI/8)
 		self.parts.THREE:
 			$Foe/ShootTimer3.start(2)
@@ -114,6 +118,7 @@ func big_ass_bullet_card(part):
 
 func claustrophobia(part):
 	$MoveTimer.stop()
+	movement_stopped = true
 	move_to_center()
 	match part:
 		self.parts.ONE:
@@ -126,6 +131,21 @@ func claustrophobia(part):
 		self.parts.THREE:
 			$Foe/ShootTimer3.start(.2)
 			aimed_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND)
+
+func final_spell(part):
+	$MoveTimer.stop()
+	movement_stopped = true
+	move_to_center()
+	match part:
+		self.parts.ONE:
+			$Foe/ShootTimer.start(2)
+			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
+		self.parts.TWO:
+			$Foe/ShootTimer2.start(.05)
+			galactic_sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, 12, 20, PI/4)
+		self.parts.THREE:
+			$Foe/ShootTimer3.start(5)
+			circle_shot(syringe, Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.SYRINGE, .01)
 
 func _on_spell_card_timer_timeout() -> void:
 	progress_spellcards()
@@ -151,12 +171,14 @@ func progress_spellcards() -> void:
 			self.health = 1000
 			$HealthBar.value = self.health
 		spell_cards.PAUSE:
-			$MoveTimer.start(3)
+			if movement_stopped:
+				$MoveTimer.start(3)
+				movement_stopped = false
 			spell_card_idx += 1
 			if spell_card_idx % 2 == 0:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.BIG_ASS_BULLET
-				self.health = 750
+				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 1:
 				$SpellCardTimer.start(spell_card_length)
@@ -175,7 +197,7 @@ func progress_spellcards() -> void:
 				$HealthBar.value = self.health
 			elif spell_card_idx == 7:
 				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.PAUSE # Swap with another
+				spell_card = spell_cards.FINAL_SPELL
 				self.health = 1000
 				$HealthBar.value = self.health
 			else:
@@ -190,7 +212,6 @@ func _on_timeout_timer_timeout() -> void:
 	self.progress_ratio = 0
 
 func _on_move_timer_timeout() -> void:
-	
 	get_new_move_curve()
 
 func _on_shoot_timer_timeout():
@@ -204,6 +225,8 @@ func _on_shoot_timer_timeout():
 			rain_from_above(parts.ONE)
 		self.spell_cards.CLAUSTROPHOBIA:
 			claustrophobia(parts.ONE)
+		self.spell_cards.FINAL_SPELL:
+			final_spell(parts.ONE)
 	pass
 
 func _on_shoot_timer_2_timeout():
@@ -217,6 +240,8 @@ func _on_shoot_timer_2_timeout():
 			rain_from_above(parts.TWO)
 		self.spell_cards.CLAUSTROPHOBIA:
 			claustrophobia(parts.TWO)
+		self.spell_cards.FINAL_SPELL:
+			final_spell(parts.TWO)
 	pass
 
 func _on_shoot_timer_3_timeout():
@@ -230,4 +255,6 @@ func _on_shoot_timer_3_timeout():
 			rain_from_above(parts.THREE)
 		self.spell_cards.CLAUSTROPHOBIA:
 			claustrophobia(parts.THREE)
+		self.spell_cards.FINAL_SPELL:
+			final_spell(parts.THREE)
 	pass
