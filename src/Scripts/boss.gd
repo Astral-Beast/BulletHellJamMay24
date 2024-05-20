@@ -56,7 +56,7 @@ func _process(delta: float) -> void:
 			progress_ratio = 1.0
 			$SpellCardTimer.start(spell_card_length)
 			
-			self.spell_card = self.spell_cards.BIG_ASS_BULLET # BIG_ASS_BULLET should be the default
+			self.spell_card = self.spell_cards.RAIN_FROM_ABOVE # BIG_ASS_BULLET should be the default
 			
 			$Foe/ShootTimer.start(.05)
 			$Foe/ShootTimer2.start(.05)
@@ -108,7 +108,7 @@ func rain_from_above(part):
 		self.parts.TWO:
 			# TODO: Replace diamonds with lasers to help with chunking
 			$Foe/ShootTimer2.start(.5)
-			inverted_fan_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND, 100, PI/8)
+			inverted_fan_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND, 30, PI/8)
 		self.parts.THREE:
 			$Foe/ShootTimer3.start(2)
 			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
