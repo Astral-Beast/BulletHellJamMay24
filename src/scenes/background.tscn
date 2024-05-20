@@ -13,6 +13,6 @@ shader_parameter/Glow_Map = ExtResource("2_aebnq")
 [node name="TextureRect" type="TextureRect" parent="."]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_pjc0d")
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1600.0
+offset_bottom = 921.0
 texture = ExtResource("2_sfsmq")
