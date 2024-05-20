@@ -6,6 +6,7 @@ var score:int
 var banana_counter : bool = true
 var graze:float = 0.5
 var grazing: bool = false
+var allow_spawns: bool = true
 
 
 @export var transition_duration = 1.00
@@ -24,6 +25,8 @@ func _ready():
 	SignalManager.boss_music.connect(start_boss_music)
 	SignalManager.connect("score_increase", _on_score_increase)
 	_on_graze_collider_graze(0)
+	SignalManager.textbox_open.connect(_on_textbox_open)
+	SignalManager.textbox_closed.connect(_on_textbox_closed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -34,6 +37,13 @@ func _process(delta):
 		graze = 0.5
 		$UI/Graze.text = "Graze: %0.2f" % graze
 
+func _on_textbox_open():
+	$Mob_Spawner.stop()
+	allow_spawns = false
+
+func _on_textbox_closed():
+	$Mob_Spawner.start()
+	allow_spawns = true
 
 func _on_player_hit():
 	$player_sfx_handler.play()
@@ -43,12 +53,11 @@ func _on_score_increase():
 	score += ceil(100 * graze)
 	$UI/Score.text = "Score: %s" % score
 
-
 func cull_projectiles():
 	# Gets all on screen bullets and queuefrees them
 	for bullet in get_tree().get_nodes_in_group("Enemy_Bullets"):
 		bullet.queue_free()
-		
+
 func cull_all():
 	# Gets all on screen bullets and queuefrees them
 	for bullet in get_tree().get_nodes_in_group("Enemy_Bullets"):
@@ -85,6 +94,8 @@ func _on_player_throw_banana():
 func get_banana():
 	var nanner = banana.duplicate().instantiate()
 	return nanner
+
+
 
 func _on_mob_spawner_timeout() -> void:
 	

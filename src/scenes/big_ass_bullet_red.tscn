@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://iiufaqfw86m1"]
+
+[ext_resource type="Script" path="res://src/scenes/circle_bullet.gd" id="1_656uu"]
+[ext_resource type="Shader" path="res://src/shaders/big_bullet_red.gdshader" id="2_mevyb"]
+[ext_resource type="Script" path="res://src/scenes/Sprite2D.gd" id="3_57t68"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g5iqk"]
+shader = ExtResource("2_mevyb")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_wexcb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_my7ny"]
+radius = 5.4
+
+[node name="Big_Ass_Bullet_Red" type="Node2D"]
+script = ExtResource("1_656uu")
+
+[node name="bullet_sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_g5iqk")
+position = Vector2(0.500043, 1.57952e-06)
+scale = Vector2(180, 180)
+texture = SubResource("CanvasTexture_wexcb")
+script = ExtResource("3_57t68")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+use_parent_material = true
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_my7ny")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -54,6 +54,8 @@ func _process(delta):
 	match current_state:
 		State.READY:
 			if !text_queue.is_empty():
+				SignalManager.emit_signal("textbox_open")
+				print("open")
 				display_text()
 		State.READING:
 			if Input.is_action_just_pressed("Skip_Text"):
@@ -66,6 +68,8 @@ func _process(delta):
 			if Input.is_action_just_pressed("ui_accept"):
 				change_state(State.READY)
 				hide_textbox()
+				SignalManager.emit_signal("textbox_closed")
+				print("closed")
 
 func queue_text(next_text):
 	text_queue.push_back(next_text)
@@ -107,10 +111,10 @@ func on_tween_finished():
 
 func change_state(next_state):
 	current_state = next_state
-	match current_state:
-		State.READY:
-			print("changing to State.READY")
-		State.READING:
-			print("changing to State.READING")
-		State.FINISHED:
-			print("changing to State.FINISHED")
+	#match current_state:
+		#State.READY:
+			#print("changing to State.READY")
+		#State.READING:
+			#print("changing to State.READING")
+		#State.FINISHED:
+			#print("changing to State.FINISHED")
