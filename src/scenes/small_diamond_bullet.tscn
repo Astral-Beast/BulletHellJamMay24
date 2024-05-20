@@ -32,6 +32,7 @@ script = ExtResource("3_kb5by")
 [node name="Area2D" type="Area2D" parent="."]
 use_parent_material = true
 scale = Vector2(1.5, 1.5)
+collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
