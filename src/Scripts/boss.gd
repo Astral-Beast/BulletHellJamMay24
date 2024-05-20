@@ -31,6 +31,7 @@ enum parts {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	SignalManager.boss_music.emit()
 	screen_size = get_viewport_rect().size
 	$AnimatedSprite2D.play()
 	$AnimatedSprite2D.animation = "idle"
