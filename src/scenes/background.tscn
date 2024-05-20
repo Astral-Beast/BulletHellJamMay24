@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc1jluiwylexp"]
+[gd_scene load_steps=5 format=3 uid="uid://cc1jluiwylexp"]
 
 [ext_resource type="Shader" path="res://src/scenes/root.gdshader" id="1_gbkyo"]
+[ext_resource type="Texture2D" uid="uid://cpk4wko43462e" path="res://assets/art/background_glow_map.png" id="2_aebnq"]
 [ext_resource type="Texture2D" uid="uid://dedqpsqhpn282" path="res://assets/art/background.png" id="2_sfsmq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pjc0d"]
 shader = ExtResource("1_gbkyo")
+shader_parameter/Glow_Map = ExtResource("2_aebnq")
 
 [node name="Background" type="Node2D"]
 
