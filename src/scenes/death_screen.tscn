@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://owaphhaqi7dh"]
 
-[ext_resource type="LabelSettings" uid="uid://b3r3rqi6h7450" path="res://assets/fonts/Death_screen_labels.tres" id="1_mo5rp"]
 [ext_resource type="Script" path="res://src/Scripts/death_screen.gd" id="1_y4nu3"]
 [ext_resource type="Shader" path="res://src/shaders/death_screen.gdshader" id="2_stbnk"]
 [ext_resource type="Texture2D" uid="uid://bson4v43lilwi" path="res://assets/art/Grave.png" id="2_xudkm"]
+[ext_resource type="LabelSettings" uid="uid://c03p1xt28qsqe" path="res://assets/fonts/game.tres" id="3_sf4q1"]
 [ext_resource type="AudioStream" uid="uid://doay07ba81oph" path="res://assets/sounds/music/death music.wav" id="5_xwx3s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ym2f2"]
@@ -11,8 +11,10 @@ shader = ExtResource("2_stbnk")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nktjf"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_uk0s6"]
+[sub_resource type="LabelSettings" id="LabelSettings_52qfu"]
 font_size = 40
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="Death Screen" type="Node2D"]
 script = ExtResource("1_y4nu3")
@@ -40,7 +42,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 text = "Returned to Monke"
-label_settings = SubResource("LabelSettings_uk0s6")
+label_settings = SubResource("LabelSettings_52qfu")
 horizontal_alignment = 1
 
 [node name="PlayAgain" type="Button" parent="CanvasLayer"]
@@ -65,23 +67,15 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 text = "Enemies Killed: "
-label_settings = ExtResource("1_mo5rp")
+label_settings = ExtResource("3_sf4q1")
 horizontal_alignment = 1
 
-[node name="BossesKilled" type="Label" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -52.5
-offset_top = 66.5
-offset_right = 52.5
-offset_bottom = 89.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Bosses Killed:"
-label_settings = ExtResource("1_mo5rp")
+[node name="Credits" type="Button" parent="CanvasLayer"]
+offset_left = 758.0
+offset_top = 654.0
+offset_right = 844.0
+offset_bottom = 686.0
+text = "Credits"
 
 [node name="Grave" type="Sprite2D" parent="."]
 position = Vector2(799, 263)
@@ -95,3 +89,4 @@ volume_db = -4.952
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="CanvasLayer/Credits" to="." method="_on_button_pressed"]

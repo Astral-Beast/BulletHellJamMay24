@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=3 uid="uid://6n5611pyna2u"]
+
+[ext_resource type="LabelSettings" uid="uid://c03p1xt28qsqe" path="res://assets/fonts/game.tres" id="1_qqdcb"]
+[ext_resource type="Script" path="res://src/Scripts/credits.gd" id="1_st15f"]
+
+[node name="Credits" type="Node2D"]
+z_index = 6
+script = ExtResource("1_st15f")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.235
+anchor_bottom = 0.228
+offset_left = 516.0
+offset_top = 261.0
+offset_right = 736.0
+offset_bottom = 570.24
+color = Color(0.286275, 0.286275, 0.286275, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -256.0
+offset_top = 359.0
+offset_right = 272.0
+offset_bottom = 730.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Thanks to ansimuz (                    ) for the awesome enemy sprites!
+
+Estes made our killer soundtrack. Check out more of his work here: 
+
+                    , Pterozactyl and Estes created all other assets and poorly optimized  all code.
+
+Additional thanks to Trigonometry for making fragment shaders possible. "
+label_settings = ExtResource("1_qqdcb")
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.5
+offset_top = 259.0
+offset_right = 43.5
+offset_bottom = 290.0
+grow_horizontal = 2
+text = "CREDITS"
+label_settings = ExtResource("1_qqdcb")
+
+[node name="LinkButton" type="LinkButton" parent="CanvasLayer"]
+offset_left = 774.0
+offset_top = 359.0
+offset_right = 1049.0
+offset_bottom = 399.0
+theme_override_colors/font_color = Color(0.333333, 0.537255, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "ansimuz"
+uri = "ansimuz.itch.io"
+
+[node name="LinkButton2" type="LinkButton" parent="CanvasLayer"]
+offset_left = 791.0
+offset_top = 498.0
+offset_right = 1095.0
+offset_bottom = 538.0
+theme_override_colors/font_color = Color(0.333333, 0.537255, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "www.youtube.com/@estes_was_here"
+uri = "www.youtube.com/@estes_was_here"
+
+[node name="LinkButton3" type="LinkButton" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_right = 0.025
+anchor_bottom = 0.043
+offset_left = 528.0
+offset_top = 562.0
+offset_right = 621.0
+offset_bottom = 562.44
+theme_override_colors/font_color = Color(0.333333, 0.537255, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Astral_Beast"
+uri = "https://astral-beast012.itch.io/"
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 778.0
+offset_top = 748.0
+offset_right = 842.0
+offset_bottom = 779.0
+text = "Close"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
