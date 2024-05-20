@@ -10,7 +10,8 @@ enum Shot_Pattern{
 	SPIRAL,
 	RANDOM, 
 	AIMED,
-	NONE
+	GALACTIC_SHOT,
+	NONE,
 }
 
 enum Shot_Movement{

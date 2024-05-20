@@ -40,9 +40,6 @@ func _process(delta):
 		
 		if velocity.length() > 0:
 			velocity = velocity.normalized() * speed
-			$AnimatedSprite2D.play()
-		else:
-			$AnimatedSprite2D.play()
 		if Input.is_action_pressed("Slow_Move"):
 			velocity= velocity *.3
 		position += velocity * delta
@@ -50,13 +47,13 @@ func _process(delta):
 		
 		if velocity.x != 0 && hit_increment != 3:
 				
-			$AnimatedSprite2D.animation = "walk"
-			$AnimatedSprite2D.flip_v = false
-			$AnimatedSprite2D.flip_h = velocity.x < 0
+			$AnimationPlayer.play( "walk")
+			$Sprite2D.flip_v = false
+			$Sprite2D.flip_h = velocity.x < 0
 		elif velocity.y != 0 && hit_increment != 3:
-			$AnimatedSprite2D.animation = "walk"
+			$AnimationPlayer.play("walk")
 		elif hit_increment != 3:
-			$AnimatedSprite2D.animation = "idle"
+			$AnimationPlayer.play("idle") 
 
 func start(pos):
 	position = pos
@@ -74,7 +71,7 @@ func _on_area_entered(area):
 #vvv this is the signal that happens when the final heart goes away, from the control script
 func _on_control_kill():
 	hit_increment = 0
-	$AnimatedSprite2D.animation ="die"
+	$AnimationPlayer.play("die")
 	dead = true
 	emit_signal("game_over")
 		
