@@ -74,8 +74,6 @@ func _on_control_kill():
 	$AnimationPlayer.play("die")
 	dead = true
 	emit_signal("game_over")
-		
-
 
 func _on_immunity_timer_timeout() -> void:
 	$Immunity_timer.stop()

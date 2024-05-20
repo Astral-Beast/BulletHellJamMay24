@@ -14,7 +14,8 @@ config/name="Gorillapunk V"
 run/main_scene="res://src/scenes/root.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/art/monke.png"
+config/windows_native_icon="res://assets/art/monke_lom_icon.ico"
 
 [autoload]
 

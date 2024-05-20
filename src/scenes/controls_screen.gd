@@ -13,14 +13,17 @@ func _process(delta: float) -> void:
 
 func _on_easy_pressed() -> void:
 	emit_signal("difficulty",Enums.Difficulty.EASY)
+	queue_free()
 	pass # Replace with function body.
 
 
 func _on_normal_pressed() -> void:
 	emit_signal("difficulty",Enums.Difficulty.NORMAL)
+	queue_free()
 	pass # Replace with function body.
 
 
 func _on_master_pressed() -> void:
 	emit_signal("difficulty",Enums.Difficulty.MASTER)
+	queue_free()
 	pass # Replace with function body.

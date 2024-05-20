@@ -7,6 +7,7 @@ var difficulty:Enums.Difficulty=Enums.Difficulty.EASY
 
 var heart_vec 
 var hearts_visible 
+var all_hearts = ["heart", "heart2","heart3","heart4","heart5"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,6 +26,9 @@ func _on_player_hit():
 	hearts_visible -=1
 	print("visible: ", hearts_visible)
 	if hearts_visible < 1:
+		$heart.visible = false
+		for heart in all_hearts:
+				get_node(heart).visible = false
 		kill.emit()
 	else:
 		for i in range(hearts_visible, len(heart_vec)):

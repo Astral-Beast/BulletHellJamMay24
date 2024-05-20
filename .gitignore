@@ -2,7 +2,7 @@
 
 # Godot 4+ specific ignores
 .godot/*
-
+./.exe/*
 # Godot-specific ignores
 .import/
 export.cfg

@@ -279,3 +279,11 @@ func _on_shoot_timer_3_timeout():
 		self.spell_cards.FINAL_SPELL:
 			final_spell(parts.THREE)
 	pass
+
+func die():
+	death_sfx.emit()
+	await get_tree().create_timer(1.22).timeout
+	SignalManager.emit_signal("score_increase")
+	self.queue_free()
+	SignalManager.emit_signal("victory_screen")
+	pass

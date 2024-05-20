@@ -2,6 +2,7 @@ extends Node2D
 const banana = preload("res://src/scenes/banana.tscn")
 var rng = RandomNumberGenerator.new()
 signal game_over
+signal victory_sig
 var score:int
 var banana_counter : bool = true
 var graze:float = 0.5
@@ -27,6 +28,8 @@ func _ready():
 	_on_graze_collider_graze(0)
 	SignalManager.textbox_open.connect(_on_textbox_open)
 	SignalManager.textbox_closed.connect(_on_textbox_closed)
+	SignalManager.connect("victory_screen", victory)
+
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -126,6 +129,11 @@ func _on_spawn_pause_timer_timeout() -> void:
 func _on_player_game_over() -> void:
 	await get_tree().create_timer(3).timeout
 	emit_signal("game_over", score)
+	cull_all()
+	queue_free()
+
+func victory():
+	emit_signal("victory", score)
 	cull_all()
 	queue_free()
 

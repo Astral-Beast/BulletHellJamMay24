@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxvu7u2gaxr2l"]
+
+[ext_resource type="Script" path="res://src/Scripts/victory_screen.gd" id="1_6ahbn"]
+[ext_resource type="AudioStream" uid="uid://da4plwm3u7frd" path="res://assets/sounds/music/monkey wrench first half.wav" id="1_o62lu"]
+[ext_resource type="Shader" path="res://src/shaders/death_screen.gdshader" id="2_acsqq"]
+[ext_resource type="LabelSettings" uid="uid://c03p1xt28qsqe" path="res://assets/fonts/game.tres" id="3_lvqmw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ym2f2"]
+shader = ExtResource("2_acsqq")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nktjf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_52qfu"]
+font_size = 40
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="victory_screen" type="Node2D"]
+script = ExtResource("1_6ahbn")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_priority = 1
+stream = ExtResource("1_o62lu")
+volume_db = -4.952
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="Background" type="Sprite2D" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_ym2f2")
+position = Vector2(805.75, 461.75)
+scale = Vector2(1612.5, 924.5)
+texture = SubResource("CanvasTexture_nktjf")
+
+[node name="Returned" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.0
+offset_top = -75.0
+offset_right = 186.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "VICTORY!"
+label_settings = SubResource("LabelSettings_52qfu")
+horizontal_alignment = 1
+
+[node name="PlayAgain" type="Button" parent="CanvasLayer"]
+offset_left = 757.0
+offset_top = 621.0
+offset_right = 844.0
+offset_bottom = 652.0
+size_flags_horizontal = 4
+text = "Play again"
+
+[node name="Score" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.5
+offset_top = 103.5
+offset_right = 60.5
+offset_bottom = 126.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Enemies Killed: "
+label_settings = ExtResource("3_lvqmw")
+horizontal_alignment = 1
+
+[node name="Credits" type="Button" parent="CanvasLayer"]
+offset_left = 758.0
+offset_top = 654.0
+offset_right = 844.0
+offset_bottom = 686.0
+text = "Credits"
+
+[connection signal="pressed" from="CanvasLayer/PlayAgain" to="." method="_on_play_again_pressed"]
+[connection signal="pressed" from="CanvasLayer/Credits" to="." method="_on_credits_pressed"]
