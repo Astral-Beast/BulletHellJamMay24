@@ -7,6 +7,8 @@ var mob_packs = [
 				[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards, one_sec_pause,],
 				[first_enemy_encounter,first_enemy_encounter,first_enemy_encounter,first_enemy_encounter,first_enemy_encounter, one_sec_pause,],
 				[second_enemy_encounter,second_enemy_encounter,second_enemy_encounter,second_enemy_encounter,second_enemy_encounter, one_sec_pause,],
+				[third_enemy_encounter,third_enemy_encounter,third_enemy_encounter,third_enemy_encounter,third_enemy_encounter, one_sec_pause,],
+				[fourth_enemy_encounter,fourth_enemy_encounter,fourth_enemy_encounter,fourth_enemy_encounter,fourth_enemy_encounter, one_sec_pause,],
 				[textbox_pause],
 				[boss_fight]]
 #[left_homing_1, left_homing_2, left_homing_1, left_homing_2]
@@ -76,6 +78,20 @@ func second_enemy_encounter():
 				Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, .05)
 	add_enemy(SIDE_LEFT,SIDE_RIGHT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.GALACTIC_SHOT, 
 				Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET, .05)
+	return 1.0
+	
+func third_enemy_encounter():
+	add_enemy(SIDE_RIGHT,SIDE_LEFT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.GALACTIC_SHOT, 
+				Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND, .05)
+	add_enemy(SIDE_LEFT,SIDE_RIGHT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.GALACTIC_SHOT, 
+				Enums.Shot_Movement.CONST_PAUSE_AIM, Enums.Shot_Types.DIAMOND, .05)
+	return 1.0
+	
+func fourth_enemy_encounter():
+	add_enemy(SIDE_RIGHT,SIDE_LEFT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.SPIRAL, 
+				Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE, .05)
+	add_enemy(SIDE_LEFT,SIDE_RIGHT, Enums.Pathing.STRAIGHT_LINES, Enums.Shot_Pattern.SPIRAL, 
+				Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE, .05)
 	
 	return 1.0
 

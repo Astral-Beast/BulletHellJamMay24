@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cv3ht25h5jrfe"]
+[gd_scene load_steps=13 format=3 uid="uid://cv3ht25h5jrfe"]
 
 [ext_resource type="Script" path="res://src/Scripts/game.gd" id="1_saebl"]
 [ext_resource type="PackedScene" uid="uid://s1vdrlv4plql" path="res://src/scenes/textbox.tscn" id="2_oalj2"]
 [ext_resource type="PackedScene" uid="uid://b7qk4trnkj22s" path="res://src/scenes/player.tscn" id="3_hfd40"]
 [ext_resource type="PackedScene" uid="uid://b751xtyy7y8g8" path="res://src/scenes/music.tscn" id="4_vfoa6"]
 [ext_resource type="AudioStream" uid="uid://da4plwm3u7frd" path="res://assets/sounds/music/monkey wrench first half.wav" id="5_ldm8f"]
+[ext_resource type="AudioStream" uid="uid://b1mcti33m55u7" path="res://assets/sounds/music/monkey wrench second half.wav" id="6_8ykn7"]
 [ext_resource type="AudioStream" uid="uid://cdmrak7qjjsxa" path="res://assets/sounds/sfx/player shoot.wav" id="6_hmc3a"]
 [ext_resource type="LabelSettings" uid="uid://c03p1xt28qsqe" path="res://assets/fonts/game.tres" id="7_u7svk"]
 [ext_resource type="AudioStream" uid="uid://n0l68sex64ut" path="res://assets/sounds/sfx/monkey hit death.wav" id="7_w7so8"]
@@ -33,6 +34,9 @@ position = Vector2(819, 577)
 [node name="music" parent="." instance=ExtResource("4_vfoa6")]
 stream = ExtResource("5_ldm8f")
 volume_db = -8.357
+
+[node name="music_boss" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_8ykn7")
 
 [node name="player_sfx_handler" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_w7so8")
@@ -96,6 +100,7 @@ texture = ExtResource("8_mps3c")
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="throw_banana" from="Player" to="." method="_on_player_throw_banana"]
 [connection signal="finished" from="music" to="." method="_on_music_finished"]
+[connection signal="finished" from="music_boss" to="." method="_on_music_boss_finished"]
 [connection signal="area_entered" from="Graze_collider" to="." method="_on_graze_collider_area_entered"]
 [connection signal="body_shape_entered" from="Graze_collider" to="." method="_on_graze_collider_body_shape_entered"]
 [connection signal="graze" from="Graze_collider" to="." method="_on_graze_collider_graze"]
