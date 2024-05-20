@@ -32,9 +32,7 @@ func _ready():
 	match shot_type:
 		Enums.Shot_Types.SYRINGE:
 			var angle_to = self.transform.x.angle_to(velocity)
-			self.rotate(cos(angle_to)*100)
-		Enums.Shot_Types.LASER:
-			self.transform.looking_at(velocity)
+			self.rotate(cos(angle_to))
 	match movement_type:
 		Enums.Shot_Movement.TIMED_HOMING:
 			var timer = Timer.new()
@@ -60,7 +58,7 @@ func _process(delta):
 		Enums.Shot_Types.SYRINGE:
 			var angle_to = self.transform.x.angle_to(velocity)
 			self.rotate(cos(angle_to)*delta*angular_speed)
-
+					
 	match movement_type:
 		Enums.Shot_Movement.HOMING:
 			var player_location = get_tree().get_nodes_in_group("Player")[0].position

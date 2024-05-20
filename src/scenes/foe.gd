@@ -9,7 +9,6 @@ const syringe = preload("res://src/scenes/syringe_bullet.tscn")
 const diamond = preload("res://src/scenes/small_diamond_bullet.tscn")
 const circle_bullet = preload("res://src/scenes/circle_bullet.tscn")
 const big_ass_bullet = preload("res://src/scenes/big_ass_bullet.tscn")
-const laser = preload("res://src/scenes/laser_bullet.tscn")
 
 @export var shot_type: PackedScene
 var shot_enum: Enums.Shot_Types
@@ -132,7 +131,7 @@ func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_
 		var bullet_global_position = shot.position*get_global_transform().affine_inverse()
 		var self_global_position = self.position*get_global_transform().affine_inverse()
 		var velocity = (bullet_global_position - self_global_position).normalized()	
-		shot.velocity = velocity * bullet_speed *4
+		shot.velocity = velocity * bullet_speed
 		shot.add_to_group("Enemy_Bullets")
 		get_parent().add_child(shot)
 		$foe_audio_shot.play()
@@ -243,12 +242,11 @@ func fan_shot():
 	pass
 
 func inverted_fan_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type,
-					this_shot_type_enum=shot_enum, density=self.inv_fan_density, limit=PI/16):
+					this_shot_type_enum=shot_enum, density=self.inv_fan_density, limit=PI/4):
 	for i in range(density):
-		var shot = laser.instantiate()
+		var shot = this_shot_type.instantiate()
 		shot.movement_type = this_movement_type
-		shot.shot_type = Enums.Shot_Types.LASER
-		shot.speed = .30
+		shot.shot_type = this_shot_type_enum
 		var theta = limit + 2*(PI - limit) * i / float(density)
 	
 		if counter == len(theta_range) - 1:
@@ -262,7 +260,7 @@ func inverted_fan_shot(this_shot_type = shot_type, this_movement_type = shot_mov
 		var bullet_global_position = shot.position*get_global_transform().affine_inverse()
 		var self_global_position = self.position*get_global_transform().affine_inverse()
 		var velocity = (bullet_global_position - self_global_position).normalized()
-		shot.velocity = velocity * bullet_speed * 2
+		shot.velocity = velocity * bullet_speed
 		shot.add_to_group("Enemy_Bullets")
 		get_parent().add_child(shot)
 
