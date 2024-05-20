@@ -3,6 +3,8 @@ extends Node
 signal score_increase
 signal textbox_ping
 signal boss_music
+signal textbox_open
+signal textbox_closed
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

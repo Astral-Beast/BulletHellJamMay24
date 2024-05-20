@@ -9,6 +9,7 @@ const syringe = preload("res://src/scenes/syringe_bullet.tscn")
 const diamond = preload("res://src/scenes/small_diamond_bullet.tscn")
 const circle_bullet = preload("res://src/scenes/circle_bullet.tscn")
 const big_ass_bullet = preload("res://src/scenes/big_ass_bullet.tscn")
+const red_ass_bullet = preload("res://src/scenes/big_ass_bullet_red.tscn")
 
 @export var shot_type: PackedScene
 var shot_enum: Enums.Shot_Types

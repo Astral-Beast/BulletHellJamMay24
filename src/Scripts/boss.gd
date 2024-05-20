@@ -107,18 +107,21 @@ func rain_from_above(part):
 			$Foe/ShootTimer.start(.02)
 			sweep_shot(circle_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.CIRCLE_BULLET)
 		self.parts.TWO:
-			# TODO: Replace diamonds with lasers to help with chunking
-			$Foe/ShootTimer2.start(.5)
-			inverted_fan_shot(diamond, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.DIAMOND, 100, PI/8)
+			$Foe/ShootTimer2.start(.3)
+			inverted_fan_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, 
+			Enums.Shot_Types.BIG_ASS_BULLET, 30, PI/8)
 		self.parts.THREE:
 			$Foe/ShootTimer3.start(2)
-			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
+			aimed_shot(red_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 
 func big_ass_bullet_card(part, part_two_timer=0.2):
 	match part:
 		self.parts.ONE:
 			$Foe/ShootTimer.start(1)
-			aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
+			if part_two_timer < 0.65:
+				aimed_shot(red_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
+			else:
+				aimed_shot(big_ass_bullet, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.BIG_ASS_BULLET)
 		self.parts.TWO:
 			$Foe/ShootTimer2.start(part_two_timer)
 			circle_shot(syringe, Enums.Shot_Movement.CONSTANT, Enums.Shot_Types.SYRINGE)
