@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://d053628xrqwqg"]
+[gd_scene load_steps=3 format=3 uid="uid://d053628xrqwqg"]
 
 [ext_resource type="LabelSettings" uid="uid://c03p1xt28qsqe" path="res://assets/fonts/game.tres" id="1_2sccw"]
+[ext_resource type="Script" path="res://src/scenes/controls_screen.gd" id="1_qckvd"]
 
 [node name="Controls_Screen" type="Node2D"]
+script = ExtResource("1_qckvd")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -12,10 +14,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -107.5
-offset_top = -63.5
-offset_right = 107.5
-offset_bottom = 63.5
+offset_left = -147.5
+offset_top = -194.5
+offset_right = 147.5
+offset_bottom = 108.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Use WASD or ←↑↓→to move.
@@ -24,6 +26,36 @@ Hold Shift to slow down.
 
 Hold Space or Z to shoot.
 
-Dodge the bullets!"
+Dodge the bullets!
+
+Select your difficulty level:"
 label_settings = ExtResource("1_2sccw")
 horizontal_alignment = 1
+
+[node name="Easy" type="Button" parent="CanvasLayer"]
+offset_left = 629.0
+offset_top = 630.0
+offset_right = 697.0
+offset_bottom = 669.0
+theme_override_font_sizes/font_size = 22
+text = "EASY"
+
+[node name="Normal" type="Button" parent="CanvasLayer"]
+offset_left = 739.0
+offset_top = 632.0
+offset_right = 842.0
+offset_bottom = 671.0
+theme_override_font_sizes/font_size = 22
+text = "NORMAL"
+
+[node name="Master" type="Button" parent="CanvasLayer"]
+offset_left = 890.0
+offset_top = 631.0
+offset_right = 983.0
+offset_bottom = 670.0
+theme_override_font_sizes/font_size = 22
+text = "MASTER"
+
+[connection signal="pressed" from="CanvasLayer/Easy" to="." method="_on_easy_pressed"]
+[connection signal="pressed" from="CanvasLayer/Normal" to="." method="_on_normal_pressed"]
+[connection signal="pressed" from="CanvasLayer/Master" to="." method="_on_master_pressed"]

@@ -2,13 +2,13 @@ extends Area2D
 signal hit
 signal throw_banana
 signal game_over
-
+const hearts = preload("res://src/scenes/heartbox.tscn")
 @export var speed = 500
 var screen_size
 var dead = false
 var hit_increment = 0
 var hit_state = state.VULNERABLE
-
+var difficulty
 enum state {
 	IMMUNE, # To bullets
 	VULNERABLE # To bullets
@@ -16,11 +16,11 @@ enum state {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
 	screen_size = get_viewport_rect().size
+	$Control.connect("kill", _on_control_kill)
 
 func _physics_process(delta):
-	if Input.is_action_pressed("Throw_banana"):
+	if Input.is_action_pressed("Throw_banana") and not dead:
 		emit_signal("throw_banana")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
