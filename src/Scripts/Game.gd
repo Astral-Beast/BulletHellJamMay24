@@ -19,7 +19,6 @@ func _ready():
 	SignalManager.connect("score_increase", _on_score_increase)
 	_on_graze_collider_graze(0)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if !grazing && graze > 0.5:
@@ -81,7 +80,6 @@ func get_banana():
 	var nanner = banana.duplicate().instantiate()
 	return nanner
 
-
 func _on_mob_spawner_timeout() -> void:
 	
 	if mob_pack_index < len(mob_packs):
@@ -94,8 +92,6 @@ func _on_mob_spawner_timeout() -> void:
 				return
 		mob_pack_index+=1
 	
-	
-
 func _on_spawn_pause_timer_timeout() -> void:
 	$Mob_Spawner.start()
 	$Spawn_Pause_Timer.stop()
@@ -123,14 +119,12 @@ func death_screen():
 func _on_music_finished():
 	$music.play()
 
-
 func _on_graze_collider_graze(amt) -> void:
 	$GrazeGraceTimer.stop()
 	grazing = true
 	graze = clamp(graze+(1*.01),.5,5)
 	$UI/Graze.text = "Graze: %0.2f" % graze
 	$GrazeGraceTimer.start(2)
-
 
 func _on_graze_grace_timer_timeout():
 	grazing = false

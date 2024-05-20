@@ -159,6 +159,7 @@ func _on_spell_card_timer_timeout() -> void:
 	progress_spellcards()
 
 func progress_spellcards() -> void:
+	
 	match spell_card:
 		spell_cards.CHAOTIC_TRACKED:
 			$SpellCardTimer.start(3.0)
@@ -169,6 +170,9 @@ func progress_spellcards() -> void:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
+			if spell_card_idx == 6:
+				await get_tree().create_timer(7).timeout
+				SignalManager.textbox_ping.emit()
 		spell_cards.RAIN_FROM_ABOVE:
 			$SpellCardTimer.start(2.0)
 			spell_card=spell_cards.PAUSE
@@ -178,17 +182,21 @@ func progress_spellcards() -> void:
 			spell_card=spell_cards.PAUSE
 			self.health = 1000
 			$HealthBar.value = self.health
+		spell_cards.FINAL_SPELL:
+			die()
 		spell_cards.PAUSE:
 			if movement_stopped:
 				$MoveTimer.start(3)
 				movement_stopped = false
 			spell_card_idx += 1
+			
 			if spell_card_idx % 2 == 0:
-				$SpellCardTimer.start(spell_card_length)
-				spell_card = spell_cards.BIG_ASS_BULLET
-				bab_timer -= 0.05
-				self.health = 1000
-				$HealthBar.value = self.health
+				if spell_card_idx <= 6:
+					$SpellCardTimer.start(spell_card_length)
+					spell_card = spell_cards.BIG_ASS_BULLET
+					bab_timer -= 0.05
+					self.health = 1000
+					$HealthBar.value = self.health
 			elif spell_card_idx == 1:
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.CLAUSTROPHOBIA
@@ -205,12 +213,12 @@ func progress_spellcards() -> void:
 				self.health = 1000
 				$HealthBar.value = self.health
 			elif spell_card_idx == 7:
+				$SpellCardTimer.stop()
+				await get_tree().create_timer(10).timeout
 				$SpellCardTimer.start(spell_card_length)
 				spell_card = spell_cards.FINAL_SPELL
 				self.health = 1000
 				$HealthBar.value = self.health
-			else:
-				die()
 				
 		spell_cards.PAUSE:
 			$SpellCardTimer.start(2.0)
