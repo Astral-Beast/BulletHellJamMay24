@@ -7,15 +7,21 @@ var banana_counter : bool = true
 var graze:float = 0.5
 var grazing: bool = false
 
+
+@export var transition_duration = 1.00
+@export var transition_type = 1 # TRANS_SINE
+
 var sound_count = 0
 var mob_packs = []
 var mob_pack_index = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mob_packs = EnemyPacks.mob_packs.duplicate(true)
 	score = 0
 	$UI/Score.text = "Score: %s" % score
 	$UI/Graze.text = "Graze: %0.2f" % graze
+	SignalManager.boss_music.connect(start_boss_music)
 	SignalManager.connect("score_increase", _on_score_increase)
 	_on_graze_collider_graze(0)
 
@@ -128,3 +134,13 @@ func _on_graze_collider_graze(amt) -> void:
 
 func _on_graze_grace_timer_timeout():
 	grazing = false
+
+func start_boss_music():
+	for i in 100:
+		$music.volume_db -= 1
+		
+	$music.stop()
+	$music_boss.play()
+
+func _on_music_boss_finished():
+	$music_boss.play()

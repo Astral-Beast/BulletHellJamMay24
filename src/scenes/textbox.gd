@@ -21,8 +21,9 @@ func _ready():
 	
 	print("Starting state is: State.READY")
 	hide_textbox()
-	queue_text("I hate this place. I hate living in a zoo, where my whole purpose is to be stared at by curious onlookers.")
-	queue_text("I need to get out.")
+	queue_text("I hate this place. These aliens have kept me captive for so long.")
+	queue_text("This would've never happened if I hadn't escaped that zoo back on Earth.")
+	queue_text("I have to get out... I want to go home!")
 	queue_text("You zookeeper FREAKS can't hold me back!!!!!")
 	
 func pipe_text():
