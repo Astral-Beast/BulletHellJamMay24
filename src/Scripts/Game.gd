@@ -4,6 +4,7 @@ var rng = RandomNumberGenerator.new()
 signal game_over
 var score:int
 var banana_counter : bool = true
+var graze:float = 0.5
 
 var sound_count = 0
 var mob_packs = []
@@ -14,20 +15,23 @@ func _ready():
 	score = -1
 	_on_score_increase()
 	SignalManager.connect("score_increase", _on_score_increase)
+	_on_graze_collider_graze(0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#child_entered_tree.connect(_on_score_increase)
+
 	pass
+
 
 func _on_player_hit():
 	$player_sfx_handler.play()
 	cull_projectiles()
 
 func _on_score_increase():
-	score += 1
+	score += ceil(10 * graze)
 	$UI/Score.text = "Score: %s" % score
+
 
 func cull_projectiles():
 	# Gets all on screen bullets and queuefrees them
@@ -101,10 +105,16 @@ func _on_spawn_pause_timer_timeout() -> void:
 
 func _on_player_game_over() -> void:
 	emit_signal("game_over", score)
-	
-	emit_signal("game_over")
 	cull_all()
 	queue_free()
 	
 func _on_music_finished():
 	$music.play()
+
+
+
+
+
+func _on_graze_collider_graze(amt) -> void:
+	graze = clamp(graze+(1*.01),.5,5)
+	$UI/Graze.text = "Graze: %0.2f" % graze
