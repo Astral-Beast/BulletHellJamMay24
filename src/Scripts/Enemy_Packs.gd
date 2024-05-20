@@ -4,14 +4,10 @@ const boss = preload("res://src/scenes/boss.tscn")
 
 var mob_packs = [
 				
-<<<<<<< HEAD
-				#[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,],
-=======
 				[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards, one_sec_pause,],
 				[first_enemy_encounter,first_enemy_encounter,first_enemy_encounter,first_enemy_encounter,first_enemy_encounter, one_sec_pause,],
 				[second_enemy_encounter,second_enemy_encounter,second_enemy_encounter,second_enemy_encounter,second_enemy_encounter, one_sec_pause,],
 				[textbox_pause],
->>>>>>> main
 				[boss_fight]]
 #[left_homing_1, left_homing_2, left_homing_1, left_homing_2]
 # Called when the node enters the scene tree for the first time.
