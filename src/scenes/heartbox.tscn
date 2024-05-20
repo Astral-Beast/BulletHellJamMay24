@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://r0j77o3r5ff3"]
+
+[ext_resource type="Script" path="res://src/scenes/heartbox.gd" id="1_krdub"]
+[ext_resource type="Texture2D" uid="uid://68oul5v1rego" path="res://assets/art/heart - Copy.png" id="2_5sauf"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -301.0
+offset_top = -169.0
+offset_right = -27.0
+offset_bottom = -82.0
+script = ExtResource("1_krdub")
+
+[node name="heart" type="Sprite2D" parent="."]
+position = Vector2(286.334, 189.098)
+scale = Vector2(0.036, 0.033)
+texture = ExtResource("2_5sauf")
+
+[node name="heart2" type="Sprite2D" parent="."]
+position = Vector2(294.334, 189.098)
+scale = Vector2(0.036, 0.033)
+texture = ExtResource("2_5sauf")
+
+[node name="heart3" type="Sprite2D" parent="."]
+position = Vector2(301.834, 189.098)
+scale = Vector2(0.036, 0.033)
+texture = ExtResource("2_5sauf")
+
+[node name="heart4" type="Sprite2D" parent="."]
+position = Vector2(309.5, 189)
+scale = Vector2(0.036, 0.033)
+texture = ExtResource("2_5sauf")
+
+[node name="heart5" type="Sprite2D" parent="."]
+position = Vector2(316.834, 189.098)
+scale = Vector2(0.036, 0.033)
+texture = ExtResource("2_5sauf")

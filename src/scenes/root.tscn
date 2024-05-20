@@ -13,7 +13,7 @@ glow_blend_mode = 1
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_wis43"]
 
-[node name="Root" type="Node"]
+[node name="Root" type="Node" groups=["root"]]
 script = ExtResource("1_acrqh")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

@@ -31,5 +31,4 @@ func _on_button_pressed() -> void:
 	$CanvasLayer.visible = false
 
 func make_visible():
-	print("here")
 	$CanvasLayer.visible = true

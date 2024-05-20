@@ -5,6 +5,12 @@ enum Pathing {
 	HOVER_ON_POINT
 }
 
+enum Difficulty {
+	EASY,
+	NORMAL,
+	MASTER
+}
+
 enum Shot_Pattern{
 	CIRCLE,
 	SPIRAL,

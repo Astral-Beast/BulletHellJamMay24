@@ -7,7 +7,7 @@ var banana_counter : bool = true
 var graze:float = 0.5
 var grazing: bool = false
 var allow_spawns: bool = true
-
+var difficulty
 
 @export var transition_duration = 1.00
 @export var transition_type = 1 # TRANS_SINE
@@ -27,6 +27,7 @@ func _ready():
 	_on_graze_collider_graze(0)
 	SignalManager.textbox_open.connect(_on_textbox_open)
 	SignalManager.textbox_closed.connect(_on_textbox_closed)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
