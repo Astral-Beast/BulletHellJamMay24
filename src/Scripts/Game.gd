@@ -119,14 +119,12 @@ func death_screen():
 func _on_music_finished():
 	$music.play()
 
-
 func _on_graze_collider_graze(amt) -> void:
 	$GrazeGraceTimer.stop()
 	grazing = true
 	graze = clamp(graze+(1*.01),.5,5)
 	$UI/Graze.text = "Graze: %0.2f" % graze
 	$GrazeGraceTimer.start(2)
-
 
 func _on_graze_grace_timer_timeout():
 	grazing = false
