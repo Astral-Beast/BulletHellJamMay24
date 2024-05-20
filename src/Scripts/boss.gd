@@ -86,7 +86,6 @@ func _on_foe_take_damage() -> void:
 	$HealthBar.value-=1
 	SignalManager.emit_signal("score_increase")
 	if self.health <0:
-		print("progressing spell")
 		progress_spellcards()
 
 func chaotic_tracked(part):
@@ -190,7 +189,6 @@ func progress_spellcards() -> void:
 				$MoveTimer.start(3)
 				movement_stopped = false
 			spell_card_idx += 1
-			print(spell_card_idx)
 			
 			if spell_card_idx % 2 == 0:
 				if spell_card_idx <= 6:
