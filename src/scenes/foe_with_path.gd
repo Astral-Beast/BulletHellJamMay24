@@ -23,7 +23,7 @@ func _process(delta):
 
 
 
-func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_pattern, shot_movement, shot_type):
+func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_pattern, shot_movement, shot_type, shoot_timer = 0.5):
 	# Set movement type
 	#print(get_tree().get_first_node_in_group("Game"))
 	match path:
@@ -36,6 +36,7 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_patter
 					new_foe.foe_shot_pattern = shot_pattern
 					new_foe.shot_movement_type = shot_movement
 					new_foe.shot_enum = shot_type
+					new_foe.shoot_timer = shoot_timer
 					new_path.add_child(new_foe)
 					#add_signal(new_foe)
 					add_child(new_path)
@@ -48,6 +49,7 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_patter
 					new_foe.foe_shot_pattern = shot_pattern
 					new_foe.shot_movement_type = shot_movement
 					new_foe.shot_enum = shot_type
+					new_foe.shoot_timer = shoot_timer
 					new_path.add_child(new_foe)
 					#add_signal(new_foe)
 					add_child(new_path)
@@ -62,6 +64,7 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_patter
 					new_foe.shot_movement_type = shot_movement
 					new_foe.pathing_type = Enums.Pathing.HOVER_ON_POINT
 					new_foe.shot_enum = shot_type
+					new_foe.shoot_timer = shoot_timer
 					new_path.add_child(new_foe)
 					#add_signal(new_foe)
 					add_child(new_path)
@@ -72,7 +75,7 @@ func initialize(side_enter:Side, side_exit:Side, path:Enums.Pathing, shot_patter
 					new_foe.pathing_type = Enums.Pathing.HOVER_ON_POINT
 					new_foe.foe_shot_pattern = shot_pattern
 					new_foe.shot_movement_type = shot_movement
-					
+					new_foe.shoot_timer = shoot_timer
 					new_path.add_child(new_foe)
 					#add_signal(new_foe)
 					add_child(new_path)

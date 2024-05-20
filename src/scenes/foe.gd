@@ -115,8 +115,8 @@ func _on_shoot_timer_timeout():
 			circle_shot()
 		Enums.Shot_Pattern.AIMED:
 			aimed_shot()
-
-
+		Enums.Shot_Pattern.GALACTIC_SHOT:
+			galactic_shot()
 
 func random_shot(this_shot_type = shot_type, this_movement_type = shot_movement_type,
 					this_shot_type_enum=shot_enum, num_shots =1):
@@ -352,6 +352,7 @@ func die():
 
 func _on_foe_take_damage() -> void:
 	self.health-=1
+	SignalManager.emit_signal("score_increase")
 	if self.health <0:
 		$Foe/ShootTimer.wait_time = 9999
 		$Foe/CollisionShape2D.queue_free()

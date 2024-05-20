@@ -91,6 +91,7 @@ texture = ExtResource("2_xudkm")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 process_priority = 1
 stream = ExtResource("5_xwx3s")
+volume_db = -4.952
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/PlayAgain" to="." method="_on_play_again_pressed"]
