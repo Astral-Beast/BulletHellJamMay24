@@ -84,6 +84,7 @@ func move_to_center():
 func _on_foe_take_damage() -> void:
 	self.health-=1
 	$HealthBar.value-=1
+	SignalManager.emit_signal("score_increase")
 	if self.health <0:
 		print("progressing spell")
 		progress_spellcards()
