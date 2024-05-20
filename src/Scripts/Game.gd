@@ -5,6 +5,7 @@ signal game_over
 var score:int
 var banana_counter : bool = true
 var graze:float = 0.5
+var grazing: bool = false
 
 var sound_count = 0
 var mob_packs = []
@@ -12,16 +13,21 @@ var mob_pack_index = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mob_packs = EnemyPacks.mob_packs.duplicate(true)
-	score = -1
-	_on_score_increase()
+	score = 0
+	$UI/Score.text = "Score: %s" % score
+	$UI/Graze.text = "Graze: %0.2f" % graze
 	SignalManager.connect("score_increase", _on_score_increase)
 	_on_graze_collider_graze(0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
-	pass
+	if !grazing && graze > 0.5:
+		graze = graze - 0.01
+		$UI/Graze.text = "Graze: %0.2f" % graze
+	if graze < 0.5:
+		graze = 0.5
+		$UI/Graze.text = "Graze: %0.2f" % graze
 
 
 func _on_player_hit():
@@ -29,7 +35,7 @@ func _on_player_hit():
 	cull_projectiles()
 
 func _on_score_increase():
-	score += ceil(10 * graze)
+	score += ceil(100 * graze)
 	$UI/Score.text = "Score: %s" % score
 
 
@@ -118,9 +124,13 @@ func _on_music_finished():
 	$music.play()
 
 
-
-
-
 func _on_graze_collider_graze(amt) -> void:
+	$GrazeGraceTimer.stop()
+	grazing = true
 	graze = clamp(graze+(1*.01),.5,5)
 	$UI/Graze.text = "Graze: %0.2f" % graze
+	$GrazeGraceTimer.start(2)
+
+
+func _on_graze_grace_timer_timeout():
+	grazing = false

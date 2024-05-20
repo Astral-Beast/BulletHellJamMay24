@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://src/Scripts/Graze_collider.gd" id="8_t1iew"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ts6dk"]
+radius = 6.40312
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_saebl")
@@ -20,6 +21,8 @@ script = ExtResource("1_saebl")
 [node name="Mob_Spawner" type="Timer" parent="." groups=["Mob_Spawn_Timer"]]
 wait_time = 3.0
 autostart = true
+
+[node name="GrazeGraceTimer" type="Timer" parent="."]
 
 [node name="textbox" parent="." instance=ExtResource("2_oalj2")]
 
@@ -40,9 +43,9 @@ volume_db = -7.87
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="UI"]
-offset_left = 719.0
+offset_left = 623.0
 offset_top = -2.0
-offset_right = 852.0
+offset_right = 977.0
 offset_bottom = 77.0
 color = Color(0.843137, 0.545098, 0.607843, 0.317647)
 
@@ -51,9 +54,9 @@ anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.017
-offset_left = -77.0
+offset_left = -170.0
 offset_top = 6.0
-offset_right = 29.0
+offset_right = 172.0
 offset_bottom = 36.36
 grow_horizontal = 2
 size_flags_horizontal = 4
@@ -61,15 +64,15 @@ text = "Score: "
 label_settings = ExtResource("7_u7svk")
 
 [node name="Graze" type="Label" parent="UI"]
-offset_left = 723.0
+offset_left = 628.0
 offset_top = 42.0
-offset_right = 849.0
+offset_right = 799.0
 offset_bottom = 73.0
 text = "Graze:"
 label_settings = ExtResource("7_u7svk")
 
 [node name="Graze_collider" type="Area2D" parent="."]
-position = Vector2(-40, -15)
+position = Vector2(-3, 1)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("8_t1iew")
@@ -85,6 +88,7 @@ texture = ExtResource("8_mps3c")
 
 [connection signal="timeout" from="Spawn_Pause_Timer" to="." method="_on_spawn_pause_timer_timeout"]
 [connection signal="timeout" from="Mob_Spawner" to="." method="_on_mob_spawner_timeout"]
+[connection signal="timeout" from="GrazeGraceTimer" to="." method="_on_graze_grace_timer_timeout"]
 [connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
 [connection signal="game_over" from="Player" to="." method="_on_player_game_over"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]

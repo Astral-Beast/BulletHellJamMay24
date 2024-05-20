@@ -350,6 +350,7 @@ func die():
 
 func _on_foe_take_damage() -> void:
 	self.health-=1
+	SignalManager.emit_signal("score_increase")
 	if self.health <0:
 		$Foe/ShootTimer.wait_time = 9999
 		$Foe/CollisionShape2D.queue_free()
