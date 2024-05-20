@@ -4,7 +4,7 @@ const boss = preload("res://src/scenes/boss.tscn")
 
 var mob_packs = [
 				
-				[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,],
+				#[add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,add_circle_bastards,],
 				[boss_fight]]
 #[left_homing_1, left_homing_2, left_homing_1, left_homing_2]
 # Called when the node enters the scene tree for the first time.
