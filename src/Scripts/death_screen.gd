@@ -13,11 +13,9 @@ func _ready() -> void:
 		$CanvasLayer/Score.text = "You scored %s. Your ancestors are are smiling upon you." % score
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
 
 func _on_play_again_pressed() -> void:
 	emit_signal("new_game")

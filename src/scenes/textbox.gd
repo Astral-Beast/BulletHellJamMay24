@@ -13,15 +13,41 @@ enum State{
 
 var current_state = State.READY
 var text_queue = []
+var text_increment = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SignalManager.textbox_ping.connect(pipe_text)
+	
 	print("Starting state is: State.READY")
 	hide_textbox()
-	queue_text("I hate this place. I hate living in a zoo, where my whole purpose is to be stared at by curious onlookers.")
-	queue_text("I need to get out.")
-	queue_text("You zookeepers can't hold me back!!!!!")
+	queue_text("I hate this place. These aliens have kept me captive for so long.")
+	queue_text("This would've never happened if I hadn't escaped that zoo back on Earth.")
+	queue_text("I have to get out... I want to go home!")
+	queue_text("You zookeeper FREAKS can't hold me back!!!!!")
 	
+func pipe_text():
+	
+	if text_increment == 0:
+		show_textbox()
+		current_state = State.READY
+		queue_text("YOU DARE TRY TO ESCAPE, YOU APE???????")
+	
+	if text_increment == 1:
+		show_textbox()
+		current_state = State.READY
+		queue_text("Why do you fight so hard?")
+		queue_text("You will never be free!")
+		
+	if text_increment == 1:
+		show_textbox()
+		current_state = State.READY
+		queue_text("Take THIS!")
+		queue_text("MY ULTIMATE ATTACK!!!!!!!")
+		
+	text_increment += 1
+	
+		
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -33,7 +59,7 @@ func _process(delta):
 			if Input.is_action_just_pressed("Skip_Text"):
 				label.visible_ratio = 1
 				tween.kill()
-				end_symbol.text = "v"
+				end_symbol.text = "enter"
 				change_state(State.FINISHED)
 				
 		State.FINISHED:

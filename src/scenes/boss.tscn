@@ -44,6 +44,9 @@ animations = [{
 script = ExtResource("2_kvuit")
 shot_type = null
 
+[node name="foe_audio_shot" parent="." index="0"]
+volume_db = -4.913
+
 [node name="SpellCardTimer" type="Timer" parent="." index="1"]
 wait_time = 10.0
 autostart = true
