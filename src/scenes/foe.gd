@@ -281,7 +281,7 @@ func galactic_shot(this_shot_type = shot_type, this_movement_type = shot_movemen
 		shot.movement_type = this_movement_type
 		shot.shot_type = this_shot_type_enum
 		var theta = direction * theta_range[counter] / spiral_spread + 2*PI * float(arm_idx) / float(arms)
-		print(theta_range[counter] / spiral_spread)
+		#print(theta_range[counter] / spiral_spread)
 	
 		if counter == len(theta_range) - 1:
 			counter = 0
