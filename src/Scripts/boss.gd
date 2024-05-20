@@ -82,8 +82,8 @@ func move_to_center():
 	$MoveTimer.stop()
 
 func _on_foe_take_damage() -> void:
-	self.health-=10
-	$HealthBar.value-=10
+	self.health-=1
+	$HealthBar.value-=1
 	if self.health <0:
 		print("progressing spell")
 		progress_spellcards()
