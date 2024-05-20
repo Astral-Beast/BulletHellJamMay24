@@ -57,7 +57,7 @@ func _process(delta: float) -> void:
 			progress_ratio = 1.0
 			$SpellCardTimer.start(spell_card_length)
 			
-			self.spell_card = self.spell_cards.RAIN_FROM_ABOVE # BIG_ASS_BULLET should be the default
+			self.spell_card = self.spell_cards.BIG_ASS_BULLET # BIG_ASS_BULLET should be the default
 			
 			$Foe/ShootTimer.start(.05)
 			$Foe/ShootTimer2.start(.05)
